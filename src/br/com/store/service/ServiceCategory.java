@@ -1,6 +1,6 @@
 package br.com.store.service;
 
-import br.com.empresa.exception.DataSourceException;
+import br.com.store.exception.DataSourceException;
 import br.com.store.db.dao.DAOCategory;
 import br.com.store.exception.CategoryException;
 import br.com.store.model.Category;

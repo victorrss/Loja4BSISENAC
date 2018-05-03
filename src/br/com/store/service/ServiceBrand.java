@@ -1,6 +1,6 @@
 package br.com.store.service;
 
-import br.com.empresa.exception.DataSourceException;
+import br.com.store.exception.DataSourceException;
 import br.com.store.db.dao.DAOBrand;
 import br.com.store.exception.BrandException;
 import br.com.store.model.Brand;

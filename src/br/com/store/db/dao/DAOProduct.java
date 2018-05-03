@@ -1,6 +1,6 @@
 package br.com.store.db.dao;
 
-import br.com.empresa.db.util.ConnectionUtils;
+import br.com.store.db.util.ConnectionUtils;
 import br.com.store.model.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
