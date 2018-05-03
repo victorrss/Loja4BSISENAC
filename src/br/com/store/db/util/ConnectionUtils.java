@@ -1,4 +1,4 @@
-package br.com.empresa.db.util;
+package br.com.store.db.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

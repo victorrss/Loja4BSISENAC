@@ -1,9 +1,9 @@
-package br.com.empresa.service;
+package br.com.store.service;
 
-import br.com.empresa.db.dao.DAOUser;
-import br.com.empresa.exception.DataSourceException;
-import br.com.empresa.exception.UserException;
-import br.com.empresa.model.User;
+import br.com.store.db.dao.DAOUser;
+import br.com.store.exception.DataSourceException;
+import br.com.store.exception.UserException;
+import br.com.store.model.User;
 import br.com.store.model.validator.ValidatorUser;
 import java.sql.SQLException;
 

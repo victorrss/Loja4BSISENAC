@@ -1,4 +1,4 @@
-package br.com.empresa.model;
+package br.com.store.model;
 
 import java.util.Date;
 

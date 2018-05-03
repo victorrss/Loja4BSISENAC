@@ -1,7 +1,7 @@
-package br.com.empresa.db.dao;
+package br.com.store.db.dao;
 
-import br.com.empresa.db.util.ConnectionUtils;
-import br.com.empresa.model.User;
+import br.com.store.db.util.ConnectionUtils;
+import br.com.store.model.User;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

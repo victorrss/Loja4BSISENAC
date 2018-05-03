@@ -1,4 +1,4 @@
-package br.com.empresa.exception;
+package br.com.store.exception;
 
 public class DataSourceException extends Exception {
 

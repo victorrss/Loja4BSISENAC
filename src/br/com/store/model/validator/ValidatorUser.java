@@ -1,7 +1,7 @@
 package br.com.store.model.validator;
 
-import br.com.empresa.exception.UserException;
-import br.com.empresa.model.User;
+import br.com.store.exception.UserException;
+import br.com.store.model.User;
 
 public class ValidatorUser {
 

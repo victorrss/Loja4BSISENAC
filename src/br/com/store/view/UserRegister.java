@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.empresa.view;
+package br.com.store.view;
 
-import br.com.empresa.exception.DataSourceException;
-import br.com.empresa.exception.UserException;
-import br.com.empresa.model.User;
-import br.com.empresa.service.ServiceUser;
+import br.com.store.exception.DataSourceException;
+import br.com.store.exception.UserException;
+import br.com.store.model.User;
+import br.com.store.service.ServiceUser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
