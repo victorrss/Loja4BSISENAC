@@ -4,26 +4,259 @@ import br.com.store.db.util.ConnectionUtils;
 import br.com.store.model.Brand;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAOBrand {
 
-    public static void insert(Brand brand) throws SQLException {
+    //Inserts a brand into the brand table of the database
+    public static void insert(Brand brand) throws SQLException, Exception {
+
+        String sql = "INSERT INTO "
+                + "brand (name) "
+                + "VALUES (?)";
+
         Connection con = null;
+
+        PreparedStatement stmt = null;
         try {
+            //Opens a connection to the DB
             con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
 
-            String sql = "INSERT INTO "
-                    + "product (name) "
-                    + "VALUES (?)";
-
-            PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setString(1, brand.getName());
 
-            stmt.executeUpdate();
+            //executes the command in the DB
+            stmt.execute();
         } finally {
-            ConnectionUtils.closeConnection(con);
+            //If the statement still open, it closes
+            if (stmt != null && !stmt.isClosed()) {
+                stmt.close();
+            }
+            //If the connection still open, it closes
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
         }
+    }
+
+    //Performs the update of the data of a brand
+    public static void update(Brand brand) throws SQLException, Exception {
+
+        String sql = "UPDATE "
+                + "brand SET name=? "
+                + "WHERE (brand_id=?)";
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, brand.getName());
+            stmt.setInt(2, brand.getBrandId());
+
+            //executes the command in the DB
+            stmt.execute();
+        } finally {
+            //If the statement still open, it closes
+            if (stmt != null && !stmt.isClosed()) {
+                stmt.close();
+            }
+            //If the connection still open, it closes
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        }
+
+    }
+
+    //Performs logical deletion of a brand in the DB
+    public static void delete(Integer id) throws SQLException, Exception {
+
+        String sql = "UPDATE brand SET enabled=? WHERE (brand_id=?)";
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, id);
+
+            //executes the command in the DB
+            stmt.execute();
+        } finally {
+            //If the statement still open, it closes
+            if (stmt != null && !stmt.isClosed()) {
+                stmt.close();
+            }
+            //If the connection still open, it closes
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        }
+    }
+
+    //List all brands in the table product
+    public static List<Brand> list() throws SQLException, Exception {
+
+        String sql = "SELECT * FROM brand WHERE (enabled=?)";
+
+        List<Brand> listBrand = null;
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+            stmt.setBoolean(1, true);
+
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+
+                if (listBrand == null) {
+                    listBrand = new ArrayList<Brand>();
+                }
+
+                Brand brand = new Brand();
+                brand.setBrandId(result.getInt("brand_id"));
+                brand.setName(result.getString("name"));
+
+                listBrand.add(brand);
+            }
+        } finally {
+            //If the result still open, it closes
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //If the statement still open, it closes
+            if (stmt != null && !stmt.isClosed()) {
+                stmt.close();
+            }
+            //If the connection still open, it closes
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        }
+
+        return listBrand;
+    }
+
+    //Search for a brand by name
+    public static List<Brand> search(String value) throws SQLException, Exception {
+
+        String sql = "SELECT * FROM brand WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+
+        List<Brand> listBrand = null;
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, "%" + value + "%");
+            stmt.setBoolean(2, true);
+
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+
+                if (listBrand == null) {
+                    listBrand = new ArrayList<Brand>();
+                }
+
+                Brand brand = new Brand();
+                brand.setBrandId(result.getInt("brand_id"));
+                brand.setName(result.getString("name"));
+
+                listBrand.add(brand);
+            }
+        } finally {
+            //If the result still open, it closes
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //If the statement still open, it closes
+            if (stmt != null && !stmt.isClosed()) {
+                stmt.close();
+            }
+            //If the connection still open, it closes
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        }
+
+        return listBrand;
+    }
+
+    //Get an instance of the brand class by id
+    public static Brand get(Integer id) throws SQLException, Exception {
+
+        String sql = "SELECT * FROM brand WHERE (brand_id=? AND enabled=?)";
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, id);
+            stmt.setBoolean(2, true);
+
+            result = stmt.executeQuery();
+
+            if (result.next()) {
+
+                Brand brand = new Brand();
+                brand.setBrandId(result.getInt("brand_id"));
+                brand.setName(result.getString("name"));
+
+                return brand;
+            }
+        } finally {
+            //If the result still open, it closes
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //If the statement still open, it closes
+            if (stmt != null && !stmt.isClosed()) {
+                stmt.close();
+            }
+            //If the connection still open, it closes
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        }
+
+        return null;
     }
 
 }
