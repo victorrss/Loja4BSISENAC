@@ -11,7 +11,7 @@ public class Product {
     private Integer warranty;
     private String model; //Model of the product, example: Model: BX80648158400
     private byte[] picture;
-    private boolean enable;
+    private boolean enabled;
     private Integer stock; //Stock of the product, how many pieces of each product we have to sell
     private Float price;
 
@@ -95,12 +95,12 @@ public class Product {
         this.picture = picture;
     }
 
-    public boolean isEnable() {
-        return enable;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public Integer getStock() {
