@@ -75,7 +75,7 @@ public class FrameMain extends javax.swing.JFrame {
         });
         panelOption.add(btnExit, new java.awt.GridBagConstraints());
 
-        btnCustomerRegister.setText("Cadastrar Cliente");
+        btnCustomerRegister.setText("Cliente");
         btnCustomerRegister.setActionCommand("Cadastrar\nCliente");
         btnCustomerRegister.setMinimumSize(new java.awt.Dimension(73, 73));
         btnCustomerRegister.setPreferredSize(new java.awt.Dimension(73, 73));
