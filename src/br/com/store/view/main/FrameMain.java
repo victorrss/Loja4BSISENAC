@@ -34,7 +34,7 @@ public class FrameMain extends javax.swing.JFrame {
 
         panelMain = new javax.swing.JPanel();
         empty = new javax.swing.JPanel();
-        panelCustomerRegister1 = new br.com.store.view.PanelCustomerRegister();
+        panelCustomerRegister1 = new br.com.store.view.PanelCustomerAdd();
         panelOption = new javax.swing.JPanel();
         btnExit = new javax.swing.JButton();
         btnCustomerRegister = new javax.swing.JButton();
@@ -157,7 +157,7 @@ public class FrameMain extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomerRegister;
     private javax.swing.JButton btnExit;
     private javax.swing.JPanel empty;
-    private br.com.store.view.PanelCustomerRegister panelCustomerRegister1;
+    private br.com.store.view.PanelCustomerAdd panelCustomerRegister1;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelOption;
     // End of variables declaration//GEN-END:variables

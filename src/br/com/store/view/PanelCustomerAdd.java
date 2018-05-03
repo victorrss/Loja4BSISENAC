@@ -9,12 +9,12 @@ package br.com.store.view;
  *
  * @author FAMILIA
  */
-public class PanelCustomerRegister extends javax.swing.JPanel {
+public class PanelCustomerAdd extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelAddClient
      */
-    public PanelCustomerRegister() {
+    public PanelCustomerAdd() {
         initComponents();
     }
 
