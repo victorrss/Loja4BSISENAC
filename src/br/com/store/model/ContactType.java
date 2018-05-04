@@ -1,14 +1,9 @@
 package br.com.store.model;
 
-/**
- * @author Eric Palmeira de Souza <palmeiraeric@gmail.com>
- * @date 30/04/2018
- */
-
 class ContactType {
     
     private Integer Id;
-    private String description;
+    private String description; //Example: email, tel, faz, etc...
 
     public Integer getId() {
         return Id;

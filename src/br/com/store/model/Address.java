@@ -1,18 +1,13 @@
 package br.com.store.model;
 
-/**
- * @author Eric Palmeira de Souza <palmeiraeric@gmail.com>
- * @date 30/04/2018
- */
-
 public class Address {
     private Integer Id;
     private PublicPlaceType publicplace_type_id;
     private City cityID;
-    private String publicPlace;
+    private String publicPlace; //Example: Avenida Paulista, 1578, etc ...
     private Integer number;
-    private String complement;
-    private String district;
+    private String complement; //Example: floor 2, house 3, etc...
+    private String district; //Example: Vila Mariana, Bela Vista, Pinheiros, etc...
     private Integer zipcode;
 
     public Integer getId() {

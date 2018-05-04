@@ -1,9 +1,8 @@
 package br.com.store.model;
 
-class City {
+class DocumentType {
     private Integer Id;
-    private State stateId;
-    private String name; //Example: São Paulo, Dubai, Miami, etc...
+    private String name; //Example: CPF, CNPJ, etc...
 
     public Integer getId() {
         return Id;
@@ -11,14 +10,6 @@ class City {
 
     public void setId(Integer Id) {
         this.Id = Id;
-    }
-
-    public State getStateId() {
-        return stateId;
-    }
-
-    public void setStateId(State stateId) {
-        this.stateId = stateId;
     }
 
     public String getName() {

@@ -2,20 +2,16 @@ package br.com.store.model;
 
 import java.util.Date;
 
-/**
- * @author Eric Palmeira de Souza <palmeiraeric@gmail.com>
- * @date 30/04/2018
- */
-
-public class Costumer {
+public class Customer {
     private Integer Id;
-    private Address addressID;
-    private String name;
-    private String document;
-    private String gender;
-    private Date birth_date;
-    private String note;
-    private MaritalStatus maritalStatusID;
+    private Address addressID;  
+    private MaritalStatus maritalStatusID; 
+    private String name; 
+    private DocumentType documentTypeID; 
+    private String document; 
+    private String gender; // M or F.
+    private Date birth_date; //Date example: ##/##/####
+    private String note; //Example: Legal and frequent customer, annoying customer, etc...
 
     public Integer getId() {
         return Id;
@@ -33,12 +29,28 @@ public class Costumer {
         this.addressID = addressID;
     }
 
+    public MaritalStatus getMaritalStatusID() {
+        return maritalStatusID;
+    }
+
+    public void setMaritalStatusID(MaritalStatus maritalStatusID) {
+        this.maritalStatusID = maritalStatusID;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public DocumentType getDocumentTypeID() {
+        return documentTypeID;
+    }
+
+    public void setDocumentTypeID(DocumentType documentTypeID) {
+        this.documentTypeID = documentTypeID;
     }
 
     public String getDocument() {
@@ -72,16 +84,6 @@ public class Costumer {
     public void setNote(String note) {
         this.note = note;
     }
-
-    public MaritalStatus getMaritalStatusID() {
-        return maritalStatusID;
-    }
-
-    public void setMaritalStatusID(MaritalStatus maritalStatusID) {
-        this.maritalStatusID = maritalStatusID;
-    }
-
-    
     
     
     

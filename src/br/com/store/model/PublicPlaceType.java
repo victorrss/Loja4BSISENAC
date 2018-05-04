@@ -1,13 +1,9 @@
 package br.com.store.model;
 
-/**
- * @author Eric Palmeira de Souza <palmeiraeric@gmail.com>
- * @date 30/04/2018
- */
-
 class PublicPlaceType {
     private Integer Id;
     private String name;
+    private String abbreviation; 
 
     public Integer getId() {
         return Id;
@@ -24,6 +20,16 @@ class PublicPlaceType {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getAbbreviation() {
+        return abbreviation;
+    }
+
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+
+
     
     
 }

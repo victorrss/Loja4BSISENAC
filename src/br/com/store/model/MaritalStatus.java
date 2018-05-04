@@ -1,13 +1,8 @@
 package br.com.store.model;
 
-/**
- * @author Eric Palmeira de Souza <palmeiraeric@gmail.com>
- * @date 30/04/2018
- */
-
 class MaritalStatus {
     private Integer Id;
-    private String description;
+    private String description; //Example: Married, single, divorced, etc...
 
     public Integer getId() {
         return Id;

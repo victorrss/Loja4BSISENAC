@@ -1,14 +1,12 @@
 package br.com.store.model;
 
-/**
- * @author Eric Palmeira de Souza <palmeiraeric@gmail.com>
- * @date 30/04/2018
- */
-
 public class CustomerContact {
     private Integer Id;
-    private Costumer customerId;
-    private Contact contactId;
+    private Customer customerId;
+    private ContactType contactTypeId;
+    private String value; /*Example: for contactType = email --> xxxyyyzzz@email.com
+                            for contactType = tel --> 123456789, etc...
+                            */  
 
     public Integer getId() {
         return Id;
@@ -18,22 +16,28 @@ public class CustomerContact {
         this.Id = Id;
     }
 
-    public Costumer getCustomerId() {
+    public Customer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Costumer customerId) {
+    public void setCustomerId(Customer customerId) {
         this.customerId = customerId;
     }
 
-    public Contact getContactId() {
-        return contactId;
+    public ContactType getContactTypeId() {
+        return contactTypeId;
     }
 
-    public void setContactId(Contact contactId) {
-        this.contactId = contactId;
+    public void setContactTypeId(ContactType contactTypeId) {
+        this.contactTypeId = contactTypeId;
     }
-    
-    
-    
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
 }
