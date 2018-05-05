@@ -1,6 +1,6 @@
 package br.com.store.model;
 
-class State {
+public class State {
     private Integer Id;
     private String name;
     private String initials; //Example: AM, SP, MG, etc...

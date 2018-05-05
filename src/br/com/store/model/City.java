@@ -1,6 +1,6 @@
 package br.com.store.model;
 
-class City {
+public class City {
     private Integer Id;
     private State stateId;
     private String name; //Example: São Paulo, Dubai, Miami, etc...

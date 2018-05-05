@@ -1,6 +1,6 @@
 package br.com.store.model;
 
-class MaritalStatus {
+public class MaritalStatus {
     private Integer Id;
     private String description; //Example: Married, single, divorced, etc...
 

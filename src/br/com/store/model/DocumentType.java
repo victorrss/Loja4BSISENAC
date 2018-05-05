@@ -1,6 +1,6 @@
 package br.com.store.model;
 
-class DocumentType {
+public class DocumentType {
     private Integer Id;
     private String name; //Example: CPF, CNPJ, etc...
 

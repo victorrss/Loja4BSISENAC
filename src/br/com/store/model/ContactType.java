@@ -1,6 +1,6 @@
 package br.com.store.model;
 
-class ContactType {
+public class ContactType {
     
     private Integer Id;
     private String description; //Example: email, tel, faz, etc...

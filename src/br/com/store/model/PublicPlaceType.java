@@ -1,6 +1,6 @@
 package br.com.store.model;
 
-class PublicPlaceType {
+public class PublicPlaceType {
     private Integer Id;
     private String name;
     private String abbreviation; 
