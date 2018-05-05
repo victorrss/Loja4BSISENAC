@@ -32,14 +32,7 @@ public class DAOCategory {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
@@ -60,19 +53,12 @@ public class DAOCategory {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, category.getName());
-            stmt.setInt(2, category.getCategoryId());
+            stmt.setInt(2, category.getId());
 
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
 
     }
@@ -97,14 +83,7 @@ public class DAOCategory {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
@@ -136,24 +115,13 @@ public class DAOCategory {
                 }
 
                 Category category = new Category();
-                category.setCategoryId(result.getInt("category_id"));
+                category.setId(result.getInt("category_id"));
                 category.setName(result.getString("name"));
 
                 listCategory.add(category);
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return listCategory;
@@ -189,24 +157,13 @@ public class DAOCategory {
                 }
 
                 Category category = new Category();
-                category.setCategoryId(result.getInt("category_id"));
+                category.setId(result.getInt("category_id"));
                 category.setName(result.getString("name"));
 
                 listCategory.add(category);
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return listCategory;
@@ -236,24 +193,13 @@ public class DAOCategory {
             if (result.next()) {
 
                 Category category = new Category();
-                category.setCategoryId(result.getInt("category_id"));
+                category.setId(result.getInt("category_id"));
                 category.setName(result.getString("name"));
 
                 return category;
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return null;

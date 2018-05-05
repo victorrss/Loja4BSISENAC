@@ -1,7 +1,7 @@
 package br.com.store.db.dao;
 
 import br.com.store.db.util.ConnectionUtils;
-import br.com.store.model.Subcategory;
+import br.com.store.model.SubCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.util.List;
 public class DAOSubcategory {
     
     //Inserts a brand into the subcategory table of the database
-    public static void insert(Subcategory subcategory) throws SQLException, Exception {
+    public static void insert(SubCategory subcategory) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
                 + "subcategory (name) "
@@ -32,19 +32,12 @@ public class DAOSubcategory {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
     //Performs the update of the data of a subcategory
-    public static void update(Subcategory subcategory) throws SQLException, Exception {
+    public static void update(SubCategory subcategory) throws SQLException, Exception {
 
         String sql = "UPDATE "
                 + "subcategory SET name=? "
@@ -60,19 +53,12 @@ public class DAOSubcategory {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, subcategory.getName());
-            stmt.setInt(2, subcategory.getSubCategoryId());
+            stmt.setInt(2, subcategory.getId());
 
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
 
     }
@@ -97,23 +83,16 @@ public class DAOSubcategory {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
     //List all subcategories in the table subcategory
-    public static List<Subcategory> list() throws SQLException, Exception {
+    public static List<SubCategory> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM subcategory WHERE (enabled=?)";
 
-        List<Subcategory> listSubcategory = null;
+        List<SubCategory> listSubcategory = null;
 
         Connection con = null;
 
@@ -132,39 +111,28 @@ public class DAOSubcategory {
             while (result.next()) {
 
                 if (listSubcategory == null) {
-                    listSubcategory = new ArrayList<Subcategory>();
+                    listSubcategory = new ArrayList<SubCategory>();
                 }
 
-                Subcategory subcategory = new Subcategory();
-                subcategory.setSubCategoryId(result.getInt("subcategory_id"));
+                SubCategory subcategory = new SubCategory();
+                subcategory.setId(result.getInt("subcategory_id"));
                 subcategory.setName(result.getString("name"));
 
                 listSubcategory.add(subcategory);
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return listSubcategory;
     }
 
     //Search for a subcategory by name
-    public static List<Subcategory> search(String value) throws SQLException, Exception {
+    public static List<SubCategory> search(String value) throws SQLException, Exception {
 
         String sql = "SELECT * FROM Subcategory WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
 
-        List<Subcategory> listSubcategory = null;
+        List<SubCategory> listSubcategory = null;
 
         Connection con = null;
 
@@ -185,35 +153,24 @@ public class DAOSubcategory {
             while (result.next()) {
 
                 if (listSubcategory == null) {
-                    listSubcategory = new ArrayList<Subcategory>();
+                    listSubcategory = new ArrayList<SubCategory>();
                 }
 
-                Subcategory subcategory = new Subcategory();
-                subcategory.setSubCategoryId(result.getInt("subcategory_id"));
+                SubCategory subcategory = new SubCategory();
+                subcategory.setId(result.getInt("subcategory_id"));
                 subcategory.setName(result.getString("name"));
 
                 listSubcategory.add(subcategory);
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return listSubcategory;
     }
 
     //Get an instance of the subcategory class by id
-    public static Subcategory get(Integer id) throws SQLException, Exception {
+    public static SubCategory get(Integer id) throws SQLException, Exception {
 
         String sql = "SELECT * FROM subcategory WHERE (subcategory_id=? AND enabled=?)";
 
@@ -235,25 +192,14 @@ public class DAOSubcategory {
 
             if (result.next()) {
 
-                Subcategory subcategory = new Subcategory();
-                subcategory.setSubCategoryId(result.getInt("subcategory_id"));
+                SubCategory subcategory = new SubCategory();
+                subcategory.setId(result.getInt("subcategory_id"));
                 subcategory.setName(result.getString("name"));
 
                 return subcategory;
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return null;

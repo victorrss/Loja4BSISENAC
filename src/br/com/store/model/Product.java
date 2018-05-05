@@ -1,10 +1,10 @@
 package br.com.store.model;
 
 public class Product {
-    private Integer productId;
+    private Integer id;
     private Brand brand;//Example: Intel, Amd, Nvidia, etc...
     private Category category;//Example: motherboard, gpu, cpu, etc...
-    private Subcategory subCategory;//Example: 8th generation intel, GTX 10 series, etc....
+    private SubCategory subCategory;//Example: 8th generation intel, GTX 10 series, etc....
     private String name;
     private String barCode;
     private String description;
@@ -15,12 +15,12 @@ public class Product {
     private Integer stock; //Stock of the product, how many pieces of each product we have to sell
     private Float price;
 
-    public Integer getProductId() {
-        return productId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Brand getBrand() {
@@ -39,11 +39,11 @@ public class Product {
         this.category = category;
     }
 
-    public Subcategory getSubCategory() {
+    public SubCategory getSubCategory() {
         return subCategory;
     }
 
-    public void setSubCategory(Subcategory subCategory) {
+    public void setSubCategory(SubCategory subCategory) {
         this.subCategory = subCategory;
     }
 

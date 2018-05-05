@@ -32,14 +32,7 @@ public class DAOBrand {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
@@ -60,19 +53,12 @@ public class DAOBrand {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, brand.getName());
-            stmt.setInt(2, brand.getBrandId());
+            stmt.setInt(2, brand.getId());
 
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
 
     }
@@ -97,14 +83,7 @@ public class DAOBrand {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
@@ -136,24 +115,13 @@ public class DAOBrand {
                 }
 
                 Brand brand = new Brand();
-                brand.setBrandId(result.getInt("brand_id"));
+                brand.setId(result.getInt("brand_id"));
                 brand.setName(result.getString("name"));
 
                 listBrand.add(brand);
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return listBrand;
@@ -189,24 +157,13 @@ public class DAOBrand {
                 }
 
                 Brand brand = new Brand();
-                brand.setBrandId(result.getInt("brand_id"));
+                brand.setId(result.getInt("brand_id"));
                 brand.setName(result.getString("name"));
 
                 listBrand.add(brand);
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return listBrand;
@@ -236,24 +193,13 @@ public class DAOBrand {
             if (result.next()) {
 
                 Brand brand = new Brand();
-                brand.setBrandId(result.getInt("brand_id"));
+                brand.setId(result.getInt("brand_id"));
                 brand.setName(result.getString("name"));
 
                 return brand;
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return null;

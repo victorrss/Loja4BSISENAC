@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/FAMILIA/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/view/PanelCustomerRegister.java</file>
-            <file>file:/C:/Users/FAMILIA/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/view/main/FrameMain.java</file>
+            <file>file:/C:/Users/victor.rssantos/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/db/dao/DAOUser.java</file>
+            <file>file:/C:/Users/victor.rssantos/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/view/main/FrameMain.java</file>
+            <file>file:/C:/Users/victor.rssantos/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/model/Customer.java</file>
         </group>
     </open-files>
 </project-private>
