@@ -4,7 +4,7 @@ import br.com.store.db.util.ConnectionUtils;
 import br.com.store.model.Brand;
 import br.com.store.model.Category;
 import br.com.store.model.Product;
-import br.com.store.model.Subcategory;
+import br.com.store.model.SubCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,7 +61,7 @@ public class DAOProduct {
     public static void update(Product product) throws SQLException, Exception {
 
         String sql = "UPDATE "
-                + "product SET brand=?, category=?, subcategory=?, name=?, barcode=?, description=?, warranty=?, model=?, picture=?, stock=?, price=? "
+                + "product SET brand_id=?, category_id=?, subcategory_id=?, name=?, barcode=?, description=?, warranty=?, model=?, picture=?, stock=?, price=? "
                 + "WHERE (product_id=?)";
 
         Connection con = null;
@@ -73,9 +73,9 @@ public class DAOProduct {
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
 
-            stmt.setObject(1, product.getBrand());
-            stmt.setObject(2, product.getCategory());
-            stmt.setObject(3, product.getSubCategory());
+            stmt.setInt(1, product.getBrand().getId());
+            stmt.setInt(2, product.getCategory().getId());
+            stmt.setInt(3, product.getSubCategory().getId());
             stmt.setString(4, product.getName());
             stmt.setString(5, product.getBarCode());
             stmt.setString(6, product.getDescription());
@@ -89,14 +89,7 @@ public class DAOProduct {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
 
     }
@@ -121,21 +114,22 @@ public class DAOProduct {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
     //List all products in the table product
     public static List<Product> list() throws SQLException, Exception {
 
-        String sql = "SELECT * FROM product WHERE (enabled=?)";
+        String sql = "SELECT a.*, "
+                + "b.id as brand_id, b.name as brand_name, "
+                + "c.id as category_id, c.name as category_name, "
+                + "d.id as subcategory_id, d.name as subcategory_name "
+                + "FROM product a "
+                + "INNER JOIN brand b ON b.brand_id = a.brand_id "
+                + "INNER JOIN category c ON c.category_id = a.category_id "
+                + "INNER JOIN subcategory d ON d.subcategory_id = a.subcateFgory_id "
+                + "WHERE (enabled=?)";
 
         List<Product> listProduct = null;
 
@@ -161,9 +155,9 @@ public class DAOProduct {
 
                 Product product = new Product();
                 product.setProductId(result.getInt("product_id"));
-                product.setBrand((Brand) result.getObject("brand"));// Need to be tested
-                product.setCategory((Category) result.getObject("category"));// Need to be tested
-                product.setSubCategory((Subcategory) result.getObject("subcategory"));// Need to be tested
+                product.setBrand(new Brand(result.getInt("brand_id"), result.getString("brand_name"), true));
+                product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
+                product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
                 product.setName(result.getString("name"));
                 product.setBarCode("barcode");
                 product.setDescription("description");
@@ -176,18 +170,7 @@ public class DAOProduct {
                 listProduct.add(product);
             }
         } finally {
-            //If the result still open, it closes
-            if (result != null && !result.isClosed()) {
-                result.close();
-            }
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
         return listProduct;
@@ -226,7 +209,7 @@ public class DAOProduct {
                 product.setProductId(result.getInt("product_id"));
                 product.setBrand((Brand) result.getObject("brand"));// Need to be tested
                 product.setCategory((Category) result.getObject("category"));// Need to be tested
-                product.setSubCategory((Subcategory) result.getObject("subcategory"));// Need to be tested
+                product.setSubCategory((SubCategory) result.getObject("subcategory"));// Need to be tested
                 product.setName(result.getString("name"));
                 product.setBarCode("barcode");
                 product.setDescription("description");
@@ -283,7 +266,7 @@ public class DAOProduct {
                 product.setProductId(result.getInt("product_id"));
                 product.setBrand((Brand) result.getObject("brand"));// Need to be tested
                 product.setCategory((Category) result.getObject("category"));// Need to be tested
-                product.setSubCategory((Subcategory) result.getObject("subcategory"));// Need to be tested
+                product.setSubCategory((SubCategory) result.getObject("subcategory"));// Need to be tested
                 product.setName(result.getString("name"));
                 product.setBarCode("barcode");
                 product.setDescription("description");

@@ -60,7 +60,7 @@ public class DAOCategory {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, category.getName());
-            stmt.setInt(2, category.getCategoryId());
+            stmt.setInt(2, category.getId());
 
             //executes the command in the DB
             stmt.execute();
@@ -136,7 +136,7 @@ public class DAOCategory {
                 }
 
                 Category category = new Category();
-                category.setCategoryId(result.getInt("category_id"));
+                category.setId(result.getInt("category_id"));
                 category.setName(result.getString("name"));
 
                 listCategory.add(category);
@@ -189,7 +189,7 @@ public class DAOCategory {
                 }
 
                 Category category = new Category();
-                category.setCategoryId(result.getInt("category_id"));
+                category.setId(result.getInt("category_id"));
                 category.setName(result.getString("name"));
 
                 listCategory.add(category);
@@ -236,7 +236,7 @@ public class DAOCategory {
             if (result.next()) {
 
                 Category category = new Category();
-                category.setCategoryId(result.getInt("category_id"));
+                category.setId(result.getInt("category_id"));
                 category.setName(result.getString("name"));
 
                 return category;

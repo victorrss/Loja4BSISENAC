@@ -4,7 +4,7 @@ public class Product {
     private Integer productId;
     private Brand brand;//Example: Intel, Amd, Nvidia, etc...
     private Category category;//Example: motherboard, gpu, cpu, etc...
-    private Subcategory subCategory;//Example: 8th generation intel, GTX 10 series, etc....
+    private SubCategory subCategory;//Example: 8th generation intel, GTX 10 series, etc....
     private String name;
     private String barCode;
     private String description;
@@ -39,11 +39,11 @@ public class Product {
         this.category = category;
     }
 
-    public Subcategory getSubCategory() {
+    public SubCategory getSubCategory() {
         return subCategory;
     }
 
-    public void setSubCategory(Subcategory subCategory) {
+    public void setSubCategory(SubCategory subCategory) {
         this.subCategory = subCategory;
     }
 

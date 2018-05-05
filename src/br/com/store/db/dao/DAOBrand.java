@@ -60,7 +60,7 @@ public class DAOBrand {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, brand.getName());
-            stmt.setInt(2, brand.getBrandId());
+            stmt.setInt(2, brand.getId());
 
             //executes the command in the DB
             stmt.execute();
@@ -136,7 +136,7 @@ public class DAOBrand {
                 }
 
                 Brand brand = new Brand();
-                brand.setBrandId(result.getInt("brand_id"));
+                brand.setId(result.getInt("brand_id"));
                 brand.setName(result.getString("name"));
 
                 listBrand.add(brand);
@@ -189,7 +189,7 @@ public class DAOBrand {
                 }
 
                 Brand brand = new Brand();
-                brand.setBrandId(result.getInt("brand_id"));
+                brand.setId(result.getInt("brand_id"));
                 brand.setName(result.getString("name"));
 
                 listBrand.add(brand);
@@ -236,7 +236,7 @@ public class DAOBrand {
             if (result.next()) {
 
                 Brand brand = new Brand();
-                brand.setBrandId(result.getInt("brand_id"));
+                brand.setId(result.getInt("brand_id"));
                 brand.setName(result.getString("name"));
 
                 return brand;

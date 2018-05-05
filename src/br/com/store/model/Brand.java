@@ -1,9 +1,18 @@
 package br.com.store.model;
 
 public class Brand { //Example: Intel, Amd, Nvidia, etc...
-    private Integer brandId;
+    private Integer id;
     private String name;
     private boolean enabled;
+
+    public Brand(Integer id, String name, boolean enabled) {
+        this.id = id;
+        this.name = name;
+        this.enabled = enabled;
+    }
+
+    public Brand() {
+    }
 
     public boolean isEnabled() {
         return enabled;
@@ -13,12 +22,12 @@ public class Brand { //Example: Intel, Amd, Nvidia, etc...
         this.enabled = enabled;
     }
 
-    public Integer getBrandId() {
-        return brandId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

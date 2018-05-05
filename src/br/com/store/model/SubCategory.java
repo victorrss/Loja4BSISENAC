@@ -1,17 +1,18 @@
 package br.com.store.model;
 
-public class Category { //Example: motherboard, gpu, cpu, etc...
+public class SubCategory { //Example: 8th generation intel, GTX 10 series, etc....
+
     private Integer id;
     private String name;
     private boolean enabled;
 
-    public Category(Integer id, String name, boolean enabled) {
+    public SubCategory(Integer id, String name, boolean enabled) {
         this.id = id;
         this.name = name;
         this.enabled = enabled;
     }
 
-    public Category() {
+    public SubCategory() {
     }
 
     public boolean isEnabled() {
@@ -37,6 +38,5 @@ public class Category { //Example: motherboard, gpu, cpu, etc...
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
 }

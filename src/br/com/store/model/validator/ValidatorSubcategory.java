@@ -1,11 +1,11 @@
 package br.com.store.model.validator;
 
 import br.com.store.exception.SubcategoryException;
-import br.com.store.model.Subcategory;
+import br.com.store.model.SubCategory;
 
 public class ValidatorSubcategory {
 
-    public static void validate(Subcategory subcategory) throws SubcategoryException {
+    public static void validate(SubCategory subcategory) throws SubcategoryException {
         if (subcategory == null) {
             throw new SubcategoryException("A instancia da subcategoria é inválida");
         }

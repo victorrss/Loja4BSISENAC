@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class Customer {
     private Integer Id;
-    private Address addressID;  
-    private MaritalStatus maritalStatusID; 
+    private Address address;  
+    private MaritalStatus maritalStatus; 
     private String name; 
-    private DocumentType documentTypeID; 
+    private DocumentType documentType; 
     private String document; 
     private String gender; // M or F.
-    private Date birth_date; //Date example: ##/##/####
+    private Date birthDate; //Date example: yyyy/MM/dd hh:mm:ss
     private String note; //Example: Legal and frequent customer, annoying customer, etc...
 
     public Integer getId() {
@@ -21,20 +21,20 @@ public class Customer {
         this.Id = Id;
     }
 
-    public Address getAddressID() {
-        return addressID;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressID(Address addressID) {
-        this.addressID = addressID;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public MaritalStatus getMaritalStatusID() {
-        return maritalStatusID;
+    public MaritalStatus getMaritalStatus() {
+        return maritalStatus;
     }
 
-    public void setMaritalStatusID(MaritalStatus maritalStatusID) {
-        this.maritalStatusID = maritalStatusID;
+    public void setMaritalStatus(MaritalStatus maritalStatus) {
+        this.maritalStatus = maritalStatus;
     }
 
     public String getName() {
@@ -45,12 +45,12 @@ public class Customer {
         this.name = name;
     }
 
-    public DocumentType getDocumentTypeID() {
-        return documentTypeID;
+    public DocumentType getDocumentType() {
+        return documentType;
     }
 
-    public void setDocumentTypeID(DocumentType documentTypeID) {
-        this.documentTypeID = documentTypeID;
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
     }
 
     public String getDocument() {
@@ -69,12 +69,12 @@ public class Customer {
         this.gender = gender;
     }
 
-    public Date getBirth_date() {
-        return birth_date;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirth_date(Date birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getNote() {
