@@ -75,6 +75,9 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
         btnContactBack = new javax.swing.JButton();
         btnContactCustomerSave = new javax.swing.JButton();
 
+        tabBasic.setBackground(new java.awt.Color(255, 255, 255));
+
+        panelBasic.setBackground(new java.awt.Color(255, 255, 255));
         panelBasic.setBorder(javax.swing.BorderFactory.createTitledBorder("Básico"));
 
         lblBasicName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -184,6 +187,9 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
 
         tabPanelCustomer.addTab("Básico", tabBasic);
 
+        tabAddress.setBackground(new java.awt.Color(255, 255, 255));
+
+        panelAddress.setBackground(new java.awt.Color(255, 255, 255));
         panelAddress.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
 
         cbAddressPublicPlaceType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -322,6 +328,9 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
 
         tabPanelCustomer.addTab("Endereço", tabAddress);
 
+        tabContact.setBackground(new java.awt.Color(255, 255, 255));
+
+        panelContact.setBackground(new java.awt.Color(255, 255, 255));
         panelContact.setBorder(javax.swing.BorderFactory.createTitledBorder("Contato"));
 
         cbContactContactType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));

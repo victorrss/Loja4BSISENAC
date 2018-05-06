@@ -5,9 +5,14 @@
  */
 package br.com.store.view.main;
 
+import br.com.store.view.PanelCustomerAdd;
+import br.com.store.view.PanelCustomerList;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 /**
  *
@@ -32,77 +37,157 @@ public class FrameMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         panelMain = new javax.swing.JPanel();
-        empty = new javax.swing.JPanel();
-        panelCustomerRegister1 = new br.com.store.view.PanelCustomerAdd();
+        Home = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        panelCustomerAdd = new br.com.store.view.PanelCustomerAdd();
+        panelCustomerList = new br.com.store.view.PanelCustomerList();
+        panelProduct = new br.com.store.view.PanelProduct();
         panelOption = new javax.swing.JPanel();
+        btnHome = new javax.swing.JButton();
+        btnCustomer = new javax.swing.JButton();
+        btnProduct = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
-        btnCustomerRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 102, 102));
         setExtendedState(6);
+        setFont(new java.awt.Font("Segoe UI Light", 0, 10)); // NOI18N
         setUndecorated(true);
         setResizable(false);
         setType(java.awt.Window.Type.UTILITY);
 
-        panelMain.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         panelMain.setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout emptyLayout = new javax.swing.GroupLayout(empty);
-        empty.setLayout(emptyLayout);
-        emptyLayout.setHorizontalGroup(
-            emptyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+        Home.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("<html>\n<div  align=\"center\">\n<b>\n\tLoja de Informática\n<br/>\n\tCentro Universitário SENAC\n</b>\n</div>\n\nAlunos:\n<br/>\nVictor Rubens da Silva Santos\n<br/>\nEric torcedor do Palmeiras\n<br/>\nMurillo Japones\n</html>\n");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
+        Home.setLayout(HomeLayout);
+        HomeLayout.setHorizontalGroup(
+            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
         );
-        emptyLayout.setVerticalGroup(
-            emptyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+        HomeLayout.setVerticalGroup(
+            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        panelMain.add(empty, "card3");
-        panelMain.add(panelCustomerRegister1, "CustomerAdd");
+        panelMain.add(Home, "Home");
 
-        panelOption.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        panelOption.setLayout(new java.awt.GridBagLayout());
+        panelCustomerAdd.setBackground(new java.awt.Color(255, 255, 255));
+        panelCustomerAdd.setFont(new java.awt.Font("Segoe UI Light", 0, 11)); // NOI18N
+        panelMain.add(panelCustomerAdd, "CustomerAdd");
+        panelMain.add(panelCustomerList, "CustomerList");
+        panelMain.add(panelProduct, "Product");
 
+        panelOption.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnHome.setFont(new java.awt.Font("Segoe UI Light", 1, 11)); // NOI18N
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/home.png"))); // NOI18N
+        btnHome.setText("Início");
+        btnHome.setActionCommand("Inicio");
+        btnHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHome.setIconTextGap(0);
+        btnHome.setMinimumSize(new java.awt.Dimension(73, 73));
+        btnHome.setPreferredSize(new java.awt.Dimension(80, 73));
+        btnHome.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHomeActionPerformed(evt);
+            }
+        });
+        panelOption.add(btnHome);
+
+        btnCustomer.setFont(new java.awt.Font("Segoe UI Light", 1, 11)); // NOI18N
+        btnCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/customer.png"))); // NOI18N
+        btnCustomer.setText("Cliente");
+        btnCustomer.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCustomer.setIconTextGap(0);
+        btnCustomer.setMinimumSize(new java.awt.Dimension(73, 73));
+        btnCustomer.setPreferredSize(new java.awt.Dimension(80, 73));
+        btnCustomer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerActionPerformed(evt);
+            }
+        });
+        panelOption.add(btnCustomer);
+
+        btnProduct.setFont(new java.awt.Font("Segoe UI Light", 1, 11)); // NOI18N
+        btnProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/product.png"))); // NOI18N
+        btnProduct.setText("Produto");
+        btnProduct.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProduct.setIconTextGap(0);
+        btnProduct.setMinimumSize(new java.awt.Dimension(73, 73));
+        btnProduct.setPreferredSize(new java.awt.Dimension(80, 73));
+        btnProduct.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductActionPerformed(evt);
+            }
+        });
+        panelOption.add(btnProduct);
+
+        btnExit.setFont(new java.awt.Font("Segoe UI Light", 1, 11)); // NOI18N
+        btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/exit.png"))); // NOI18N
         btnExit.setText("Sair");
+        btnExit.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        btnExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExit.setIconTextGap(0);
         btnExit.setMinimumSize(new java.awt.Dimension(73, 73));
-        btnExit.setPreferredSize(new java.awt.Dimension(73, 73));
+        btnExit.setPreferredSize(new java.awt.Dimension(80, 73));
+        btnExit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
             }
         });
-        panelOption.add(btnExit, new java.awt.GridBagConstraints());
+        panelOption.add(btnExit);
 
-        btnCustomerRegister.setText("Cliente");
-        btnCustomerRegister.setActionCommand("Cadastrar\nCliente");
-        btnCustomerRegister.setMinimumSize(new java.awt.Dimension(73, 73));
-        btnCustomerRegister.setPreferredSize(new java.awt.Dimension(73, 73));
-        btnCustomerRegister.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCustomerRegisterActionPerformed(evt);
-            }
-        });
-        panelOption.add(btnCustomerRegister, new java.awt.GridBagConstraints());
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelOption, javax.swing.GroupLayout.DEFAULT_SIZE, 1104, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(118, 118, 118)
+                    .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
+                    .addGap(118, 118, 118)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(panelOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(353, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGap(134, 134, 134)
+                    .addComponent(panelMain, javax.swing.GroupLayout.PREFERRED_SIZE, 271, Short.MAX_VALUE)
+                    .addGap(48, 48, 48)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(50, 50, 50))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(panelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(50, 50, 50))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -112,10 +197,35 @@ public class FrameMain extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnCustomerRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerRegisterActionPerformed
-        CardLayout card = (CardLayout)panelMain.getLayout();
-        card.show(panelMain, "CustomerAdd"); 
-    }//GEN-LAST:event_btnCustomerRegisterActionPerformed
+    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
+        CardLayout card = (CardLayout) panelMain.getLayout();
+
+        JPopupMenu popup = new JPopupMenu();
+        JMenuItem mItemCustomerAdd = new JMenuItem("Novo");
+        JMenuItem mItemCustomerList = new JMenuItem("Listagem");
+        mItemCustomerAdd.addActionListener((e) -> {
+            card.show(panelMain, "CustomerAdd");
+            panelMain.add("CustomerAdd", new PanelCustomerAdd());
+        });
+        mItemCustomerList.addActionListener((e) -> {
+            card.show(panelMain, "CustomerList");
+            panelMain.add("CustomerList", new PanelCustomerList());
+        });
+        popup.add(mItemCustomerAdd);
+        popup.add(mItemCustomerList);
+
+        popup.show(btnCustomer, (int) btnCustomer.getAlignmentX(), (int) btnCustomer.getAlignmentY() + btnCustomer.getHeight());
+    }//GEN-LAST:event_btnCustomerActionPerformed
+
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+        CardLayout card = (CardLayout) panelMain.getLayout();
+        card.show(panelMain, "Home");
+    }//GEN-LAST:event_btnHomeActionPerformed
+
+    private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed
+        CardLayout card = (CardLayout) panelMain.getLayout();
+        card.show(panelMain, "Product");
+    }//GEN-LAST:event_btnProductActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,12 +264,18 @@ public class FrameMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCustomerRegister;
+    private javax.swing.JPanel Home;
+    private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnExit;
-    private javax.swing.JPanel empty;
-    private br.com.store.view.PanelCustomerAdd panelCustomerRegister1;
+    private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnProduct;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private br.com.store.view.PanelCustomerAdd panelCustomerAdd;
+    private br.com.store.view.PanelCustomerList panelCustomerList;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelOption;
+    private br.com.store.view.PanelProduct panelProduct;
     // End of variables declaration//GEN-END:variables
     public static Dimension resizeFullScreen() {
         return (new Dimension(
