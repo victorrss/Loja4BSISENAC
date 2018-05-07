@@ -1,12 +1,15 @@
 package br.com.store.model;
 
 public class CustomerContact {
+
     private Integer Id;
-    private Customer customerId;
-    private ContactType contactTypeId;
-    private String value; /*Example: for contactType = email --> xxxyyyzzz@email.com
+    private Customer customer;
+    private ContactType contactType;
+    private String value;
+    /*Example: for contactType = email --> xxxyyyzzz@email.com
                             for contactType = tel --> 123456789, etc...
-                            */  
+     */
+    private boolean enabled;
 
     public Integer getId() {
         return Id;
@@ -16,20 +19,20 @@ public class CustomerContact {
         this.Id = Id;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public ContactType getContactTypeId() {
-        return contactTypeId;
+    public ContactType getContactType() {
+        return contactType;
     }
 
-    public void setContactTypeId(ContactType contactTypeId) {
-        this.contactTypeId = contactTypeId;
+    public void setContactType(ContactType contactType) {
+        this.contactType = contactType;
     }
 
     public String getValue() {
@@ -38,6 +41,14 @@ public class CustomerContact {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

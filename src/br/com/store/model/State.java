@@ -1,9 +1,19 @@
 package br.com.store.model;
 
 public class State {
+
     private Integer Id;
     private String name;
-    private String initials; //Example: AM, SP, MG, etc...
+    private String abbreviation; //Example: AM, SP, MG, etc...
+
+    public State(Integer Id, String name, String abbreviation) {
+        this.Id = Id;
+        this.name = name;
+        this.abbreviation = abbreviation;
+    }
+
+    public State() {
+    }
 
     public Integer getId() {
         return Id;
@@ -21,13 +31,12 @@ public class State {
         this.name = name;
     }
 
-    public String getInitials() {
-        return initials;
+    public String getAbbreviation() {
+        return abbreviation;
     }
 
-    public void setInitials(String initials) {
-        this.initials = initials;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
-    
-    
+
 }

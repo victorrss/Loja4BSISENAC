@@ -1,9 +1,19 @@
 package br.com.store.model;
 
 public class City {
+
     private Integer Id;
-    private State stateId;
+    private State state;
     private String name; //Example: São Paulo, Dubai, Miami, etc...
+
+    public City(Integer Id, State state, String name) {
+        this.Id = Id;
+        this.state = state;
+        this.name = name;
+    }
+
+    public City() {
+    }
 
     public Integer getId() {
         return Id;
@@ -13,12 +23,12 @@ public class City {
         this.Id = Id;
     }
 
-    public State getStateId() {
-        return stateId;
+    public State getState() {
+        return state;
     }
 
-    public void setStateId(State stateId) {
-        this.stateId = stateId;
+    public void setState(State state) {
+        this.state = state;
     }
 
     public String getName() {
@@ -28,6 +38,5 @@ public class City {
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
 }

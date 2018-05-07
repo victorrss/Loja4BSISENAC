@@ -3,15 +3,18 @@ package br.com.store.model;
 import java.util.Date;
 
 public class Customer {
+
     private Integer Id;
-    private Address address;  
-    private MaritalStatus maritalStatus; 
-    private String name; 
-    private DocumentType documentType; 
-    private String document; 
+    private Address address;
+    private MaritalStatus maritalStatus;
+    private String name;
+    private DocumentType documentType;
+    private String document;
     private String gender; // M or F.
     private Date birthDate; //Date example: yyyy/MM/dd hh:mm:ss
     private String note; //Example: Legal and frequent customer, annoying customer, etc...
+    private boolean enabled;
+    private Date createdAt;
 
     public Integer getId() {
         return Id;
@@ -83,5 +86,22 @@ public class Customer {
 
     public void setNote(String note) {
         this.note = note;
-    }  
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+    
 }

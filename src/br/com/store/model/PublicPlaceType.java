@@ -1,9 +1,19 @@
 package br.com.store.model;
 
 public class PublicPlaceType {
+
     private Integer Id;
     private String name;
-    private String abbreviation; 
+    private String abbreviation;
+
+    public PublicPlaceType(Integer Id, String name, String abbreviation) {
+        this.Id = Id;
+        this.name = name;
+        this.abbreviation = abbreviation;
+    }
+
+    public PublicPlaceType() {
+    }
 
     public Integer getId() {
         return Id;
@@ -29,7 +39,4 @@ public class PublicPlaceType {
         this.abbreviation = abbreviation;
     }
 
-
-    
-    
 }

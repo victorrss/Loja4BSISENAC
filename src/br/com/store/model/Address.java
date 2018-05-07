@@ -1,14 +1,29 @@
 package br.com.store.model;
 
 public class Address {
+
     private Integer Id;
-    private PublicPlaceType publicplace_type_id;
-    private City cityID;
+    private PublicPlaceType publicPlaceType;
+    private City city;
     private String publicPlace; //Example: Avenida Paulista, 1578, etc ...
     private Integer number;
     private String complement; //Example: floor 2, house 3, etc...
     private String district; //Example: Vila Mariana, Bela Vista, Pinheiros, etc...
     private Integer zipcode;
+
+    public Address(Integer Id, PublicPlaceType publicPlaceType, City city, String publicPlace, Integer number, String complement, String district, Integer zipcode) {
+        this.Id = Id;
+        this.publicPlaceType = publicPlaceType;
+        this.city = city;
+        this.publicPlace = publicPlace;
+        this.number = number;
+        this.complement = complement;
+        this.district = district;
+        this.zipcode = zipcode;
+    }
+
+    public Address() {
+    }
 
     public Integer getId() {
         return Id;
@@ -18,20 +33,20 @@ public class Address {
         this.Id = Id;
     }
 
-    public PublicPlaceType getPublicplace_type_id() {
-        return publicplace_type_id;
+    public PublicPlaceType getPublicPlaceType() {
+        return publicPlaceType;
     }
 
-    public void setPublicplace_type_id(PublicPlaceType publicplace_type_id) {
-        this.publicplace_type_id = publicplace_type_id;
+    public void setPublicPlaceType(PublicPlaceType publicPlaceType) {
+        this.publicPlaceType = publicPlaceType;
     }
 
-    public City getCityID() {
-        return cityID;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityID(City cityID) {
-        this.cityID = cityID;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getPublicPlace() {
@@ -74,5 +89,4 @@ public class Address {
         this.zipcode = zipcode;
     }
 
-    
 }
