@@ -1,6 +1,6 @@
 /build/
-nbproject/private/
-nbbuild/
-dist/
-nbdist/
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
 .nb-gradle/
