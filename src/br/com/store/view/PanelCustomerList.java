@@ -12,49 +12,54 @@ public class PanelCustomerList extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelSearch = new javax.swing.JPanel();
-        cbSearchField = new javax.swing.JComboBox<>();
-        lblSearchField = new javax.swing.JLabel();
-        txtSearchField = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableCustomer = new javax.swing.JTable();
+        panelCustomerSearch = new javax.swing.JPanel();
+        cbCustomerSearchField = new javax.swing.JComboBox<>();
+        lblCustomerSearchField = new javax.swing.JLabel();
+        txtCustomerSearchField = new javax.swing.JTextField();
+        btnCustomerSearch = new javax.swing.JButton();
+        scrollCustomerSearch = new javax.swing.JScrollPane();
+        tableCustomerSearch = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
-        panelSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        cbSearchField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        panelCustomerSearch.setBackground(new java.awt.Color(255, 255, 255));
+        panelCustomerSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
 
-        lblSearchField.setText("Campo");
+        cbCustomerSearchField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnSearch.setText("Pesquisar");
+        lblCustomerSearchField.setText("Campo");
 
-        javax.swing.GroupLayout panelSearchLayout = new javax.swing.GroupLayout(panelSearch);
-        panelSearch.setLayout(panelSearchLayout);
-        panelSearchLayout.setHorizontalGroup(
-            panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSearchLayout.createSequentialGroup()
+        btnCustomerSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
+
+        javax.swing.GroupLayout panelCustomerSearchLayout = new javax.swing.GroupLayout(panelCustomerSearch);
+        panelCustomerSearch.setLayout(panelCustomerSearchLayout);
+        panelCustomerSearchLayout.setHorizontalGroup(
+            panelCustomerSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCustomerSearchLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblSearchField)
+                .addComponent(lblCustomerSearchField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbCustomerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
-                .addComponent(txtSearchField)
+                .addComponent(txtCustomerSearchField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSearch)
+                .addComponent(btnCustomerSearch)
                 .addContainerGap())
         );
-        panelSearchLayout.setVerticalGroup(
-            panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSearchLayout.createSequentialGroup()
-                .addGroup(panelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSearchField)
-                    .addComponent(btnSearch)
-                    .addComponent(txtSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        panelCustomerSearchLayout.setVerticalGroup(
+            panelCustomerSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCustomerSearchLayout.createSequentialGroup()
+                .addGroup(panelCustomerSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelCustomerSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbCustomerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCustomerSearchField)
+                        .addComponent(txtCustomerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tableCustomer.setModel(new javax.swing.table.DefaultTableModel(
+        tableCustomerSearch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -77,7 +82,10 @@ public class PanelCustomerList extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tableCustomer);
+        scrollCustomerSearch.setViewportView(tableCustomerSearch);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setText("Cliente - Visualização");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,29 +94,35 @@ public class PanelCustomerList extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)
-                    .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelCustomerSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollCustomerSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(panelCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollCustomerSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox<String> cbSearchField;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblSearchField;
-    private javax.swing.JPanel panelSearch;
-    private javax.swing.JTable tableCustomer;
-    private javax.swing.JTextField txtSearchField;
+    private javax.swing.JButton btnCustomerSearch;
+    private javax.swing.JComboBox<String> cbCustomerSearchField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblCustomerSearchField;
+    private javax.swing.JPanel panelCustomerSearch;
+    private javax.swing.JScrollPane scrollCustomerSearch;
+    private javax.swing.JTable tableCustomerSearch;
+    private javax.swing.JTextField txtCustomerSearchField;
     // End of variables declaration//GEN-END:variables
 }
