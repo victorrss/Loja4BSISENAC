@@ -37,6 +37,7 @@ public class DAOCustomer {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, customer.getName());
+<<<<<<< HEAD
             stmt.setObject(2, customer.getDocumentType());
             stmt.setString(3, customer.getDocument());
             stmt.setString(4, customer.getGender());
@@ -44,6 +45,15 @@ public class DAOCustomer {
             stmt.setTimestamp(5, bd);
             stmt.setObject(6, customer.getAddress());
             stmt.setObject(7, customer.getMaritalStatus());
+=======
+           // stmt.setObject(2, customer.getDocumentTypeID());
+            stmt.setString(3, customer.getDocument());
+            stmt.setString(4, customer.getGender());
+           // Timestamp t = new Timestamp(customer.getBirth_date().getTime());
+         //   stmt.setTimestamp(5, t);
+           // stmt.setObject(6, customer.getAddressID());
+           // stmt.setObject(7, customer.getMaritalStatusID());
+>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
             stmt.setString(8, customer.getNote());
             Timestamp c = new Timestamp(customer.getCreatedAt().getTime());
             stmt.setTimestamp(9, c);
@@ -81,6 +91,7 @@ public class DAOCustomer {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, customer.getName());
+<<<<<<< HEAD
             stmt.setObject(2, customer.getDocumentType());
             stmt.setString(3, customer.getDocument());
             stmt.setString(4, customer.getGender());
@@ -88,6 +99,15 @@ public class DAOCustomer {
             stmt.setTimestamp(5, bd);
             stmt.setObject(6, customer.getAddress());
             stmt.setObject(7, customer.getMaritalStatus());
+=======
+          //  stmt.setObject(2, customer.getDocumentTypeID());
+            stmt.setString(3, customer.getDocument());
+            stmt.setString(4, customer.getGender());
+          //  Timestamp t = new Timestamp(customer.getBirth_date().getTime());
+         //   stmt.setTimestamp(5, t);
+           // stmt.setObject(6, customer.getAddressID());
+          //  stmt.setObject(7, customer.getMaritalStatusID());
+>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
             stmt.setString(8, customer.getNote());
             Timestamp c = new Timestamp(customer.getCreatedAt().getTime());
             stmt.setTimestamp(9, c);
@@ -186,6 +206,7 @@ public class DAOCustomer {
 
                 customer.setId(result.getInt("id"));
                 customer.setName(result.getString("name"));
+<<<<<<< HEAD
                 customer.setDocumentType(new DocumentType(result.getInt("document_type_id"), result.getString("document_type_name")));
                 customer.setDocument(result.getString("document"));
                 customer.setGender(result.getString("gender"));
@@ -198,6 +219,15 @@ public class DAOCustomer {
                         result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
                         result.getString("district"), result.getInt("zipcode")));
                 customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
+=======
+              //  customer.setDocumentTypeID((DocumentType) result.getObject("document_type_id"));// Need to be tested
+                customer.setDocument(result.getString("document"));
+                customer.setGender(result.getString("gender"));
+                Date d = new Date(result.getTimestamp("birth_date").getTime());
+               // customer.setBirth_date(d);
+              //  customer.setAddressID((Address) result.getObject("address_id"));// Need to be tested
+               // customer.setMaritalStatusID((MaritalStatus) result.getObject("maritalstatus_id"));// Need to be tested
+>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
                 customer.setNote(result.getString("note"));
 
                 // Add the instance in the list
