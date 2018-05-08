@@ -19,7 +19,7 @@ import java.util.List;
 
 public class DAOCustomer {
 
-    //Inserts a product into the product table of the database
+    //Inserts a customer into the customer table of the database
     public static void insert(Customer customer) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
@@ -37,23 +37,13 @@ public class DAOCustomer {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, customer.getName());
-//<<<<<<< HEAD
-            stmt.setObject(2, customer.getDocumentType());
+            stmt.setInt(2, customer.getDocumentType().getId());
             stmt.setString(3, customer.getDocument());
             stmt.setString(4, customer.getGender());
             Timestamp bd = new Timestamp(customer.getBirthDate().getTime());
             stmt.setTimestamp(5, bd);
-            stmt.setObject(6, customer.getAddress());
-            stmt.setObject(7, customer.getMaritalStatus());
-//=======
-           // stmt.setObject(2, customer.getDocumentTypeID());
-            stmt.setString(3, customer.getDocument());
-            stmt.setString(4, customer.getGender());
-           // Timestamp t = new Timestamp(customer.getBirth_date().getTime());
-         //   stmt.setTimestamp(5, t);
-           // stmt.setObject(6, customer.getAddressID());
-           // stmt.setObject(7, customer.getMaritalStatusID());
-//>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
+            stmt.setInt(6, customer.getAddress().getId());
+            stmt.setInt(7, customer.getMaritalStatus().getId());
             stmt.setString(8, customer.getNote());
             Timestamp c = new Timestamp(customer.getCreatedAt().getTime());
             stmt.setTimestamp(9, c);
@@ -62,18 +52,11 @@ public class DAOCustomer {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
-    //Performs the update of the data of a product
+    //Performs the update of the data of a customer
     public static void update(Customer customer)
             throws SQLException, Exception {
 
@@ -91,23 +74,13 @@ public class DAOCustomer {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, customer.getName());
-//<<<<<<< HEAD
-            stmt.setObject(2, customer.getDocumentType());
+            stmt.setInt(2, customer.getDocumentType().getId());
             stmt.setString(3, customer.getDocument());
             stmt.setString(4, customer.getGender());
             Timestamp bd = new Timestamp(customer.getBirthDate().getTime());
             stmt.setTimestamp(5, bd);
-            stmt.setObject(6, customer.getAddress());
-            stmt.setObject(7, customer.getMaritalStatus());
-//=======
-          //  stmt.setObject(2, customer.getDocumentTypeID());
-            stmt.setString(3, customer.getDocument());
-            stmt.setString(4, customer.getGender());
-          //  Timestamp t = new Timestamp(customer.getBirth_date().getTime());
-         //   stmt.setTimestamp(5, t);
-           // stmt.setObject(6, customer.getAddressID());
-          //  stmt.setObject(7, customer.getMaritalStatusID());
-//>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
+            stmt.setInt(6, customer.getAddress().getId());
+            stmt.setInt(7, customer.getMaritalStatus().getId());
             stmt.setString(8, customer.getNote());
             Timestamp c = new Timestamp(customer.getCreatedAt().getTime());
             stmt.setTimestamp(9, c);
@@ -116,18 +89,11 @@ public class DAOCustomer {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
-    //Performs logical deletion of a product in the DB
+    //Performs logical deletion of a customer in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
         String sql = "UPDATE customer SET enabled=? WHERE (id=?)";
@@ -147,18 +113,11 @@ public class DAOCustomer {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
-    //List all products in the table product
+    //List all customers in the table customer
     public static List<Customer> list() throws SQLException, Exception {
 
         String sql = "SELECT a.*, "
@@ -201,12 +160,11 @@ public class DAOCustomer {
                 if (listCustomer == null) {
                     listCustomer = new ArrayList<Customer>();
                 }
-                // Create a Client instance and population with BD values
+                // Create a Customer instance and population with BD values
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
                 customer.setName(result.getString("name"));
-//<<<<<<< HEAD
                 customer.setDocumentType(new DocumentType(result.getInt("document_type_id"), result.getString("document_type_name")));
                 customer.setDocument(result.getString("document"));
                 customer.setGender(result.getString("gender"));
@@ -214,20 +172,11 @@ public class DAOCustomer {
                 customer.setBirthDate(d);
                 customer.setAddress(new Address(result.getInt("address_id"),
                         new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                         new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                 result.getString("city_name")),
+                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
+                                result.getString("city_name")),
                         result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
                         result.getString("district"), result.getInt("zipcode")));
                 customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
-//=======
-              //  customer.setDocumentTypeID((DocumentType) result.getObject("document_type_id"));// Need to be tested
-                customer.setDocument(result.getString("document"));
-                customer.setGender(result.getString("gender"));
-                //Date d = new Date(result.getTimestamp("birth_date").getTime());
-               // customer.setBirth_date(d);
-              //  customer.setAddressID((Address) result.getObject("address_id"));// Need to be tested
-               // customer.setMaritalStatusID((MaritalStatus) result.getObject("maritalstatus_id"));// Need to be tested
-//>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
                 customer.setNote(result.getString("note"));
 
                 // Add the instance in the list
@@ -236,11 +185,11 @@ public class DAOCustomer {
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
-        //Returns a list of database clients
+        //Returns a list of database customers
         return listCustomer;
     }
 
-    //Search for a product by name
+    //Search for a customer by name
     public static List<Customer> search(String value) throws SQLException, Exception {
 
         String sql = "SELECT a.*, "
@@ -286,7 +235,7 @@ public class DAOCustomer {
                     listCustomer = new ArrayList<Customer>();
                 }
 
-                // Create a Client instance and population with BD values
+                // Create a Customer instance and population with BD values
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
@@ -298,8 +247,8 @@ public class DAOCustomer {
                 customer.setBirthDate(d);
                 customer.setAddress(new Address(result.getInt("address_id"),
                         new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                         new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                 result.getString("city_name")),
+                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
+                                result.getString("city_name")),
                         result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
                         result.getString("district"), result.getInt("zipcode")));
                 customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
@@ -314,10 +263,10 @@ public class DAOCustomer {
         return listCustomer;
     }
 
-    //Get an instance of the product class by id
+    //Get an instance of the customer class by id
     public static Customer get(Integer id) throws SQLException, Exception {
 
-                String sql = "SELECT a.*, "
+        String sql = "SELECT a.*, "
                 + "b.address_id AS address_id, "
                 + "b1.publicplace_type_id AS address_publicplacetype_id, b1.name AS publicplace_type_name,"
                 + "b1.abbreviation AS publicplace_type_abbreviation, "
@@ -354,7 +303,7 @@ public class DAOCustomer {
 
             if (result.next()) {
 
-                // Create a Client instance and population with BD values
+                // Create a Customer instance and population with BD values
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
@@ -366,8 +315,8 @@ public class DAOCustomer {
                 customer.setBirthDate(d);
                 customer.setAddress(new Address(result.getInt("address_id"),
                         new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                         new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                 result.getString("city_name")),
+                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
+                                result.getString("city_name")),
                         result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
                         result.getString("district"), result.getInt("zipcode")));
                 customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
