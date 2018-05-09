@@ -5,6 +5,7 @@ import br.com.store.db.dao.DAOBrand;
 import br.com.store.exception.BrandException;
 import br.com.store.model.Brand;
 import br.com.store.model.validator.ValidatorBrand;
+import java.util.List;
 
 public class ServiceBrand {
 
@@ -26,7 +27,17 @@ public class ServiceBrand {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados");
         }
+    }
 
+    public List<Brand> list() throws DataSourceException {
+        List<Brand> list = null;
+        try {
+            list = DAOBrand.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+        return list;
     }
 
 }

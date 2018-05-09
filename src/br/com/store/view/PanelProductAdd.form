@@ -88,12 +88,14 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblProductBrand" linkSize="4" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
-                              <Component id="lblProductName" linkSize="4" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
-                              <Component id="lblProductId" linkSize="4" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblProductName" linkSize="4" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="lblProductId" linkSize="4" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lblProductBrand" linkSize="4" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtProductName" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -166,8 +168,10 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnProductRefreshBrand" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="cbProductBrand" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblProductBrand" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                  <Component id="cbProductBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblProductBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -224,9 +228,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductName">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductNameActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblProductBrand">
           <Properties>
@@ -256,14 +257,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductId">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductIdActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductBarcode">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductBarcodeActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblProductBarcode">
           <Properties>
@@ -331,9 +326,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductWarranty">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductWarrantyActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblProductWarrantHelp">
           <Properties>
@@ -348,9 +340,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductModel">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductModelActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtProductPrice">
         </Component>
@@ -367,9 +356,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductStock">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductStockActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProductRefreshCategory">
           <Properties>
@@ -393,9 +379,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductDescription">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProductDescriptionActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblProductDescription">
           <Properties>
@@ -419,6 +402,9 @@
           <Image iconType="3" name="/resources/icons/save.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductFinalizeActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

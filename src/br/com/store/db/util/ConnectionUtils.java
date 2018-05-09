@@ -12,10 +12,10 @@ public class ConnectionUtils {
     public static Connection getConnection() throws SQLException {
 
         Connection con = null;
-        String url = "jdbc:msysql://localhost:3306/usuarios";
+        String url = "jdbc:mysql://localhost:3306/store";
         Properties prop = new Properties();
         prop.put("user", "root");
-        prop.put("password", "adminadmin");
+        prop.put("password", "");
 
         try {
             con = DriverManager.getConnection(url, prop);

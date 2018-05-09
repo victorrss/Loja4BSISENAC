@@ -15,8 +15,8 @@ public class DAOBrand {
     public static void insert(Brand brand) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
-                + "brand (name) "
-                + "VALUES (?)";
+                + "brand (name, enabled) "
+                + "VALUES (?,?)";
 
         Connection con = null;
 
@@ -28,7 +28,7 @@ public class DAOBrand {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, brand.getName());
-
+            stmt.setBoolean(2, true);
             //executes the command in the DB
             stmt.execute();
         } finally {
@@ -41,7 +41,7 @@ public class DAOBrand {
 
         String sql = "UPDATE "
                 + "brand SET name=? "
-                + "WHERE (brand_id=?)";
+                + "WHERE (id=?)";
 
         Connection con = null;
 
@@ -66,7 +66,7 @@ public class DAOBrand {
     //Performs logical deletion of a brand in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
-        String sql = "UPDATE brand SET enabled=? WHERE (brand_id=?)";
+        String sql = "UPDATE brand SET enabled=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -115,7 +115,7 @@ public class DAOBrand {
                 }
 
                 Brand brand = new Brand();
-                brand.setId(result.getInt("brand_id"));
+                brand.setId(result.getInt("id"));
                 brand.setName(result.getString("name"));
 
                 listBrand.add(brand);
