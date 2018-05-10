@@ -4,6 +4,7 @@ public class DocumentType {
 
     private Integer Id;
     private String name; //Example: CPF, CNPJ, etc...
+    private boolean enabled;
 
     public DocumentType(Integer Id, String name) {
         this.Id = Id;
@@ -28,5 +29,14 @@ public class DocumentType {
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    
 
 }

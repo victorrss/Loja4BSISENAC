@@ -4,10 +4,12 @@ public class ContactType {
 
     private Integer Id;
     private String description; //Example: email, tel, faz, etc...
+    private boolean enabled;
 
-    public ContactType(Integer Id, String description) {
+    public ContactType(Integer Id, String description, boolean enabled) {
         this.Id = Id;
         this.description = description;
+        this.enabled = enabled;
     }
 
     public ContactType() {
@@ -27,6 +29,14 @@ public class ContactType {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

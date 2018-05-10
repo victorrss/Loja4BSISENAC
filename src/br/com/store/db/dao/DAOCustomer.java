@@ -137,7 +137,7 @@ public class DAOCustomer {
                 + "INNER JOIN state b3 ON b3.state_id = b2.state_id"
                 + "INNER JOIN maritalstatus c ON c.maritalstatus_id = a.maritalstatus_id "
                 + "INNER JOIN document_type d ON d.document_type_id = a.document_type_id "
-                + "WHERE enabled=?)";
+                + "WHERE enabled=?";
 
         List<Customer> listCustomer = null;
 
@@ -172,10 +172,10 @@ public class DAOCustomer {
                 customer.setBirthDate(d);
                 customer.setAddress(new Address(result.getInt("address_id"),
                         new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                result.getString("city_name")),
+                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation"), true),
+                                result.getString("city_name"), true),
                         result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
-                        result.getString("district"), result.getInt("zipcode")));
+                        result.getString("district"), result.getInt("zipcode"), true));
                 customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
                 customer.setNote(result.getString("note"));
 
@@ -247,10 +247,10 @@ public class DAOCustomer {
                 customer.setBirthDate(d);
                 customer.setAddress(new Address(result.getInt("address_id"),
                         new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                result.getString("city_name")),
+                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation"), true),
+                                result.getString("city_name"), true),
                         result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
-                        result.getString("district"), result.getInt("zipcode")));
+                        result.getString("district"), result.getInt("zipcode"), true));
                 customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
                 customer.setNote(result.getString("note"));
 
@@ -283,7 +283,7 @@ public class DAOCustomer {
                 + "INNER JOIN state b3 ON b3.state_id = b2.state_id"
                 + "INNER JOIN maritalstatus c ON c.maritalstatus_id = a.maritalstatus_id "
                 + "INNER JOIN document_type d ON d.document_type_id = a.document_type_id "
-                + "WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+                + "WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -315,10 +315,10 @@ public class DAOCustomer {
                 customer.setBirthDate(d);
                 customer.setAddress(new Address(result.getInt("address_id"),
                         new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                result.getString("city_name")),
+                        new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation"), true),
+                                result.getString("city_name"), true),
                         result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
-                        result.getString("district"), result.getInt("zipcode")));
+                        result.getString("district"), result.getInt("zipcode"), true));
                 customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
                 customer.setNote(result.getString("note"));
 

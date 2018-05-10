@@ -10,8 +10,9 @@ public class Address {
     private String complement; //Example: floor 2, house 3, etc...
     private String district; //Example: Vila Mariana, Bela Vista, Pinheiros, etc...
     private Integer zipcode;
+    private boolean enabled;
 
-    public Address(Integer Id, PublicPlaceType publicPlaceType, City city, String publicPlace, Integer number, String complement, String district, Integer zipcode) {
+    public Address(Integer Id, PublicPlaceType publicPlaceType, City city, String publicPlace, Integer number, String complement, String district, Integer zipcode, boolean enabled) {
         this.Id = Id;
         this.publicPlaceType = publicPlaceType;
         this.city = city;
@@ -20,6 +21,7 @@ public class Address {
         this.complement = complement;
         this.district = district;
         this.zipcode = zipcode;
+        this.enabled = enabled;
     }
 
     public Address() {
@@ -87,6 +89,14 @@ public class Address {
 
     public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }
