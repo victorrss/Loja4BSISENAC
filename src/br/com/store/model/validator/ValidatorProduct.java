@@ -26,7 +26,7 @@ public class ValidatorProduct {
             throw new ProductException("Nome do produto não fornecido");
         }
 
-        if (product.getBarCode() == null || product.getBarCode().trim().isEmpty()) {
+        if (product.getBarcode() == null || product.getBarcode().trim().isEmpty()) {
             throw new ProductException("Código de barras do produto não fornecido");
         }
 

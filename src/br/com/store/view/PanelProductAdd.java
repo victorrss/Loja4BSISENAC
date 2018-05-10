@@ -1,10 +1,20 @@
 package br.com.store.view;
 
 import br.com.store.exception.DataSourceException;
+import br.com.store.exception.ProductException;
 import br.com.store.model.Brand;
+import br.com.store.model.Category;
+import br.com.store.model.Product;
+import br.com.store.model.SubCategory;
 import br.com.store.service.ServiceBrand;
+import br.com.store.service.ServiceCategory;
+import br.com.store.service.ServiceProduct;
+import br.com.store.service.ServiceSubCategory;
+import br.com.store.utils.FormUtils;
+import br.com.store.utils.Util;
+import java.awt.image.BufferedImage;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 public class PanelProductAdd extends javax.swing.JPanel {
@@ -12,6 +22,8 @@ public class PanelProductAdd extends javax.swing.JPanel {
     public PanelProductAdd() {
         initComponents();
         loadBrand();
+        loadCategory();
+        loadSubCategory();
     }
 
     @SuppressWarnings("unchecked")
@@ -27,7 +39,7 @@ public class PanelProductAdd extends javax.swing.JPanel {
         txtProductId = new javax.swing.JTextField();
         txtProductBarcode = new javax.swing.JTextField();
         lblProductBarcode = new javax.swing.JLabel();
-        lblProductImage = new javax.swing.JLabel();
+        lblProductPicture = new javax.swing.JLabel();
         cbProductCategory = new javax.swing.JComboBox<>();
         lblProductCategory = new javax.swing.JLabel();
         lblProductSubCategory = new javax.swing.JLabel();
@@ -46,7 +58,7 @@ public class PanelProductAdd extends javax.swing.JPanel {
         btnProductRefreshSubCategory = new javax.swing.JButton();
         txtProductDescription = new javax.swing.JTextField();
         lblProductDescription = new javax.swing.JLabel();
-        btnProductImage = new javax.swing.JButton();
+        btnProductPicture = new javax.swing.JButton();
         btnProductFinalize = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -69,9 +81,9 @@ public class PanelProductAdd extends javax.swing.JPanel {
         lblProductBarcode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductBarcode.setText("Código de Barras");
 
-        lblProductImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblProductImage.setText("Foto");
-        lblProductImage.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
+        lblProductPicture.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblProductPicture.setText("Foto");
+        lblProductPicture.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
 
         cbProductCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -99,16 +111,31 @@ public class PanelProductAdd extends javax.swing.JPanel {
         lblProductStock.setText("Estoque");
 
         btnProductRefreshCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
+        btnProductRefreshCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductRefreshCategoryActionPerformed(evt);
+            }
+        });
 
         btnProductRefreshBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
+        btnProductRefreshBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductRefreshBrandActionPerformed(evt);
+            }
+        });
 
         btnProductRefreshSubCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
+        btnProductRefreshSubCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductRefreshSubCategoryActionPerformed(evt);
+            }
+        });
 
         lblProductDescription.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductDescription.setText("Descrição");
 
-        btnProductImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
-        btnProductImage.setText("Procurar");
+        btnProductPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
+        btnProductPicture.setText("Procurar");
 
         javax.swing.GroupLayout panelProductRegisterLayout = new javax.swing.GroupLayout(panelProductRegister);
         panelProductRegister.setLayout(panelProductRegisterLayout);
@@ -173,8 +200,8 @@ public class PanelProductAdd extends javax.swing.JPanel {
                             .addComponent(txtProductModel, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(18, 18, 18)
                 .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblProductImage, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(btnProductImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblProductPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(btnProductPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -230,8 +257,8 @@ public class PanelProductAdd extends javax.swing.JPanel {
                             .addComponent(lblProductDescription)
                             .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtProductDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnProductImage))))
-                    .addComponent(lblProductImage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnProductPicture))))
+                    .addComponent(lblProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -275,10 +302,60 @@ public class PanelProductAdd extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProductFinalizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductFinalizeActionPerformed
+        int dialogResult = JOptionPane.showConfirmDialog(this,
+                "Tem certeza que deseja cadastrar uma novo produto?",
+                "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        // get image from label icon
+        Icon icon = lblProductPicture.getIcon();
+        BufferedImage image = new BufferedImage(icon.getIconWidth(),
+                icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+
+        Product product = new Product();
+        product.setName(txtProductName.getText());
+        product.setBarcode(txtProductBarcode.getText());
+        product.setDescription(txtProductDescription.getText());
+        product.setWarranty(Util.parseInteger(txtProductWarranty.getText()));
+        product.setModel(txtProductModel.getText());
+        product.setPicture(FormUtils.getImgBytes(image));
+        product.setStock(Util.parseInteger(txtProductStock.getText()));
+        product.setPrice(Util.parseFloat(txtProductPrice.getText()));
+        product.setCategory((Category) cbProductCategory.getSelectedItem());
+        product.setSubCategory((SubCategory) cbProductSubCategory.getSelectedItem());
+        product.setBrand((Brand) cbProductBrand.getSelectedItem());
+
+        try {
+            ServiceProduct.getInstance().insert(product);
+        } catch (DataSourceException | ProductException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso",
+                "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
+
 
     }//GEN-LAST:event_btnProductFinalizeActionPerformed
 
-    void loadBrand() {
+    private void btnProductRefreshBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshBrandActionPerformed
+        loadBrand();
+    }//GEN-LAST:event_btnProductRefreshBrandActionPerformed
+
+    private void btnProductRefreshCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshCategoryActionPerformed
+        loadCategory();
+    }//GEN-LAST:event_btnProductRefreshCategoryActionPerformed
+
+    private void btnProductRefreshSubCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshSubCategoryActionPerformed
+        loadSubCategory();
+    }//GEN-LAST:event_btnProductRefreshSubCategoryActionPerformed
+
+    private void loadBrand() {
+        FormUtils.clearComboBox(cbProductBrand);
         List<Brand> list = null;
         try {
             list = ServiceBrand.getInstance().list();
@@ -291,23 +368,47 @@ public class PanelProductAdd extends javax.swing.JPanel {
             return;
         }
 
-        //Instanciando o DefaultComboBoxModel
-        DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(list.toArray());
-        //passando os valores do "modelo" pro ComboBox
-        cbProductBrand.setModel(defaultComboBox);
-
+        FormUtils.setModelComboBox(cbProductBrand, list);
     }
 
-    void loadCategory() {
+    private void loadCategory() {
+        FormUtils.clearComboBox(cbProductCategory);
+        List<Category> list = null;
+        try {
+            list = ServiceCategory.getInstance().list();
+        } catch (DataSourceException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 
+        if (list == null) {
+            return;
+        }
+
+        FormUtils.setModelComboBox(cbProductCategory, list);
     }
 
-    void loadSubCategory() {
+    private void loadSubCategory() {
+        FormUtils.clearComboBox(cbProductSubCategory);
+        List<SubCategory> list = null;
+        try {
+            list = ServiceSubCategory.getInstance().list();
+        } catch (DataSourceException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 
+        if (list == null) {
+            return;
+        }
+
+        FormUtils.setModelComboBox(cbProductSubCategory, list);
     }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProductFinalize;
-    private javax.swing.JButton btnProductImage;
+    private javax.swing.JButton btnProductPicture;
     private javax.swing.JButton btnProductRefreshBrand;
     private javax.swing.JButton btnProductRefreshCategory;
     private javax.swing.JButton btnProductRefreshSubCategory;
@@ -320,9 +421,9 @@ public class PanelProductAdd extends javax.swing.JPanel {
     private javax.swing.JLabel lblProductCategory;
     private javax.swing.JLabel lblProductDescription;
     private javax.swing.JLabel lblProductId;
-    private javax.swing.JLabel lblProductImage;
     private javax.swing.JLabel lblProductModel;
     private javax.swing.JLabel lblProductName;
+    private javax.swing.JLabel lblProductPicture;
     private javax.swing.JLabel lblProductPrice;
     private javax.swing.JLabel lblProductStock;
     private javax.swing.JLabel lblProductSubCategory;
