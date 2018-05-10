@@ -142,8 +142,8 @@
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lblProductImage" pref="160" max="32767" attributes="0"/>
-                      <Component id="btnProductImage" max="32767" attributes="0"/>
+                      <Component id="lblProductPicture" pref="160" max="32767" attributes="0"/>
+                      <Component id="btnProductPicture" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -209,11 +209,11 @@
                               <Component id="lblProductDescription" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtProductDescription" alignment="3" min="-2" pref="82" max="-2" attributes="0"/>
-                                  <Component id="btnProductImage" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnProductPicture" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <Component id="lblProductImage" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="lblProductPicture" min="-2" pref="160" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -266,7 +266,7 @@
             <Property name="text" type="java.lang.String" value="C&#xf3;digo de Barras"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblProductImage">
+        <Component class="javax.swing.JLabel" name="lblProductPicture">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Foto"/>
@@ -363,6 +363,9 @@
               <Image iconType="3" name="/resources/icons/refresh.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductRefreshCategoryActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProductRefreshBrand">
           <Properties>
@@ -370,6 +373,9 @@
               <Image iconType="3" name="/resources/icons/refresh.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductRefreshBrandActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProductRefreshSubCategory">
           <Properties>
@@ -377,6 +383,9 @@
               <Image iconType="3" name="/resources/icons/refresh.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductRefreshSubCategoryActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProductDescription">
         </Component>
@@ -386,7 +395,7 @@
             <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnProductImage">
+        <Component class="javax.swing.JButton" name="btnProductPicture">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/resources/icons/search.png"/>

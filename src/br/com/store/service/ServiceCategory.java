@@ -5,6 +5,7 @@ import br.com.store.db.dao.DAOCategory;
 import br.com.store.exception.CategoryException;
 import br.com.store.model.Category;
 import br.com.store.model.validator.ValidatorCategory;
+import java.util.List;
 
 public class ServiceCategory {
 
@@ -29,4 +30,14 @@ public class ServiceCategory {
 
     }
 
+    public List<Category> list() throws DataSourceException {
+        List<Category> list = null;
+        try {
+            list = DAOCategory.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+        return list;
+    }
 }

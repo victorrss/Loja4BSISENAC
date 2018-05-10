@@ -6,7 +6,7 @@ public class Product {
     private Category category;//Example: motherboard, gpu, cpu, etc...
     private SubCategory subCategory;//Example: 8th generation intel, GTX 10 series, etc....
     private String name;
-    private String barCode;
+    private String barcode;
     private String description;
     private Integer warranty;
     private String model; //Model of the product, example: Model: BX80648158400
@@ -55,12 +55,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getBarCode() {
-        return barCode;
+    public String getBarcode() {
+        return barcode;
     }
 
-    public void setBarCode(String barCode) {
-        this.barCode = barCode;
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
     }
 
     public String getDescription() {
