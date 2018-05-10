@@ -6,14 +6,6 @@ public class MaritalStatus {
     private String description; //Example: Married, single, divorced, etc...
     private boolean enabled;
 
-    public MaritalStatus(Integer Id, String description) {
-        this.Id = Id;
-        this.description = description;
-    }
-
-    public MaritalStatus() {
-    }
-
     public Integer getId() {
         return Id;
     }

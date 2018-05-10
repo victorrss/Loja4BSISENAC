@@ -10,13 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAODocumentType {
-    
+
     //Inserts a document type into the document_type table of the database
     public static void insert(DocumentType documentType) throws SQLException, Exception {
 
-        String sql = "INSERT INTO "
-                + "document_type (name)"
-                + "  VALUES (?)";
+        String sql = "INSERT INTO document_type (name) VALUES (?)";
 
         Connection con = null;
 
@@ -29,7 +27,6 @@ public class DAODocumentType {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, documentType.getName());
-            
 
             //Executes the command in the DB
             stmt.execute();
@@ -37,12 +34,12 @@ public class DAODocumentType {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
+
     //Performs the update of the data of a document type
     public static void update(DocumentType documentType)
             throws SQLException, Exception {
 
-        String sql = "UPDATE document_type SET name=?"
-                + "WHERE (id=?)";
+        String sql = "UPDATE document_type SET name=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -63,7 +60,7 @@ public class DAODocumentType {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
-    
+
     //Performs logical deletion of a document type in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
@@ -87,11 +84,11 @@ public class DAODocumentType {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
+
     //List all document types in the table document_type
     public static List<DocumentType> list(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM document_type "
-                + "WHERE enabled =?";
+        String sql = "SELECT * FROM document_type WHERE enabled =?";
 
         List<DocumentType> listDocumentType = null;
 
@@ -127,6 +124,7 @@ public class DAODocumentType {
 
         return listDocumentType;
     }
+
     //Search for a document type by name
     public static List<DocumentType> search(String value) throws SQLException, Exception {
 
@@ -168,6 +166,7 @@ public class DAODocumentType {
 
         return listDocumentType;
     }
+
     //Get an instance of the document type class by id
     public static DocumentType get(Integer id) throws SQLException, Exception {
 

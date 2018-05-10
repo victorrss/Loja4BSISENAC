@@ -1,7 +1,7 @@
 package br.com.store.db.dao;
 
 import br.com.store.db.util.ConnectionUtils;
-import br.com.store.model.MaritalStatus;
+import br.com.store.model.PublicPlaceType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOMaritalStatus {
+public class DAOPublicPlaceType {
 
-    //Inserts a marital status into the maritalstatus table of the database
-    public static void insert(MaritalStatus maritalStatus) throws SQLException, Exception {
+    //Inserts a public place type into the publicplace_type table of the database
+    public static void insert(PublicPlaceType publicPlaceType) throws SQLException, Exception {
 
-        String sql = "INSERT INTO maritalstatus (description) VALUES (?)";
+        String sql = "INSERT INTO publicplace_type (name, abbreviation) VALUES (?, ?)";
 
         Connection con = null;
 
@@ -26,7 +26,8 @@ public class DAOMaritalStatus {
             stmt = con.prepareStatement(sql);
 
             //Configures the parameters of the "PreparedStatement"
-            stmt.setString(1, maritalStatus.getDescription());
+            stmt.setString(1, publicPlaceType.getName());
+            stmt.setString(2, publicPlaceType.getAbbreviation());
 
             //Executes the command in the DB
             stmt.execute();
@@ -35,11 +36,12 @@ public class DAOMaritalStatus {
         }
     }
 
-    //Performs the update of the data of a marital status
-    public static void update(MaritalStatus maritalStatus)
+    //Performs the update of the data of a public place type
+    public static void update(PublicPlaceType publicPlaceType)
             throws SQLException, Exception {
 
-        String sql = "UPDATE maritalstatus SET description=? WHERE (id=?)";
+        String sql = "UPDATE publicplace_type SET name=?, abbreviation=? "
+                + "WHERE (id=?)";
 
         Connection con = null;
 
@@ -51,8 +53,9 @@ public class DAOMaritalStatus {
             stmt = con.prepareStatement(sql);
 
             //Configures the parameters of the "PreparedStatement"
-            stmt.setString(1, maritalStatus.getDescription());
-            stmt.setInt(2, maritalStatus.getId());
+            stmt.setString(1, publicPlaceType.getName());
+            stmt.setString(2, publicPlaceType.getAbbreviation());
+            stmt.setInt(3, publicPlaceType.getId());
 
             //Executes the command in the DB
             stmt.execute();
@@ -61,10 +64,10 @@ public class DAOMaritalStatus {
         }
     }
 
-    //Performs logical deletion of a marital status in the DB
+    //Performs logical deletion of a public place type in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
-        String sql = "UPDATE maritalstatus SET enabled=? WHERE (id=?)";
+        String sql = "UPDATE publicplace_type SET enabled=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -85,12 +88,12 @@ public class DAOMaritalStatus {
         }
     }
 
-    //List all marital status in the table maritalstatus
-    public static List<MaritalStatus> list(Integer id) throws SQLException, Exception {
+    //List all document types in the table publicplace_type
+    public static List<PublicPlaceType> list(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM maritalstatus WHERE enabled =?";
+        String sql = "SELECT * FROM publicplace_type WHERE enabled =?";
 
-        List<MaritalStatus> listMaritalStatus = null;
+        List<PublicPlaceType> listPublicPlaceType = null;
 
         Connection con = null;
 
@@ -108,29 +111,30 @@ public class DAOMaritalStatus {
 
             while (result.next()) {
 
-                if (listMaritalStatus == null) {
-                    listMaritalStatus = new ArrayList<MaritalStatus>();
+                if (listPublicPlaceType == null) {
+                    listPublicPlaceType = new ArrayList<PublicPlaceType>();
                 }
 
-                MaritalStatus maritalStatus = new MaritalStatus();
-                maritalStatus.setId(result.getInt("id"));
-                maritalStatus.setDescription(result.getString("description"));
+                PublicPlaceType publicPlaceType = new PublicPlaceType();
+                publicPlaceType.setId(result.getInt("id"));
+                publicPlaceType.setName(result.getString("name"));
+                publicPlaceType.setAbbreviation("abbreviation");
 
-                listMaritalStatus.add(maritalStatus);
+                listPublicPlaceType.add(publicPlaceType);
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
-        return listMaritalStatus;
+        return listPublicPlaceType;
     }
 
-    //Search for a marital status by description
-    public static List<MaritalStatus> search(String value) throws SQLException, Exception {
+    //Search for a public place type by name
+    public static List<PublicPlaceType> search(String value) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM maritalstatus WHERE (UPPER(description) LIKE UPPER(?) AND enabled=?)";
+        String sql = "SELECT * FROM publicplace_type WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
 
-        List<MaritalStatus> listMaritalStatus = null;
+        List<PublicPlaceType> listPublicPlaceType = null;
 
         Connection con = null;
 
@@ -150,27 +154,28 @@ public class DAOMaritalStatus {
 
             while (result.next()) {
 
-                if (listMaritalStatus == null) {
-                    listMaritalStatus = new ArrayList<MaritalStatus>();
+                if (listPublicPlaceType == null) {
+                    listPublicPlaceType = new ArrayList<PublicPlaceType>();
                 }
 
-                MaritalStatus maritalStatus = new MaritalStatus();
-                maritalStatus.setId(result.getInt("id"));
-                maritalStatus.setDescription(result.getString("description"));
+                PublicPlaceType publicPlaceType = new PublicPlaceType();
+                publicPlaceType.setId(result.getInt("id"));
+                publicPlaceType.setName(result.getString("name"));
+                publicPlaceType.setAbbreviation("abbreviation");
 
-                listMaritalStatus.add(maritalStatus);
+                listPublicPlaceType.add(publicPlaceType);
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
-        return listMaritalStatus;
+        return listPublicPlaceType;
     }
 
-    //Get an instance of the marital status class by id
-    public static MaritalStatus get(Integer id) throws SQLException, Exception {
+    //Get an instance of the public place type class by id
+    public static PublicPlaceType get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM maritalstatus WHERE (id=? AND enabled=?)";
+        String sql = "SELECT * FROM publicplace_type WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -190,11 +195,12 @@ public class DAOMaritalStatus {
 
             if (result.next()) {
 
-                MaritalStatus maritalStatus = new MaritalStatus();
-                maritalStatus.setId(result.getInt("id"));
-                maritalStatus.setDescription(result.getString("description"));
+                PublicPlaceType publicPlaceType = new PublicPlaceType();
+                publicPlaceType.setId(result.getInt("id"));
+                publicPlaceType.setName(result.getString("name"));
+                publicPlaceType.setAbbreviation("abbreviation");
 
-                return maritalStatus;
+                return publicPlaceType;
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);

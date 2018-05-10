@@ -6,15 +6,6 @@ public class ContactType {
     private String description; //Example: email, tel, faz, etc...
     private boolean enabled;
 
-    public ContactType(Integer Id, String description, boolean enabled) {
-        this.Id = Id;
-        this.description = description;
-        this.enabled = enabled;
-    }
-
-    public ContactType() {
-    }
-
     public Integer getId() {
         return Id;
     }

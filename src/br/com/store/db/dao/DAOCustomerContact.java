@@ -68,6 +68,7 @@ public class DAOCustomerContact {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
+
     //Performs logical deletion of a customer contact in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
@@ -91,12 +92,11 @@ public class DAOCustomerContact {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
+
     //List all contact types in the table costumer_contact
     public static List<CustomerContact> list(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * "
-                + "FROM customer_contact "
-                + "WHERE (enabled=?)";
+        String sql = "SELECT * FROM customer_contact WHERE (enabled=?)";
 
         List<CustomerContact> listCustomerContact = null;
 
@@ -122,9 +122,10 @@ public class DAOCustomerContact {
 
                 CustomerContact customerContact = new CustomerContact();
                 customerContact.setId(result.getInt("id"));
-                Customer customer = DAOCustomer.get(result.getInt("customer_id"));
-                customerContact.setCustomer(customer);
-                customerContact.setContactType(new ContactType(result.getInt("contact_type_id"), result.getString("contact_type_description"), true));
+                Customer customerId = DAOCustomer.get(result.getInt("id"));
+                customerContact.setCustomer(customerId);
+                ContactType contactTypeId = DAOContactType.get(result.getInt("id"));
+                customerContact.setContactType(contactTypeId);
                 customerContact.setValue(result.getString("value"));
 
                 listCustomerContact.add(customerContact);
@@ -135,16 +136,11 @@ public class DAOCustomerContact {
 
         return listCustomerContact;
     }
+
     //Search for a customer contact by name
     public static List<CustomerContact> search(String value) throws SQLException, Exception {
 
-        String sql = "SELECT a.*, "
-                + "b.id AS customer_id, b.name AS customer_name "
-                + "c.id AS contact_type_id, c.description AS contact_type_description "
-                + "FROM customer_contact a "
-                + "INNER JOIN customer b ON b.customer_id = a.customer_id"
-                + "INNER JOIN contact_type c ON c.contact_type_id = a.contact_type_id"
-                + "WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+        String sql = "SELECT * FROM customer_contact WHERE (UPPER(value) LIKE UPPER(?) AND enabled=?)";
 
         List<CustomerContact> listCustomerContact = null;
 
@@ -174,8 +170,10 @@ public class DAOCustomerContact {
                 CustomerContact customerContact = new CustomerContact();
 
                 customerContact.setId(result.getInt("id"));
-                customerContact.setCustomer(new Customer(result.getInt("customer_id"), result.getString("customer_name"), true));
-                customerContact.setContactType(new ContactType(result.getInt("contact_type_id"), result.getString("contact_type_description"), true));
+                Customer customerId = DAOCustomer.get(result.getInt("id"));
+                customerContact.setCustomer(customerId);
+                ContactType contactTypeId = DAOContactType.get(result.getInt("id"));
+                customerContact.setContactType(contactTypeId);
                 customerContact.setValue(result.getString("value"));
 
                 listCustomerContact.add(customerContact);
@@ -186,16 +184,11 @@ public class DAOCustomerContact {
 
         return listCustomerContact;
     }
+
     //Get an instance of the customer contact class by id
     public static CustomerContact get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT a.*, "
-                + "b.id AS customer_id, b.name AS customer_name "
-                + "c.id AS contact_type_id, c.description AS contact_type_description "
-                + "FROM customer_contact a "
-                + "INNER JOIN customer b ON b.customer_id = a.customer_id"
-                + "INNER JOIN contact_type c ON c.contact_type_id = a.contact_type_id"
-                + "WHERE (enabled=?)";
+        String sql = "SELECT * FROM customer_contact WHERE (enabled=?)";
 
         Connection con = null;
 
@@ -215,12 +208,14 @@ public class DAOCustomerContact {
 
             if (result.next()) {
 
-                // Create a CustomerContact instance and population with BD values
+                // Create a Customer instance and population with BD values
                 CustomerContact customerContact = new CustomerContact();
 
                 customerContact.setId(result.getInt("id"));
-                customerContact.setCustomer(new Customer(result.getInt("customer_id"), result.getString("customer_name"), true));
-                customerContact.setContactType(new ContactType(result.getInt("contact_type_id"), result.getString("contact_type_description"), true));
+                Customer customerId = DAOCustomer.get(result.getInt("id"));
+                customerContact.setCustomer(customerId);
+                ContactType contactTypeId = DAOContactType.get(result.getInt("id"));
+                customerContact.setContactType(contactTypeId);
                 customerContact.setValue(result.getString("value"));
 
                 return customerContact;

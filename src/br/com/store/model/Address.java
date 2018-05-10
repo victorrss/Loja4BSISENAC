@@ -12,21 +12,6 @@ public class Address {
     private Integer zipcode;
     private boolean enabled;
 
-    public Address(Integer Id, PublicPlaceType publicPlaceType, City city, String publicPlace, Integer number, String complement, String district, Integer zipcode, boolean enabled) {
-        this.Id = Id;
-        this.publicPlaceType = publicPlaceType;
-        this.city = city;
-        this.publicPlace = publicPlace;
-        this.number = number;
-        this.complement = complement;
-        this.district = district;
-        this.zipcode = zipcode;
-        this.enabled = enabled;
-    }
-
-    public Address() {
-    }
-
     public Integer getId() {
         return Id;
     }

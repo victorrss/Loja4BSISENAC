@@ -6,14 +6,6 @@ public class DocumentType {
     private String name; //Example: CPF, CNPJ, etc...
     private boolean enabled;
 
-    public DocumentType(Integer Id, String name) {
-        this.Id = Id;
-        this.name = name;
-    }
-
-    public DocumentType() {
-    }
-
     public Integer getId() {
         return Id;
     }
@@ -37,6 +29,5 @@ public class DocumentType {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
 
 }

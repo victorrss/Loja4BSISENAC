@@ -7,16 +7,6 @@ public class City {
     private String name; //Example: São Paulo, Dubai, Miami, etc...
     private boolean enabled;
 
-    public City(Integer Id, State state, String name, boolean enabled) {
-        this.Id = Id;
-        this.state = state;
-        this.name = name;
-        this.enabled = enabled;
-    }
-
-    public City() {
-    }
-
     public Integer getId() {
         return Id;
     }

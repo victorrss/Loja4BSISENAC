@@ -16,29 +16,6 @@ public class Customer {
     private boolean enabled;
     private Date createdAt;
 
-    public Customer(Integer Id, Address address, MaritalStatus maritalStatus, String name, DocumentType documentType, String document, String gender, Date birthDate, String note, boolean enabled, Date createdAt) {
-        this.Id = Id;
-        this.address = address;
-        this.maritalStatus = maritalStatus;
-        this.name = name;
-        this.documentType = documentType;
-        this.document = document;
-        this.gender = gender;
-        this.birthDate = birthDate;
-        this.note = note;
-        this.enabled = enabled;
-        this.createdAt = createdAt;
-    }
-
-    public Customer(Integer Id, String name, boolean enabled) {
-        this.Id = Id;
-        this.name = name;
-        this.enabled = enabled;
-    }
-
-    public Customer() {
-    }
-
     public Integer getId() {
         return Id;
     }

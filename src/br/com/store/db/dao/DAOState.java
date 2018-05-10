@@ -1,7 +1,7 @@
 package br.com.store.db.dao;
 
 import br.com.store.db.util.ConnectionUtils;
-import br.com.store.model.MaritalStatus;
+import br.com.store.model.State;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,12 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOMaritalStatus {
+public class DAOState {
 
-    //Inserts a marital status into the maritalstatus table of the database
-    public static void insert(MaritalStatus maritalStatus) throws SQLException, Exception {
+    //Inserts a state into the document_type table of the database
+    public static void insert(State state) throws SQLException, Exception {
 
-        String sql = "INSERT INTO maritalstatus (description) VALUES (?)";
+        String sql = "INSERT INTO state (name, abbreviation) VALUES (?, ?)";
 
         Connection con = null;
 
@@ -26,7 +26,8 @@ public class DAOMaritalStatus {
             stmt = con.prepareStatement(sql);
 
             //Configures the parameters of the "PreparedStatement"
-            stmt.setString(1, maritalStatus.getDescription());
+            stmt.setString(1, state.getName());
+            stmt.setString(2, state.getAbbreviation());
 
             //Executes the command in the DB
             stmt.execute();
@@ -35,11 +36,11 @@ public class DAOMaritalStatus {
         }
     }
 
-    //Performs the update of the data of a marital status
-    public static void update(MaritalStatus maritalStatus)
+    //Performs the update of the data of a state
+    public static void update(State state)
             throws SQLException, Exception {
 
-        String sql = "UPDATE maritalstatus SET description=? WHERE (id=?)";
+        String sql = "UPDATE state SET name=?, abbreviation=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -51,8 +52,9 @@ public class DAOMaritalStatus {
             stmt = con.prepareStatement(sql);
 
             //Configures the parameters of the "PreparedStatement"
-            stmt.setString(1, maritalStatus.getDescription());
-            stmt.setInt(2, maritalStatus.getId());
+            stmt.setString(1, state.getName());
+            stmt.setString(2, state.getAbbreviation());
+            stmt.setInt(3, state.getId());
 
             //Executes the command in the DB
             stmt.execute();
@@ -61,10 +63,10 @@ public class DAOMaritalStatus {
         }
     }
 
-    //Performs logical deletion of a marital status in the DB
+    //Performs logical deletion of a state in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
-        String sql = "UPDATE maritalstatus SET enabled=? WHERE (id=?)";
+        String sql = "UPDATE state SET enabled=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -85,12 +87,12 @@ public class DAOMaritalStatus {
         }
     }
 
-    //List all marital status in the table maritalstatus
-    public static List<MaritalStatus> list(Integer id) throws SQLException, Exception {
+    //List all states in the table state
+    public static List<State> list(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM maritalstatus WHERE enabled =?";
+        String sql = "SELECT * FROM state WHERE enabled =?";
 
-        List<MaritalStatus> listMaritalStatus = null;
+        List<State> listState = null;
 
         Connection con = null;
 
@@ -108,29 +110,30 @@ public class DAOMaritalStatus {
 
             while (result.next()) {
 
-                if (listMaritalStatus == null) {
-                    listMaritalStatus = new ArrayList<MaritalStatus>();
+                if (listState == null) {
+                    listState = new ArrayList<State>();
                 }
 
-                MaritalStatus maritalStatus = new MaritalStatus();
-                maritalStatus.setId(result.getInt("id"));
-                maritalStatus.setDescription(result.getString("description"));
+                State state = new State();
+                state.setId(result.getInt("id"));
+                state.setName(result.getString("name"));
+                state.setAbbreviation("abbreviation");
 
-                listMaritalStatus.add(maritalStatus);
+                listState.add(state);
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
-        return listMaritalStatus;
+        return listState;
     }
+    
+    //Search for a city by name
+    public static List<State> search(String value) throws SQLException, Exception {
 
-    //Search for a marital status by description
-    public static List<MaritalStatus> search(String value) throws SQLException, Exception {
+        String sql = "SELECT * FROM state WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
 
-        String sql = "SELECT * FROM maritalstatus WHERE (UPPER(description) LIKE UPPER(?) AND enabled=?)";
-
-        List<MaritalStatus> listMaritalStatus = null;
+        List<State> listState = null;
 
         Connection con = null;
 
@@ -150,27 +153,27 @@ public class DAOMaritalStatus {
 
             while (result.next()) {
 
-                if (listMaritalStatus == null) {
-                    listMaritalStatus = new ArrayList<MaritalStatus>();
+                if (listState == null) {
+                    listState = new ArrayList<State>();
                 }
 
-                MaritalStatus maritalStatus = new MaritalStatus();
-                maritalStatus.setId(result.getInt("id"));
-                maritalStatus.setDescription(result.getString("description"));
+                State state = new State();
+                state.setId(result.getInt("id"));
+                state.setName(result.getString("name"));
+                state.setAbbreviation("abbreviation");
 
-                listMaritalStatus.add(maritalStatus);
+                listState.add(state);
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
-        return listMaritalStatus;
+        return listState;
     }
+    //Get an instance of the state class by id
+    public static State get(Integer id) throws SQLException, Exception {
 
-    //Get an instance of the marital status class by id
-    public static MaritalStatus get(Integer id) throws SQLException, Exception {
-
-        String sql = "SELECT * FROM maritalstatus WHERE (id=? AND enabled=?)";
+        String sql = "SELECT * FROM state WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -190,11 +193,12 @@ public class DAOMaritalStatus {
 
             if (result.next()) {
 
-                MaritalStatus maritalStatus = new MaritalStatus();
-                maritalStatus.setId(result.getInt("id"));
-                maritalStatus.setDescription(result.getString("description"));
+                State state = new State();
+                state.setId(result.getInt("id"));
+                state.setName(result.getString("name"));
+                state.setAbbreviation("abbreviation");
 
-                return maritalStatus;
+                return state;
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);

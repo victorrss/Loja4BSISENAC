@@ -12,12 +12,10 @@ import java.util.List;
 
 public class DAOContactType {
     
-     //Inserts a contact type into the contact type table of the database
+     //Inserts a contact type into the contact_type table of the database
     public static void insert(ContactType contactType) throws SQLException, Exception {
 
-        String sql = "INSERT INTO "
-                + "contact_type (description)"
-                + "  VALUES (?)";
+        String sql = "INSERT INTO contact_type (description) VALUES (?)";
 
         Connection con = null;
 
@@ -42,8 +40,7 @@ public class DAOContactType {
     public static void update(ContactType contactType)
             throws SQLException, Exception {
 
-        String sql = "UPDATE contact_type SET description=?"
-                + "WHERE (id=?)";
+        String sql = "UPDATE contact_type SET description=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -91,7 +88,7 @@ public class DAOContactType {
     //List all contact types in the table contact_type
     public static List<ContactType> list(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM contact_type WHERE enabled =?";
+        String sql = "SELECT * FROM contact_type WHERE enabled=?";
 
         List<ContactType> listContactType = null;
 
@@ -127,10 +124,10 @@ public class DAOContactType {
 
         return listContactType;
     }
-    //Search for a contact type by name
+    //Search for a contact type by description
     public static List<ContactType> search(String value) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM contact_type WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+        String sql = "SELECT * FROM contact_type WHERE (UPPER(description) LIKE UPPER(?) AND enabled=?)";
 
         List<ContactType> listContactType = null;
 

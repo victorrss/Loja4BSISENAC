@@ -7,16 +7,6 @@ public class State {
     private String abbreviation; //Example: AM, SP, MG, etc...
     private boolean enabled;
 
-    public State(Integer Id, String name, String abbreviation, boolean enabled) {
-        this.Id = Id;
-        this.name = name;
-        this.abbreviation = abbreviation;
-        this.enabled = enabled;
-    }
-
-    public State() {
-    }
-
     public Integer getId() {
         return Id;
     }
