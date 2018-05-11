@@ -40,4 +40,46 @@ public class ServiceBrand {
         return list;
     }
 
+    public void update(Brand brand) throws BrandException, DataSourceException {
+        ValidatorBrand.validate(brand);
+        try {
+            DAOBrand.update(brand);
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
+    public List<Brand> search(String name) throws BrandException, DataSourceException {
+        try {
+            if (name == null || "".equals(name)) {
+                return DAOBrand.list();
+            } else {
+                return DAOBrand.search(name);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
+    public Brand get(Integer id) throws BrandException, DataSourceException {
+        try {
+            return DAOBrand.get(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
+    public void delete(Integer id) throws BrandException, DataSourceException {
+        try {
+            DAOBrand.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
 }
