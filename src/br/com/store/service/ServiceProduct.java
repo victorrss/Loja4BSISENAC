@@ -81,5 +81,14 @@ public class ServiceProduct {
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
+    
+    public void delete(Integer id) throws ProductException, DataSourceException {
+        try {
+            DAOProduct.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
 
 }
