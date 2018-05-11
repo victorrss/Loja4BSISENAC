@@ -119,10 +119,10 @@ public class DAOProduct {
                 + "c.id as category_id, c.name as category_name, "
                 + "d.id as subcategory_id, d.name as subcategory_name "
                 + "FROM product a "
-                + "INNER JOIN brand b ON b.brand_id = a.brand_id "
-                + "INNER JOIN category c ON c.category_id = a.category_id "
-                + "INNER JOIN subcategory d ON d.subcategory_id = a.subcategory_id "
-                + "WHERE (enabled=?)";
+                + "INNER JOIN brand b ON b.id = a.id "
+                + "INNER JOIN category c ON c.id = a.id "
+                + "INNER JOIN subcategory d ON d.id = a.id "
+                + "WHERE (a.enabled=?)";
 
         List<Product> listProduct = null;
 
@@ -237,10 +237,10 @@ public class DAOProduct {
                 + "c.id as category_id, c.name as category_name, "
                 + "d.id as subcategory_id, d.name as subcategory_name "
                 + "FROM product a "
-                + "INNER JOIN brand b ON b.brand_id = a.brand_id "
-                + "INNER JOIN category c ON c.category_id = a.category_id "
-                + "INNER JOIN subcategory d ON d.subcategory_id = a.subcategory_id "
-                + "WHERE (product_id=? AND enabled=?)";
+                + "INNER JOIN brand b ON b.id = a.id "
+                + "INNER JOIN category c ON c.id = a.id "
+                + "INNER JOIN subcategory d ON d.id = a.id "
+                + "WHERE (a.product_id=? AND a.enabled=?)";
 
         Connection con = null;
 

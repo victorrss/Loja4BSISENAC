@@ -57,7 +57,7 @@
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Pesquisa"/>
+            <TitledBorder title="Pesquisar por nome"/>
           </Border>
         </Property>
       </Properties>
@@ -66,12 +66,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                  <Component id="lblProductSearchField" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cbProductSearchField" min="-2" pref="110" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Component id="txtProductSearchField" pref="584" max="32767" attributes="0"/>
+                  <Component id="txtProductSearchField" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnProductSearch" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -82,8 +77,6 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbProductSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblProductSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnProductSearch" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="txtProductSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -93,26 +86,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JComboBox" name="cbProductSearchField">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblProductSearchField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Campo"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="txtProductSearchField">
         </Component>
         <Component class="javax.swing.JButton" name="btnProductSearch">
@@ -121,6 +94,9 @@
               <Image iconType="3" name="/resources/icons/search.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductSearchActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

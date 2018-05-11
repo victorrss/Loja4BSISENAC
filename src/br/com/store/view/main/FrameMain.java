@@ -3,8 +3,8 @@ package br.com.store.view.main;
 import br.com.store.model.enums.FormOperationEnum;
 import br.com.store.view.PanelCustomerAdd;
 import br.com.store.view.PanelCustomerList;
-import br.com.store.view.PanelProductCRU;
-import br.com.store.view.PanelProductList;
+import br.com.store.view.PanelProductCreateUpdate;
+import br.com.store.view.PanelProductReadDelete;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -26,12 +26,12 @@ public class FrameMain extends javax.swing.JFrame {
         panelMain = new javax.swing.JPanel();
         Home = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        panelProductAdd = new br.com.store.view.PanelProductCRU();
+        panelProductAdd = new br.com.store.view.PanelProductCreateUpdate();
         panelCustomerList = new br.com.store.view.PanelCustomerList();
         panelCustomerAdd = new br.com.store.view.PanelCustomerAdd();
         panelBrand = new br.com.store.view.PanelBrand();
         panelCategory = new br.com.store.view.PanelCategory();
-        panelProductList = new br.com.store.view.PanelProductList();
+        panelProductList = new br.com.store.view.PanelProductReadDelete();
         panelSubCategory = new br.com.store.view.PanelSubCategory();
         panelOption = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
@@ -223,14 +223,15 @@ public class FrameMain extends javax.swing.JFrame {
         JMenuItem mItemCategory = new JMenuItem("Cadastro de Categoria");
         JMenuItem mItemSubCategory = new JMenuItem("Cadastro de Sub Categoria");
         mItemAdd.addActionListener((e) -> {
+
+            PanelProductCreateUpdate p = new PanelProductCreateUpdate(FormOperationEnum.CREATE, null);
+            panelMain.add("ProductAdd", p);
             card.show(panelMain, "ProductAdd");
-            PanelProductCRU p = new PanelProductCRU();
-            p.operation = FormOperationEnum.CREATE;
-            panelMain.add("ProductAdd", new PanelProductCRU());
+
         });
         mItemList.addActionListener((e) -> {
             card.show(panelMain, "ProductList");
-            panelMain.add("ProductList", new PanelProductList());
+            panelMain.add("ProductList", new PanelProductReadDelete());
         });
         mItemBrand.addActionListener((e) -> {
             card.show(panelMain, "Brand");
@@ -301,8 +302,8 @@ public class FrameMain extends javax.swing.JFrame {
     private br.com.store.view.PanelCustomerList panelCustomerList;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelOption;
-    private br.com.store.view.PanelProductCRU panelProductAdd;
-    private br.com.store.view.PanelProductList panelProductList;
+    private br.com.store.view.PanelProductCreateUpdate panelProductAdd;
+    private br.com.store.view.PanelProductReadDelete panelProductList;
     private br.com.store.view.PanelSubCategory panelSubCategory;
     // End of variables declaration//GEN-END:variables
     public static Dimension resizeFullScreen() {

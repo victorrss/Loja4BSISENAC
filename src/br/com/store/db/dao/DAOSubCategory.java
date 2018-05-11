@@ -115,7 +115,7 @@ public class DAOSubCategory {
                 }
 
                 SubCategory subcategory = new SubCategory();
-                subcategory.setId(result.getInt("subcategory_id"));
+                subcategory.setId(result.getInt("id"));
                 subcategory.setName(result.getString("name"));
 
                 listSubcategory.add(subcategory);

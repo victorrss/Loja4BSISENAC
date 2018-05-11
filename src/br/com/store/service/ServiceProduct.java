@@ -56,7 +56,7 @@ public class ServiceProduct {
         }
     }
 
-    public List<Product> search(String name) throws ProductException, DataSourceException {
+    public List<Product> search(String name) throws DataSourceException {
         try {
 
             if (name == null || "".equals(name)) {
@@ -70,19 +70,19 @@ public class ServiceProduct {
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
-    
-    public Product get(Integer id) throws ProductException, DataSourceException {
+
+    public Product get(Integer id) throws DataSourceException {
         try {
-            
+
             return DAOProduct.get(id);
         } catch (Exception e) {
-            
+
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
-    
-    public void delete(Integer id) throws ProductException, DataSourceException {
+
+    public void delete(Integer id) throws DataSourceException {
         try {
             DAOProduct.delete(id);
         } catch (Exception e) {

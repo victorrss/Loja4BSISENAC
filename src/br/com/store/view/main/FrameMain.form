@@ -127,7 +127,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="br.com.store.view.PanelProductCRU" name="panelProductAdd">
+            <Component class="br.com.store.view.PanelProductCreateUpdate" name="panelProductAdd">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="ProductAdd"/>
@@ -162,7 +162,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="br.com.store.view.PanelProductList" name="panelProductList">
+            <Component class="br.com.store.view.PanelProductReadDelete" name="panelProductList">
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
               </AccessibilityProperties>

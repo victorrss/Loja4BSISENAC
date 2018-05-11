@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/victor.rubens/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/service/ServiceSubCategory.java</file>
-            <file>file:/C:/Users/victor.rubens/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/view/main/FrameMain.java</file>
-            <file>file:/C:/Users/victor.rubens/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/view/PanelProductAdd.java</file>
+            <file>file:/C:/Users/victor.rubens/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/db/dao/DAOProduct.java</file>
+            <file>file:/C:/Users/victor.rubens/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/service/ServiceBrand.java</file>
+            <file>file:/C:/Users/victor.rubens/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/db/util/ConnectionUtils.java</file>
+            <file>file:/C:/Users/victor.rubens/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/service/ServiceProduct.java</file>
         </group>
     </open-files>
 </project-private>

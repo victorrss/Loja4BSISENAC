@@ -42,7 +42,13 @@ public class FormUtil {
                 templbl = (JLabel) c;
                 templbl.setIcon(null);
             }
-
         }
     }
+
+    public static void maxLenghtTextField(JTextField c, java.awt.event.KeyEvent evt) {
+        if (c.getText().length() == c.getColumns()) {
+            evt.consume();
+        }
+    }
+
 }

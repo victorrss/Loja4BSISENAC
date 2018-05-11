@@ -39,4 +39,9 @@ public class SubCategory { //Example: 8th generation intel, GTX 10 series, etc..
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

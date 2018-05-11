@@ -14,7 +14,6 @@ import br.com.store.service.ServiceSubCategory;
 import br.com.store.utils.FormUtil;
 import br.com.store.utils.ImageUtil;
 import br.com.store.utils.DataUtil;
-import java.awt.CardLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
@@ -22,30 +21,42 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class PanelProductCRU extends javax.swing.JPanel {
+public class PanelProductCreateUpdate extends javax.swing.JPanel {
 
-    public FormOperationEnum operation = null;
-    public Integer productId = null;
+    private FormOperationEnum operation = null;
+    private Integer productId = null;
     BufferedImage image;
 
-    public PanelProductCRU() {
+    public PanelProductCreateUpdate() {
         initComponents();
         loadBrand();
         loadCategory();
         loadSubCategory();
+
     }
 
-    void prepareFormOperation() {
-        if (operation == FormOperationEnum.CREATE) {
-            lblProductId.setVisible(false);
-            txtProductId.setVisible(false);
-            lblPanelTitile.setText("Produto - Novo");
+    public PanelProductCreateUpdate(FormOperationEnum operation, Integer id) {
+        initComponents();
+        loadBrand();
+        loadCategory();
+        loadSubCategory();
+        prepareFormOperation(FormOperationEnum.CREATE, null);
+    }
+
+    private void prepareFormOperation(FormOperationEnum operation, Integer id) {
+        this.operation = operation;
+        this.productId = id;
+        if (this.operation == FormOperationEnum.CREATE) {
+            lblProductId.setEnabled(false);
+            txtProductId.setEnabled(false);
+            lblPanelTitle.setText("Produto - Novo");
         } else {
-            lblProductId.setVisible(true);
-            txtProductId.setVisible(true);
-            lblPanelTitile.setText("Produto - Alteração");
+            lblProductId.setEnabled(true);
+            txtProductId.setEnabled(true);
+            lblPanelTitle.setText("Produto - Alteração");
             loadProduct(productId);
         }
     }
@@ -54,7 +65,7 @@ public class PanelProductCRU extends javax.swing.JPanel {
         Product p = new Product();
         try {
             ServiceProduct.getInstance().get(id);
-        } catch (DataSourceException | ProductException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return;
@@ -109,7 +120,7 @@ public class PanelProductCRU extends javax.swing.JPanel {
         scrollProductDescription = new javax.swing.JScrollPane();
         txtProductDescription = new javax.swing.JTextArea();
         btnProductFinalize = new javax.swing.JButton();
-        lblPanelTitile = new javax.swing.JLabel();
+        lblPanelTitle = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -118,6 +129,13 @@ public class PanelProductCRU extends javax.swing.JPanel {
 
         lblProductName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductName.setText("Nome");
+
+        txtProductName.setColumns(45);
+        txtProductName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                maxLenght(evt);
+            }
+        });
 
         lblProductBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductBrand.setText("Marca");
@@ -128,6 +146,13 @@ public class PanelProductCRU extends javax.swing.JPanel {
         lblProductId.setText("Código");
 
         txtProductId.setEditable(false);
+
+        txtProductBarcode.setColumns(13);
+        txtProductBarcode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                maxLenght(evt);
+            }
+        });
 
         lblProductBarcode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductBarcode.setText("Código de Barras");
@@ -154,6 +179,13 @@ public class PanelProductCRU extends javax.swing.JPanel {
 
         lblProductModel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductModel.setText("Modelo");
+
+        txtProductModel.setColumns(45);
+        txtProductModel.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                maxLenght(evt);
+            }
+        });
 
         lblProductPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductPrice.setText("Preço");
@@ -194,6 +226,7 @@ public class PanelProductCRU extends javax.swing.JPanel {
         });
 
         txtProductDescription.setColumns(20);
+        txtProductDescription.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         txtProductDescription.setRows(5);
         scrollProductDescription.setViewportView(txtProductDescription);
 
@@ -314,13 +347,15 @@ public class PanelProductCRU extends javax.swing.JPanel {
                                 .addComponent(lblProductStock)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblProductDescription)
-                            .addComponent(scrollProductDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelProductRegisterLayout.createSequentialGroup()
+                                .addComponent(lblProductDescription)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(scrollProductDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)))
                     .addGroup(panelProductRegisterLayout.createSequentialGroup()
                         .addComponent(lblProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
                         .addComponent(btnProductPicture)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         btnProductFinalize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
@@ -330,8 +365,8 @@ public class PanelProductCRU extends javax.swing.JPanel {
             }
         });
 
-        lblPanelTitile.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        lblPanelTitile.setText("Produto");
+        lblPanelTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblPanelTitle.setText("Produto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -344,16 +379,14 @@ public class PanelProductCRU extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnProductFinalize, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblPanelTitile)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(lblPanelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPanelTitile)
+                .addComponent(lblPanelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelProductRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -450,6 +483,10 @@ public class PanelProductCRU extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnProductPictureActionPerformed
 
+    private void maxLenght(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_maxLenght
+        FormUtil.maxLenghtTextField((JTextField) evt.getSource(), evt);
+    }//GEN-LAST:event_maxLenght
+
     private void loadBrand() {
         FormUtil.clearComboBox(cbProductBrand);
         List<Brand> list = null;
@@ -511,7 +548,7 @@ public class PanelProductCRU extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbProductBrand;
     private javax.swing.JComboBox<String> cbProductCategory;
     private javax.swing.JComboBox<String> cbProductSubCategory;
-    private javax.swing.JLabel lblPanelTitile;
+    private javax.swing.JLabel lblPanelTitle;
     private javax.swing.JLabel lblProductBarcode;
     private javax.swing.JLabel lblProductBrand;
     private javax.swing.JLabel lblProductCategory;

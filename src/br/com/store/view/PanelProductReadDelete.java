@@ -1,9 +1,17 @@
 package br.com.store.view;
 
-public class PanelProductList extends javax.swing.JPanel {
 
-    public PanelProductList() {
+import br.com.store.model.Product;
+import br.com.store.service.ServiceProduct;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+public class PanelProductReadDelete extends javax.swing.JPanel {
+
+    public PanelProductReadDelete() {
         initComponents();
+        loadList();
     }
 
     @SuppressWarnings("unchecked")
@@ -11,8 +19,6 @@ public class PanelProductList extends javax.swing.JPanel {
     private void initComponents() {
 
         panelProductSearch = new javax.swing.JPanel();
-        cbProductSearchField = new javax.swing.JComboBox<>();
-        lblProductSearchField = new javax.swing.JLabel();
         txtProductSearchField = new javax.swing.JTextField();
         btnProductSearch = new javax.swing.JButton();
         scrollProduct = new javax.swing.JScrollPane();
@@ -22,25 +28,21 @@ public class PanelProductList extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         panelProductSearch.setBackground(new java.awt.Color(255, 255, 255));
-        panelProductSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisa"));
-
-        cbProductSearchField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblProductSearchField.setText("Campo");
+        panelProductSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar por nome"));
 
         btnProductSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
+        btnProductSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProductSearchLayout = new javax.swing.GroupLayout(panelProductSearch);
         panelProductSearch.setLayout(panelProductSearchLayout);
         panelProductSearchLayout.setHorizontalGroup(
             panelProductSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductSearchLayout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(lblProductSearchField)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbProductSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(txtProductSearchField, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+                .addComponent(txtProductSearchField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProductSearch)
                 .addGap(2, 2, 2))
@@ -49,8 +51,6 @@ public class PanelProductList extends javax.swing.JPanel {
             panelProductSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductSearchLayout.createSequentialGroup()
                 .addGroup(panelProductSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbProductSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblProductSearchField)
                     .addComponent(btnProductSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProductSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -111,12 +111,68 @@ public class PanelProductList extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnProductSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductSearchActionPerformed
+
+    }//GEN-LAST:event_btnProductSearchActionPerformed
+
+    private void loadList() {
+        DefaultTableModel model = (DefaultTableModel) tableProductSearch.getModel();
+        model.setNumRows(0);
+        List<Product> list = null;
+        try {
+            list = ServiceProduct.getInstance().list();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        if (list == null) {
+            return;
+        }
+        for (Product p : list) {
+            model.addRow(new Object[]{
+                p.getId(),
+                p.getBarcode(),
+                p.getName(),
+                p.getModel(),
+                p.getPrice().toString().replace(".", ","),
+                p.getStock()
+            });
+        }
+
+    }
+
+    private void loadSearch(String value) {
+        DefaultTableModel model = (DefaultTableModel) tableProductSearch.getModel();
+        model.setNumRows(0);
+        List<Product> list = null;
+        try {
+            list = ServiceProduct.getInstance().search(value);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        if (list == null) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi encontrado",
+                    "Pesquisa", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        for (Product p : list) {
+            model.addRow(new Object[]{
+                p.getId(),
+                p.getBarcode(),
+                p.getName(),
+                p.getModel(),
+                p.getPrice().toString().replace(".", ","),
+                p.getStock()
+            });
+
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProductSearch;
-    private javax.swing.JComboBox<String> cbProductSearchField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblProductSearchField;
     private javax.swing.JPanel panelProductSearch;
     private javax.swing.JScrollPane scrollProduct;
     private javax.swing.JTable tableProductSearch;

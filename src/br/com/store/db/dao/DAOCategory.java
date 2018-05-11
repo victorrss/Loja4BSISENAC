@@ -115,7 +115,7 @@ public class DAOCategory {
                 }
 
                 Category category = new Category();
-                category.setId(result.getInt("category_id"));
+                category.setId(result.getInt("id"));
                 category.setName(result.getString("name"));
 
                 listCategory.add(category);
