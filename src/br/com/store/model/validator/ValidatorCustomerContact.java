@@ -4,7 +4,7 @@ import br.com.store.exception.CustomerContactException;
 import br.com.store.model.CustomerContact;
 
 public class ValidatorCustomerContact {
-    
+
     public static void validate(CustomerContact customerContact) throws CustomerContactException {
 
         if (customerContact == null) {
@@ -19,9 +19,13 @@ public class ValidatorCustomerContact {
             throw new CustomerContactException("Tipo de contato não fornecido");
         }
 
-        if (customerContact.getValue() == null || customerContact.getValue().trim().isEmpty()) {
+        if (customerContact.getValue() == null || customerContact.getValue().trim().isEmpty() 
+                || "".equals(customerContact.getValue())) {
             throw new CustomerContactException("Contato não fornecido");
         }
+        if (customerContact.getValue().length() > 45) {
+            throw new CustomerContactException("Contato não pode ter mais que 45 caracteres");
+        }
     }
-    
+
 }
