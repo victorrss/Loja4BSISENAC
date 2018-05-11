@@ -5,6 +5,8 @@
  */
 package br.com.store.view;
 
+import java.awt.Component;
+
 /**
  *
  * @author FAMILIA
@@ -131,7 +133,7 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
                     .addGroup(panelCustomerBasicLayout.createSequentialGroup()
                         .addComponent(cbCustomerBasicDocumentType, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCustomerBasicDocument, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE))
+                        .addComponent(txtCustomerBasicDocument, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
                     .addComponent(txtCustomerBasicName)
                     .addComponent(txtCustomerBasicBirthDate, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
@@ -164,6 +166,11 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
         );
 
         btnCustomerBasicNext.setText("Próximo");
+        btnCustomerBasicNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerBasicNextActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabCustomerBasicLayout = new javax.swing.GroupLayout(tabCustomerBasic);
         tabCustomerBasic.setLayout(tabCustomerBasicLayout);
@@ -243,7 +250,7 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCustomerAddressPublicPlace)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCustomerAddressPublicPlace, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE))
+                        .addComponent(txtCustomerAddressPublicPlace, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
                     .addGroup(panelCustomerAddressLayout.createSequentialGroup()
                         .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblCustomerAddressNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -300,8 +307,18 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
         );
 
         btnAddressNext.setText("Próximo");
+        btnAddressNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddressNextActionPerformed(evt);
+            }
+        });
 
         btnAddressBack.setText("Voltar");
+        btnAddressBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddressBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabCustomerAddressLayout = new javax.swing.GroupLayout(tabCustomerAddress);
         tabCustomerAddress.setLayout(tabCustomerAddressLayout);
@@ -384,7 +401,7 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
                         .addGap(1, 1, 1)
                         .addComponent(cbCustomerContactContactType, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 891, Short.MAX_VALUE))
+                    .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCustomerContactDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -411,6 +428,11 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
 
         btnCustomerContactBack.setText("Voltar");
         btnCustomerContactBack.setPreferredSize(new java.awt.Dimension(71, 23));
+        btnCustomerContactBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerContactBackActionPerformed(evt);
+            }
+        });
 
         btnCustomerContactCustomerSave.setText("Salvar");
         btnCustomerContactCustomerSave.setPreferredSize(new java.awt.Dimension(71, 23));
@@ -450,7 +472,7 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanelCustomer)
+            .addComponent(tabPanelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -478,6 +500,25 @@ public class PanelCustomerAdd extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCustomerBasicNameActionPerformed
 
+    private void btnCustomerBasicNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerBasicNextActionPerformed
+        setActiveTab(tabCustomerAddress);
+    }//GEN-LAST:event_btnCustomerBasicNextActionPerformed
+
+    private void btnAddressBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddressBackActionPerformed
+        setActiveTab(tabCustomerBasic);
+    }//GEN-LAST:event_btnAddressBackActionPerformed
+
+    private void btnAddressNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddressNextActionPerformed
+        setActiveTab(tabCustomerContact);
+    }//GEN-LAST:event_btnAddressNextActionPerformed
+
+    private void btnCustomerContactBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactBackActionPerformed
+        setActiveTab(tabCustomerAddress);
+    }//GEN-LAST:event_btnCustomerContactBackActionPerformed
+    
+    void setActiveTab(Component c) {
+        tabPanelCustomer.setSelectedComponent(c);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddressBack;

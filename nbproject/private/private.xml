@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/C:/Users/victor.rssantos/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/view/PanelProductList.java</file>
+            <file>file:/C:/Users/victor.rssantos/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/utils/FormUtils.java</file>
+            <file>file:/C:/Users/victor.rssantos/Documents/NetBeansProjects/Loja4BSISENAC/src/br/com/store/view/PanelProductAdd.java</file>
+        </group>
+>>>>>>> fe486794b8e16ab7f46234d8f275c56d6a78b047
     </open-files>
 </project-private>

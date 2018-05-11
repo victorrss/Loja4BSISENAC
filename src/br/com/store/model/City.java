@@ -5,15 +5,7 @@ public class City {
     private Integer Id;
     private State state;
     private String name; //Example: São Paulo, Dubai, Miami, etc...
-
-    public City(Integer Id, State state, String name) {
-        this.Id = Id;
-        this.state = state;
-        this.name = name;
-    }
-
-    public City() {
-    }
+    private boolean enabled;
 
     public Integer getId() {
         return Id;
@@ -37,6 +29,14 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

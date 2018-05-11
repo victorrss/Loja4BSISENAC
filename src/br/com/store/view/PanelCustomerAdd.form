@@ -21,7 +21,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabPanelCustomer" max="32767" attributes="0"/>
+          <Component id="tabPanelCustomer" pref="742" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -123,7 +123,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="cbCustomerBasicDocumentType" min="-2" pref="89" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCustomerBasicDocument" pref="747" max="32767" attributes="0"/>
+                                  <Component id="txtCustomerBasicDocument" pref="487" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtCustomerBasicName" max="32767" attributes="0"/>
                               <Component id="txtCustomerBasicBirthDate" alignment="1" max="32767" attributes="0"/>
@@ -258,6 +258,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pr&#xf3;ximo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustomerBasicNextActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -333,7 +336,7 @@
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="lblCustomerAddressPublicPlace" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtCustomerAddressPublicPlace" pref="736" max="32767" attributes="0"/>
+                                  <Component id="txtCustomerAddressPublicPlace" pref="476" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -516,11 +519,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pr&#xf3;ximo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddressNextActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnAddressBack">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Voltar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddressBackActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -599,7 +608,7 @@
                                   <Component id="cbCustomerContactContactType" min="-2" pref="67" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="scrollCustomerContact" alignment="0" pref="891" max="32767" attributes="0"/>
+                              <Component id="scrollCustomerContact" alignment="0" pref="631" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -704,6 +713,9 @@
                   <Dimension value="[71, 23]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustomerContactBackActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCustomerContactCustomerSave">
               <Properties>

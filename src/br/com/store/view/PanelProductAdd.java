@@ -1,9 +1,29 @@
 package br.com.store.view;
 
+import br.com.store.exception.DataSourceException;
+import br.com.store.exception.ProductException;
+import br.com.store.model.Brand;
+import br.com.store.model.Category;
+import br.com.store.model.Product;
+import br.com.store.model.SubCategory;
+import br.com.store.service.ServiceBrand;
+import br.com.store.service.ServiceCategory;
+import br.com.store.service.ServiceProduct;
+import br.com.store.service.ServiceSubCategory;
+import br.com.store.utils.FormUtils;
+import br.com.store.utils.Util;
+import java.awt.image.BufferedImage;
+import java.util.List;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
+
 public class PanelProductAdd extends javax.swing.JPanel {
 
     public PanelProductAdd() {
         initComponents();
+        loadBrand();
+        loadCategory();
+        loadSubCategory();
     }
 
     @SuppressWarnings("unchecked")
@@ -19,7 +39,7 @@ public class PanelProductAdd extends javax.swing.JPanel {
         txtProductId = new javax.swing.JTextField();
         txtProductBarcode = new javax.swing.JTextField();
         lblProductBarcode = new javax.swing.JLabel();
-        lblProductImage = new javax.swing.JLabel();
+        lblProductPicture = new javax.swing.JLabel();
         cbProductCategory = new javax.swing.JComboBox<>();
         lblProductCategory = new javax.swing.JLabel();
         lblProductSubCategory = new javax.swing.JLabel();
@@ -38,7 +58,7 @@ public class PanelProductAdd extends javax.swing.JPanel {
         btnProductRefreshSubCategory = new javax.swing.JButton();
         txtProductDescription = new javax.swing.JTextField();
         lblProductDescription = new javax.swing.JLabel();
-        btnProductImage = new javax.swing.JButton();
+        btnProductPicture = new javax.swing.JButton();
         btnProductFinalize = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -50,12 +70,6 @@ public class PanelProductAdd extends javax.swing.JPanel {
         lblProductName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductName.setText("Nome");
 
-        txtProductName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductNameActionPerformed(evt);
-            }
-        });
-
         lblProductBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductBrand.setText("Marca");
 
@@ -64,24 +78,12 @@ public class PanelProductAdd extends javax.swing.JPanel {
         lblProductId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductId.setText("Código");
 
-        txtProductId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductIdActionPerformed(evt);
-            }
-        });
-
-        txtProductBarcode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductBarcodeActionPerformed(evt);
-            }
-        });
-
         lblProductBarcode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductBarcode.setText("Código de Barras");
 
-        lblProductImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblProductImage.setText("Foto");
-        lblProductImage.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
+        lblProductPicture.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblProductPicture.setText("Foto");
+        lblProductPicture.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
 
         cbProductCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -96,23 +98,11 @@ public class PanelProductAdd extends javax.swing.JPanel {
         lblProductWarranty.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductWarranty.setText("Garantia");
 
-        txtProductWarranty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductWarrantyActionPerformed(evt);
-            }
-        });
-
         lblProductWarrantHelp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblProductWarrantHelp.setText("meses");
 
         lblProductModel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductModel.setText("Modelo");
-
-        txtProductModel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductModelActionPerformed(evt);
-            }
-        });
 
         lblProductPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductPrice.setText("Preço");
@@ -120,29 +110,32 @@ public class PanelProductAdd extends javax.swing.JPanel {
         lblProductStock.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductStock.setText("Estoque");
 
-        txtProductStock.addActionListener(new java.awt.event.ActionListener() {
+        btnProductRefreshCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
+        btnProductRefreshCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductStockActionPerformed(evt);
+                btnProductRefreshCategoryActionPerformed(evt);
             }
         });
 
-        btnProductRefreshCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
-
         btnProductRefreshBrand.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
+        btnProductRefreshBrand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductRefreshBrandActionPerformed(evt);
+            }
+        });
 
         btnProductRefreshSubCategory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/refresh.png"))); // NOI18N
-
-        txtProductDescription.addActionListener(new java.awt.event.ActionListener() {
+        btnProductRefreshSubCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProductDescriptionActionPerformed(evt);
+                btnProductRefreshSubCategoryActionPerformed(evt);
             }
         });
 
         lblProductDescription.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductDescription.setText("Descrição");
 
-        btnProductImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
-        btnProductImage.setText("Procurar");
+        btnProductPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
+        btnProductPicture.setText("Procurar");
 
         javax.swing.GroupLayout panelProductRegisterLayout = new javax.swing.GroupLayout(panelProductRegister);
         panelProductRegister.setLayout(panelProductRegisterLayout);
@@ -164,10 +157,11 @@ public class PanelProductAdd extends javax.swing.JPanel {
                             .addComponent(btnProductRefreshCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnProductRefreshSubCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductRegisterLayout.createSequentialGroup()
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblProductBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblProductId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblProductId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblProductBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtProductName)
@@ -206,8 +200,8 @@ public class PanelProductAdd extends javax.swing.JPanel {
                             .addComponent(txtProductModel, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(18, 18, 18)
                 .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblProductImage, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(btnProductImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblProductPicture, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(btnProductPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -230,8 +224,9 @@ public class PanelProductAdd extends javax.swing.JPanel {
                     .addGroup(panelProductRegisterLayout.createSequentialGroup()
                         .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnProductRefreshBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbProductBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblProductBrand))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbProductBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblProductBrand)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbProductCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,12 +257,17 @@ public class PanelProductAdd extends javax.swing.JPanel {
                             .addComponent(lblProductDescription)
                             .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtProductDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnProductImage))))
-                    .addComponent(lblProductImage, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnProductPicture))))
+                    .addComponent(lblProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnProductFinalize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnProductFinalize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductFinalizeActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Produto - Novo");
@@ -301,38 +301,114 @@ public class PanelProductAdd extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtProductNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductNameActionPerformed
+    private void btnProductFinalizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductFinalizeActionPerformed
+        int dialogResult = JOptionPane.showConfirmDialog(this,
+                "Tem certeza que deseja cadastrar uma novo produto?",
+                "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
 
-    private void txtProductIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductIdActionPerformed
+        // get image from label icon
+        Icon icon = lblProductPicture.getIcon();
+        BufferedImage image = new BufferedImage(icon.getIconWidth(),
+                icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
 
-    private void txtProductBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductBarcodeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductBarcodeActionPerformed
+        Product product = new Product();
+        product.setName(txtProductName.getText());
+        product.setBarcode(txtProductBarcode.getText());
+        product.setDescription(txtProductDescription.getText());
+        product.setWarranty(Util.parseInteger(txtProductWarranty.getText()));
+        product.setModel(txtProductModel.getText());
+        product.setPicture(FormUtils.getImgBytes(image));
+        product.setStock(Util.parseInteger(txtProductStock.getText()));
+        product.setPrice(Util.parseFloat(txtProductPrice.getText()));
+        product.setCategory((Category) cbProductCategory.getSelectedItem());
+        product.setSubCategory((SubCategory) cbProductSubCategory.getSelectedItem());
+        product.setBrand((Brand) cbProductBrand.getSelectedItem());
 
-    private void txtProductWarrantyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductWarrantyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductWarrantyActionPerformed
+        try {
+            ServiceProduct.getInstance().insert(product);
+        } catch (DataSourceException | ProductException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-    private void txtProductModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductModelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductModelActionPerformed
+        JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso",
+                "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
 
-    private void txtProductStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductStockActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductStockActionPerformed
 
-    private void txtProductDescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProductDescriptionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProductDescriptionActionPerformed
+    }//GEN-LAST:event_btnProductFinalizeActionPerformed
+
+    private void btnProductRefreshBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshBrandActionPerformed
+        loadBrand();
+    }//GEN-LAST:event_btnProductRefreshBrandActionPerformed
+
+    private void btnProductRefreshCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshCategoryActionPerformed
+        loadCategory();
+    }//GEN-LAST:event_btnProductRefreshCategoryActionPerformed
+
+    private void btnProductRefreshSubCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshSubCategoryActionPerformed
+        loadSubCategory();
+    }//GEN-LAST:event_btnProductRefreshSubCategoryActionPerformed
+
+    private void loadBrand() {
+        FormUtils.clearComboBox(cbProductBrand);
+        List<Brand> list = null;
+        try {
+            list = ServiceBrand.getInstance().list();
+        } catch (DataSourceException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (list == null) {
+            return;
+        }
+
+        FormUtils.setModelComboBox(cbProductBrand, list);
+    }
+
+    private void loadCategory() {
+        FormUtils.clearComboBox(cbProductCategory);
+        List<Category> list = null;
+        try {
+            list = ServiceCategory.getInstance().list();
+        } catch (DataSourceException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (list == null) {
+            return;
+        }
+
+        FormUtils.setModelComboBox(cbProductCategory, list);
+    }
+
+    private void loadSubCategory() {
+        FormUtils.clearComboBox(cbProductSubCategory);
+        List<SubCategory> list = null;
+        try {
+            list = ServiceSubCategory.getInstance().list();
+        } catch (DataSourceException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (list == null) {
+            return;
+        }
+
+        FormUtils.setModelComboBox(cbProductSubCategory, list);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProductFinalize;
-    private javax.swing.JButton btnProductImage;
+    private javax.swing.JButton btnProductPicture;
     private javax.swing.JButton btnProductRefreshBrand;
     private javax.swing.JButton btnProductRefreshCategory;
     private javax.swing.JButton btnProductRefreshSubCategory;
@@ -345,9 +421,9 @@ public class PanelProductAdd extends javax.swing.JPanel {
     private javax.swing.JLabel lblProductCategory;
     private javax.swing.JLabel lblProductDescription;
     private javax.swing.JLabel lblProductId;
-    private javax.swing.JLabel lblProductImage;
     private javax.swing.JLabel lblProductModel;
     private javax.swing.JLabel lblProductName;
+    private javax.swing.JLabel lblProductPicture;
     private javax.swing.JLabel lblProductPrice;
     private javax.swing.JLabel lblProductStock;
     private javax.swing.JLabel lblProductSubCategory;

@@ -2,12 +2,9 @@ package br.com.store.db.dao;
 
 import br.com.store.db.util.ConnectionUtils;
 import br.com.store.model.Address;
-import br.com.store.model.City;
 import br.com.store.model.Customer;
 import br.com.store.model.DocumentType;
 import br.com.store.model.MaritalStatus;
-import br.com.store.model.PublicPlaceType;
-import br.com.store.model.State;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,11 +16,11 @@ import java.util.List;
 
 public class DAOCustomer {
 
-    //Inserts a product into the product table of the database
+    //Inserts a customer into the customer table of the database
     public static void insert(Customer customer) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
-                + "customer (name, document_type_id, document, gender, birth_date, address_id, maritalstatus_id, note, created_at, enabled)"
+                + "customer (address_id, maritalstatus_id, name, document_type_id, document, gender, birth_date, note, enabled, created_at)"
                 + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection con = null;
@@ -36,48 +33,32 @@ public class DAOCustomer {
             stmt = con.prepareStatement(sql);
 
             //Configures the parameters of the "PreparedStatement"
-            stmt.setString(1, customer.getName());
-//<<<<<<< HEAD
-            stmt.setObject(2, customer.getDocumentType());
-            stmt.setString(3, customer.getDocument());
-            stmt.setString(4, customer.getGender());
+            stmt.setInt(1, customer.getAddress().getId());
+            stmt.setInt(2, customer.getMaritalStatus().getId());
+            stmt.setString(3, customer.getName());
+            stmt.setInt(4, customer.getDocumentType().getId());
+            stmt.setString(5, customer.getDocument());
+            stmt.setString(6, customer.getGender());
             Timestamp bd = new Timestamp(customer.getBirthDate().getTime());
-            stmt.setTimestamp(5, bd);
-            stmt.setObject(6, customer.getAddress());
-            stmt.setObject(7, customer.getMaritalStatus());
-//=======
-           // stmt.setObject(2, customer.getDocumentTypeID());
-            stmt.setString(3, customer.getDocument());
-            stmt.setString(4, customer.getGender());
-           // Timestamp t = new Timestamp(customer.getBirth_date().getTime());
-         //   stmt.setTimestamp(5, t);
-           // stmt.setObject(6, customer.getAddressID());
-           // stmt.setObject(7, customer.getMaritalStatusID());
-//>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
+            stmt.setTimestamp(7, bd);
             stmt.setString(8, customer.getNote());
+            stmt.setBoolean(9, true);
             Timestamp c = new Timestamp(customer.getCreatedAt().getTime());
-            stmt.setTimestamp(9, c);
-            stmt.setBoolean(10, true);
+            stmt.setTimestamp(10, c);
 
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
-    //Performs the update of the data of a product
+    //Performs the update of the data of a customer
     public static void update(Customer customer)
             throws SQLException, Exception {
 
-        String sql = "UPDATE customer SET name=?, document_type_id=?, document=?, gender=?, birth_date=?, address_id=?, maritalstatus_id=?, note=?, created_at=? "
+        String sql = "UPDATE customer SET address_id=?, maritalstatus_id=?, name=?, document_type_id=?, "
+                + "document=?, gender=?, birth_date=?, note=?, created_at=?"
                 + "WHERE (id=?)";
 
         Connection con = null;
@@ -90,24 +71,14 @@ public class DAOCustomer {
             stmt = con.prepareStatement(sql);
 
             //Configures the parameters of the "PreparedStatement"
-            stmt.setString(1, customer.getName());
-//<<<<<<< HEAD
-            stmt.setObject(2, customer.getDocumentType());
-            stmt.setString(3, customer.getDocument());
-            stmt.setString(4, customer.getGender());
+            stmt.setInt(1, customer.getAddress().getId());
+            stmt.setInt(2, customer.getMaritalStatus().getId());
+            stmt.setString(3, customer.getName());
+            stmt.setInt(4, customer.getDocumentType().getId());
+            stmt.setString(5, customer.getDocument());
+            stmt.setString(6, customer.getGender());
             Timestamp bd = new Timestamp(customer.getBirthDate().getTime());
-            stmt.setTimestamp(5, bd);
-            stmt.setObject(6, customer.getAddress());
-            stmt.setObject(7, customer.getMaritalStatus());
-//=======
-          //  stmt.setObject(2, customer.getDocumentTypeID());
-            stmt.setString(3, customer.getDocument());
-            stmt.setString(4, customer.getGender());
-          //  Timestamp t = new Timestamp(customer.getBirth_date().getTime());
-         //   stmt.setTimestamp(5, t);
-           // stmt.setObject(6, customer.getAddressID());
-          //  stmt.setObject(7, customer.getMaritalStatusID());
-//>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
+            stmt.setTimestamp(7, bd);
             stmt.setString(8, customer.getNote());
             Timestamp c = new Timestamp(customer.getCreatedAt().getTime());
             stmt.setTimestamp(9, c);
@@ -116,18 +87,11 @@ public class DAOCustomer {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
-    //Performs logical deletion of a product in the DB
+    //Performs logical deletion of a customer in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
         String sql = "UPDATE customer SET enabled=? WHERE (id=?)";
@@ -147,38 +111,14 @@ public class DAOCustomer {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            //If the statement still open, it closes
-            if (stmt != null && !stmt.isClosed()) {
-                stmt.close();
-            }
-            //If the connection still open, it closes
-            if (con != null && !con.isClosed()) {
-                con.close();
-            }
+            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
-    //List all products in the table product
+    //List all customers in the table customer
     public static List<Customer> list() throws SQLException, Exception {
 
-        String sql = "SELECT a.*, "
-                + "b.address_id AS address_id, "
-                + "b1.publicplace_type_id AS address_publicplacetype_id, b1.name AS publicplace_type_name,"
-                + "b1.abbreviation AS publicplace_type_abbreviation, "
-                + "b2.city_id AS city_id, b2.state_id AS state_id, b2.name AS city_name,"
-                + "b3.state_id AS state_id, b3.name AS state_name, b3.abbreviation AS state_abbreviation,  "
-                + "b.publicplace AS address_publicplace, b.number AS address_number, "
-                + "b.complement AS address_complement, b.district AS address_district, b.zipcode AS address_zipcode, "
-                + "c.id AS maritalstatus_id, c.description AS maritalstatus_description, "
-                + "d.id AS document_type_id, d.name AS document_type_name "
-                + "FROM customer a "
-                + "INNER JOIN address b ON b.address_id = a.address_id "
-                + "INNER JOIN publicplace_type b1 ON b1.publicplace_type_id = b.publicplace_type_id"
-                + "INNER JOIN city b2 ON b2.city_id = b.city_id"
-                + "INNER JOIN state b3 ON b3.state_id = b2.state_id"
-                + "INNER JOIN maritalstatus c ON c.maritalstatus_id = a.maritalstatus_id "
-                + "INNER JOIN document_type d ON d.document_type_id = a.document_type_id "
-                + "WHERE enabled=?)";
+        String sql = "SELECT * FROM customer WHERE (enabled=?)";
 
         List<Customer> listCustomer = null;
 
@@ -201,34 +141,25 @@ public class DAOCustomer {
                 if (listCustomer == null) {
                     listCustomer = new ArrayList<Customer>();
                 }
-                // Create a Client instance and population with BD values
+
+                // Create a Customer instance and population with BD values
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
                 customer.setName(result.getString("name"));
-//<<<<<<< HEAD
-                customer.setDocumentType(new DocumentType(result.getInt("document_type_id"), result.getString("document_type_name")));
+                DocumentType documentTypeId = DAODocumentType.get(result.getInt("id"));
+                customer.setDocumentType(documentTypeId);
                 customer.setDocument(result.getString("document"));
                 customer.setGender(result.getString("gender"));
-                Date d = new Date(result.getTimestamp("birth_date").getTime());
-                customer.setBirthDate(d);
-                customer.setAddress(new Address(result.getInt("address_id"),
-                        new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                         new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                 result.getString("city_name")),
-                        result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
-                        result.getString("district"), result.getInt("zipcode")));
-                customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
-//=======
-              //  customer.setDocumentTypeID((DocumentType) result.getObject("document_type_id"));// Need to be tested
-                customer.setDocument(result.getString("document"));
-                customer.setGender(result.getString("gender"));
-                //Date d = new Date(result.getTimestamp("birth_date").getTime());
-               // customer.setBirth_date(d);
-              //  customer.setAddressID((Address) result.getObject("address_id"));// Need to be tested
-               // customer.setMaritalStatusID((MaritalStatus) result.getObject("maritalstatus_id"));// Need to be tested
-//>>>>>>> 2f348254dd5995540aac8e7c35889d0145419659
+                Date bd = new Date(result.getTimestamp("birth_date").getTime());
+                customer.setBirthDate(bd);
+                Address addressId = DAOAddress.get(result.getInt("id"));
+                customer.setAddress(addressId);
+                MaritalStatus maritalStatusId = DAOMaritalStatus.get(result.getInt("id"));
+                customer.setMaritalStatus(maritalStatusId);
                 customer.setNote(result.getString("note"));
+                Date ca = new Date(result.getTimestamp("created_at").getTime());
+                customer.setCreatedAt(ca);
 
                 // Add the instance in the list
                 listCustomer.add(customer);
@@ -236,31 +167,14 @@ public class DAOCustomer {
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
-        //Returns a list of database clients
+        //Returns a list of database customers
         return listCustomer;
     }
 
-    //Search for a product by name
+    //Search for a customer by name
     public static List<Customer> search(String value) throws SQLException, Exception {
 
-        String sql = "SELECT a.*, "
-                + "b.address_id AS address_id, "
-                + "b1.publicplace_type_id AS address_publicplacetype_id, b1.name AS publicplace_type_name,"
-                + "b1.abbreviation AS publicplace_type_abbreviation, "
-                + "b2.city_id AS city_id, b2.state_id AS state_id, b2.name AS city_name,"
-                + "b3.state_id AS state_id, b3.name AS state_name, b3.abbreviation AS state_abbreviation,  "
-                + "b.publicplace AS address_publicplace, b.number AS address_number, "
-                + "b.complement AS address_complement, b.district AS address_district, b.zipcode AS address_zipcode, "
-                + "c.id AS maritalstatus_id, c.description AS maritalstatus_description, "
-                + "d.id AS document_type_id, d.name AS document_type_name "
-                + "FROM customer a "
-                + "INNER JOIN address b ON b.address_id = a.address_id "
-                + "INNER JOIN publicplace_type b1 ON b1.publicplace_type_id = b.publicplace_type_id"
-                + "INNER JOIN city b2 ON b2.city_id = b.city_id"
-                + "INNER JOIN state b3 ON b3.state_id = b2.state_id"
-                + "INNER JOIN maritalstatus c ON c.maritalstatus_id = a.maritalstatus_id "
-                + "INNER JOIN document_type d ON d.document_type_id = a.document_type_id "
-                + "WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+        String sql = "SELECT * FROM customer WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
 
         List<Customer> listCustomer = null;
 
@@ -286,24 +200,24 @@ public class DAOCustomer {
                     listCustomer = new ArrayList<Customer>();
                 }
 
-                // Create a Client instance and population with BD values
+                // Create a Customer instance and population with BD values
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
                 customer.setName(result.getString("name"));
-                customer.setDocumentType(new DocumentType(result.getInt("document_type_id"), result.getString("document_type_name")));
+                DocumentType documentTypeId = DAODocumentType.get(result.getInt("id"));
+                customer.setDocumentType(documentTypeId);
                 customer.setDocument(result.getString("document"));
                 customer.setGender(result.getString("gender"));
-                Date d = new Date(result.getTimestamp("birth_date").getTime());
-                customer.setBirthDate(d);
-                customer.setAddress(new Address(result.getInt("address_id"),
-                        new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                         new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                 result.getString("city_name")),
-                        result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
-                        result.getString("district"), result.getInt("zipcode")));
-                customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
+                Date bd = new Date(result.getTimestamp("birth_date").getTime());
+                customer.setBirthDate(bd);
+                Address addressId = DAOAddress.get(result.getInt("id"));
+                customer.setAddress(addressId);
+                MaritalStatus maritalStatusId = DAOMaritalStatus.get(result.getInt("id"));
+                customer.setMaritalStatus(maritalStatusId);
                 customer.setNote(result.getString("note"));
+                Date ca = new Date(result.getTimestamp("created_at").getTime());
+                customer.setCreatedAt(ca);
 
                 listCustomer.add(customer);
             }
@@ -314,27 +228,10 @@ public class DAOCustomer {
         return listCustomer;
     }
 
-    //Get an instance of the product class by id
+    //Get an instance of the customer class by id
     public static Customer get(Integer id) throws SQLException, Exception {
 
-                String sql = "SELECT a.*, "
-                + "b.address_id AS address_id, "
-                + "b1.publicplace_type_id AS address_publicplacetype_id, b1.name AS publicplace_type_name,"
-                + "b1.abbreviation AS publicplace_type_abbreviation, "
-                + "b2.city_id AS city_id, b2.state_id AS state_id, b2.name AS city_name,"
-                + "b3.state_id AS state_id, b3.name AS state_name, b3.abbreviation AS state_abbreviation,  "
-                + "b.publicplace AS address_publicplace, b.number AS address_number, "
-                + "b.complement AS address_complement, b.district AS address_district, b.zipcode AS address_zipcode, "
-                + "c.id AS maritalstatus_id, c.description AS maritalstatus_description, "
-                + "d.id AS document_type_id, d.name AS document_type_name "
-                + "FROM customer a "
-                + "INNER JOIN address b ON b.address_id = a.address_id "
-                + "INNER JOIN publicplace_type b1 ON b1.publicplace_type_id = b.publicplace_type_id"
-                + "INNER JOIN city b2 ON b2.city_id = b.city_id"
-                + "INNER JOIN state b3 ON b3.state_id = b2.state_id"
-                + "INNER JOIN maritalstatus c ON c.maritalstatus_id = a.maritalstatus_id "
-                + "INNER JOIN document_type d ON d.document_type_id = a.document_type_id "
-                + "WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+        String sql = "SELECT * FROM customer WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -354,24 +251,24 @@ public class DAOCustomer {
 
             if (result.next()) {
 
-                // Create a Client instance and population with BD values
+                // Create a Customer instance and population with BD values
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
                 customer.setName(result.getString("name"));
-                customer.setDocumentType(new DocumentType(result.getInt("document_type_id"), result.getString("document_type_name")));
+                DocumentType documentTypeId = DAODocumentType.get(result.getInt("id"));
+                customer.setDocumentType(documentTypeId);
                 customer.setDocument(result.getString("document"));
                 customer.setGender(result.getString("gender"));
-                Date d = new Date(result.getTimestamp("birth_date").getTime());
-                customer.setBirthDate(d);
-                customer.setAddress(new Address(result.getInt("address_id"),
-                        new PublicPlaceType(result.getInt("publicplace_type_id"), result.getString("publicplace_type_name"), result.getString("publicplace_type_abbreviation")),
-                         new City(result.getInt("city_id"), new State(result.getInt("state_id"), result.getString("state_name"), result.getString("state_abbreviation")),
-                                 result.getString("city_name")),
-                        result.getString("publicplace"), result.getInt("number"), result.getString("complement"),
-                        result.getString("district"), result.getInt("zipcode")));
-                customer.setMaritalStatus(new MaritalStatus(result.getInt("maritalstatus_id"), result.getString("maritalstatus_description")));// Need to be tested
+                Date bd = new Date(result.getTimestamp("birth_date").getTime());
+                customer.setBirthDate(bd);
+                Address addressId = DAOAddress.get(result.getInt("id"));
+                customer.setAddress(addressId);
+                MaritalStatus maritalStatusId = DAOMaritalStatus.get(result.getInt("id"));
+                customer.setMaritalStatus(maritalStatusId);
                 customer.setNote(result.getString("note"));
+                Date ca = new Date(result.getTimestamp("created_at").getTime());
+                customer.setCreatedAt(ca);
 
                 return customer;
             }

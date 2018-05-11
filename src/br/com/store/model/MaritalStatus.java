@@ -4,14 +4,7 @@ public class MaritalStatus {
 
     private Integer Id;
     private String description; //Example: Married, single, divorced, etc...
-
-    public MaritalStatus(Integer Id, String description) {
-        this.Id = Id;
-        this.description = description;
-    }
-
-    public MaritalStatus() {
-    }
+    private boolean enabled;
 
     public Integer getId() {
         return Id;
@@ -27,6 +20,14 @@ public class MaritalStatus {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
 }

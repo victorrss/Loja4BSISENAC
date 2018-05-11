@@ -1,7 +1,7 @@
 package br.com.store.db.dao;
 
 import br.com.store.db.util.ConnectionUtils;
-import br.com.store.model.SubCategory;
+import br.com.store.model.DocumentType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,14 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOSubcategory {
-    
-    //Inserts a brand into the subcategory table of the database
-    public static void insert(SubCategory subcategory) throws SQLException, Exception {
+public class DAODocumentType {
 
-        String sql = "INSERT INTO "
-                + "subcategory (name) "
-                + "VALUES (?)";
+    //Inserts a document type into the document_type table of the database
+    public static void insert(DocumentType documentType) throws SQLException, Exception {
+
+        String sql = "INSERT INTO document_type (name) VALUES (?)";
 
         Connection con = null;
 
@@ -27,21 +25,21 @@ public class DAOSubcategory {
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, subcategory.getName());
+            //Configures the parameters of the "PreparedStatement"
+            stmt.setString(1, documentType.getName());
 
-            //executes the command in the DB
+            //Executes the command in the DB
             stmt.execute();
         } finally {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
-    //Performs the update of the data of a subcategory
-    public static void update(SubCategory subcategory) throws SQLException, Exception {
+    //Performs the update of the data of a document type
+    public static void update(DocumentType documentType)
+            throws SQLException, Exception {
 
-        String sql = "UPDATE "
-                + "subcategory SET name=? "
-                + "WHERE (subcategory_id=?)";
+        String sql = "UPDATE document_type SET name=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -52,21 +50,21 @@ public class DAOSubcategory {
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
 
-            stmt.setString(1, subcategory.getName());
-            stmt.setInt(2, subcategory.getId());
+            //Configures the parameters of the "PreparedStatement"
+            stmt.setString(1, documentType.getName());
+            stmt.setInt(2, documentType.getId());
 
-            //executes the command in the DB
+            //Executes the command in the DB
             stmt.execute();
         } finally {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
-
     }
 
-    //Performs logical deletion of a subcategory in the DB
+    //Performs logical deletion of a document type in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
-        String sql = "UPDATE subcategory SET enabled=? WHERE (subcategory_id=?)";
+        String sql = "UPDATE document_type SET enabled=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -87,12 +85,12 @@ public class DAOSubcategory {
         }
     }
 
-    //List all subcategories in the table subcategory
-    public static List<SubCategory> list() throws SQLException, Exception {
+    //List all document types in the table document_type
+    public static List<DocumentType> list() throws SQLException, Exception {
 
-        String sql = "SELECT * FROM subcategory WHERE (enabled=?)";
+        String sql = "SELECT * FROM document_type WHERE enabled =?";
 
-        List<SubCategory> listSubcategory = null;
+        List<DocumentType> listDocumentType = null;
 
         Connection con = null;
 
@@ -110,29 +108,29 @@ public class DAOSubcategory {
 
             while (result.next()) {
 
-                if (listSubcategory == null) {
-                    listSubcategory = new ArrayList<SubCategory>();
+                if (listDocumentType == null) {
+                    listDocumentType = new ArrayList<DocumentType>();
                 }
 
-                SubCategory subcategory = new SubCategory();
-                subcategory.setId(result.getInt("subcategory_id"));
-                subcategory.setName(result.getString("name"));
+                DocumentType documentType = new DocumentType();
+                documentType.setId(result.getInt("id"));
+                documentType.setName(result.getString("name"));
 
-                listSubcategory.add(subcategory);
+                listDocumentType.add(documentType);
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
-        return listSubcategory;
+        return listDocumentType;
     }
 
-    //Search for a subcategory by name
-    public static List<SubCategory> search(String value) throws SQLException, Exception {
+    //Search for a document type by name
+    public static List<DocumentType> search(String value) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM Subcategory WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+        String sql = "SELECT * FROM document_type WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
 
-        List<SubCategory> listSubcategory = null;
+        List<DocumentType> listDocumentType = null;
 
         Connection con = null;
 
@@ -152,27 +150,27 @@ public class DAOSubcategory {
 
             while (result.next()) {
 
-                if (listSubcategory == null) {
-                    listSubcategory = new ArrayList<SubCategory>();
+                if (listDocumentType == null) {
+                    listDocumentType = new ArrayList<DocumentType>();
                 }
 
-                SubCategory subcategory = new SubCategory();
-                subcategory.setId(result.getInt("subcategory_id"));
-                subcategory.setName(result.getString("name"));
+                DocumentType documentType = new DocumentType();
+                documentType.setId(result.getInt("id"));
+                documentType.setName(result.getString("name"));
 
-                listSubcategory.add(subcategory);
+                listDocumentType.add(documentType);
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
         }
 
-        return listSubcategory;
+        return listDocumentType;
     }
 
-    //Get an instance of the subcategory class by id
-    public static SubCategory get(Integer id) throws SQLException, Exception {
+    //Get an instance of the document type class by id
+    public static DocumentType get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM subcategory WHERE (subcategory_id=? AND enabled=?)";
+        String sql = "SELECT * FROM document_type WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -192,11 +190,11 @@ public class DAOSubcategory {
 
             if (result.next()) {
 
-                SubCategory subcategory = new SubCategory();
-                subcategory.setId(result.getInt("subcategory_id"));
-                subcategory.setName(result.getString("name"));
+                DocumentType documentType = new DocumentType();
+                documentType.setId(result.getInt("id"));
+                documentType.setName(result.getString("name"));
 
-                return subcategory;
+                return documentType;
             }
         } finally {
             ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);

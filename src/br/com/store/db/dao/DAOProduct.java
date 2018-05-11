@@ -34,7 +34,7 @@ public class DAOProduct {
             stmt.setInt(2, product.getCategory().getId());
             stmt.setInt(3, product.getSubCategory().getId());
             stmt.setString(4, product.getName());
-            stmt.setString(5, product.getBarCode());
+            stmt.setString(5, product.getBarcode());
             stmt.setString(6, product.getDescription());
             stmt.setInt(7, product.getWarranty());
             stmt.setString(8, product.getModel());
@@ -70,7 +70,7 @@ public class DAOProduct {
             stmt.setInt(2, product.getCategory().getId());
             stmt.setInt(3, product.getSubCategory().getId());
             stmt.setString(4, product.getName());
-            stmt.setString(5, product.getBarCode());
+            stmt.setString(5, product.getBarcode());
             stmt.setString(6, product.getDescription());
             stmt.setInt(7, product.getWarranty());
             stmt.setString(8, product.getModel());
@@ -152,7 +152,7 @@ public class DAOProduct {
                 product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
                 product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
                 product.setName(result.getString("name"));
-                product.setBarCode("barcode");
+                product.setBarcode("barcode");
                 product.setDescription("description");
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
@@ -212,7 +212,7 @@ public class DAOProduct {
                 product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
                 product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
                 product.setName(result.getString("name"));
-                product.setBarCode("barcode");
+                product.setBarcode("barcode");
                 product.setDescription("description");
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
@@ -266,7 +266,7 @@ public class DAOProduct {
                 product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
                 product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
                 product.setName(result.getString("name"));
-                product.setBarCode("barcode");
+                product.setBarcode("barcode");
                 product.setDescription("description");
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));

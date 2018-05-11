@@ -1,6 +1,7 @@
 package br.com.store.model;
 
 public class Brand { //Example: Intel, Amd, Nvidia, etc...
+
     private Integer id;
     private String name;
     private boolean enabled;
@@ -37,6 +38,10 @@ public class Brand { //Example: Intel, Amd, Nvidia, etc...
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getName(); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

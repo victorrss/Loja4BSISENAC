@@ -6,15 +6,6 @@ public class PublicPlaceType {
     private String name;
     private String abbreviation;
 
-    public PublicPlaceType(Integer Id, String name, String abbreviation) {
-        this.Id = Id;
-        this.name = name;
-        this.abbreviation = abbreviation;
-    }
-
-    public PublicPlaceType() {
-    }
-
     public Integer getId() {
         return Id;
     }
