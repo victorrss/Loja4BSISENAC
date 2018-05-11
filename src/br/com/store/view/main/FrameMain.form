@@ -127,7 +127,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="br.com.store.view.PanelProductAdd" name="panelProductAdd">
+            <Component class="br.com.store.view.PanelProductCRU" name="panelProductAdd">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="ProductAdd"/>

@@ -1,11 +1,11 @@
 package br.com.store.view.main;
 
+import br.com.store.model.enums.FormOperationEnum;
 import br.com.store.view.PanelCustomerAdd;
 import br.com.store.view.PanelCustomerList;
-import br.com.store.view.PanelProductAdd;
+import br.com.store.view.PanelProductCRU;
 import br.com.store.view.PanelProductList;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JMenuItem;
@@ -26,7 +26,7 @@ public class FrameMain extends javax.swing.JFrame {
         panelMain = new javax.swing.JPanel();
         Home = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        panelProductAdd = new br.com.store.view.PanelProductAdd();
+        panelProductAdd = new br.com.store.view.PanelProductCRU();
         panelCustomerList = new br.com.store.view.PanelCustomerList();
         panelCustomerAdd = new br.com.store.view.PanelCustomerAdd();
         panelBrand = new br.com.store.view.PanelBrand();
@@ -224,7 +224,9 @@ public class FrameMain extends javax.swing.JFrame {
         JMenuItem mItemSubCategory = new JMenuItem("Cadastro de Sub Categoria");
         mItemAdd.addActionListener((e) -> {
             card.show(panelMain, "ProductAdd");
-            panelMain.add("ProductAdd", new PanelProductAdd());
+            PanelProductCRU p = new PanelProductCRU();
+            p.operation = FormOperationEnum.CREATE;
+            panelMain.add("ProductAdd", new PanelProductCRU());
         });
         mItemList.addActionListener((e) -> {
             card.show(panelMain, "ProductList");
@@ -299,7 +301,7 @@ public class FrameMain extends javax.swing.JFrame {
     private br.com.store.view.PanelCustomerList panelCustomerList;
     private javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelOption;
-    private br.com.store.view.PanelProductAdd panelProductAdd;
+    private br.com.store.view.PanelProductCRU panelProductAdd;
     private br.com.store.view.PanelProductList panelProductList;
     private br.com.store.view.PanelSubCategory panelSubCategory;
     // End of variables declaration//GEN-END:variables
