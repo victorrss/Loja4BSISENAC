@@ -88,7 +88,7 @@ public class DAOState {
     }
 
     //List all states in the table state
-    public static List<State> list(Integer id) throws SQLException, Exception {
+    public static List<State> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM state WHERE enabled =?";
 

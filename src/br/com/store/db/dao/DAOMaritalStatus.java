@@ -86,7 +86,7 @@ public class DAOMaritalStatus {
     }
 
     //List all marital status in the table maritalstatus
-    public static List<MaritalStatus> list(Integer id) throws SQLException, Exception {
+    public static List<MaritalStatus> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM maritalstatus WHERE enabled =?";
 

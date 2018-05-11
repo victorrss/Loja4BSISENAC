@@ -89,7 +89,7 @@ public class DAOCity {
     }
 
     //List all cities in the table document_type
-    public static List<City> list(Integer id) throws SQLException, Exception {
+    public static List<City> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM city WHERE enabled =?";
 

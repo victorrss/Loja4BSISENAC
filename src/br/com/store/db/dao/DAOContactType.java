@@ -86,7 +86,7 @@ public class DAOContactType {
         }
     }
     //List all contact types in the table contact_type
-    public static List<ContactType> list(Integer id) throws SQLException, Exception {
+    public static List<ContactType> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM contact_type WHERE enabled=?";
 

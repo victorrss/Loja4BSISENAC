@@ -5,7 +5,7 @@ import br.com.store.model.State;
 
 public class ValidatorState {
     
-        public static void validade(State state) throws StateException {
+        public static void validate(State state) throws StateException {
 
         if (state == null) {
             throw new StateException("Não há uma instância de estado");

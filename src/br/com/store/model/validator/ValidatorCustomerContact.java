@@ -5,7 +5,7 @@ import br.com.store.model.CustomerContact;
 
 public class ValidatorCustomerContact {
     
-    public static void validade(CustomerContact customerContact) throws CustomerContactException {
+    public static void validate(CustomerContact customerContact) throws CustomerContactException {
 
         if (customerContact == null) {
             throw new CustomerContactException("Não há uma instância de contato do cliente");

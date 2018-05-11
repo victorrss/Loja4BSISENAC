@@ -89,7 +89,7 @@ public class DAOPublicPlaceType {
     }
 
     //List all document types in the table publicplace_type
-    public static List<PublicPlaceType> list(Integer id) throws SQLException, Exception {
+    public static List<PublicPlaceType> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM publicplace_type WHERE enabled =?";
 

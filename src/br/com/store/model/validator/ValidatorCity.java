@@ -5,7 +5,7 @@ import br.com.store.model.City;
 
 public class ValidatorCity {
 
-    public static void validade(City city) throws CityException {
+    public static void validate(City city) throws CityException {
 
         if (city == null) {
             throw new CityException("Não há uma instância de Cidade");

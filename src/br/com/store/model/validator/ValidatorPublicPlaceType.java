@@ -5,7 +5,7 @@ import br.com.store.model.PublicPlaceType;
 
 public class ValidatorPublicPlaceType {
 
-    public static void validade(PublicPlaceType publicPlaceType) throws PublicPlaceTypeException {
+    public static void validate(PublicPlaceType publicPlaceType) throws PublicPlaceTypeException {
 
         if (publicPlaceType == null) {
             throw new PublicPlaceTypeException("Não há uma instância de logradouro");

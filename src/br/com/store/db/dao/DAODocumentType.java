@@ -86,7 +86,7 @@ public class DAODocumentType {
     }
 
     //List all document types in the table document_type
-    public static List<DocumentType> list(Integer id) throws SQLException, Exception {
+    public static List<DocumentType> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM document_type WHERE enabled =?";
 

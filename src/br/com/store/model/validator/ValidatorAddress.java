@@ -5,7 +5,7 @@ import br.com.store.model.Address;
 
 public class ValidatorAddress {
 
-    public static void validade(Address address) throws AddressException {
+    public static void validate(Address address) throws AddressException {
 
         if (address == null) {
             throw new AddressException("Não há uma instância de endereço");

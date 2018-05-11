@@ -94,7 +94,7 @@ public class DAOCustomerContact {
     }
 
     //List all contact types in the table costumer_contact
-    public static List<CustomerContact> list(Integer id) throws SQLException, Exception {
+    public static List<CustomerContact> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM customer_contact WHERE (enabled=?)";
 
@@ -137,7 +137,7 @@ public class DAOCustomerContact {
         return listCustomerContact;
     }
 
-    //Search for a customer contact by name
+    //Search for a customer contact by value
     public static List<CustomerContact> search(String value) throws SQLException, Exception {
 
         String sql = "SELECT * FROM customer_contact WHERE (UPPER(value) LIKE UPPER(?) AND enabled=?)";

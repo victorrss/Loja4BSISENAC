@@ -104,7 +104,7 @@ public class DAOAddress {
     }
 
     //List all marital status in the table maritalstatus
-    public static List<Address> list(Integer id) throws SQLException, Exception {
+    public static List<Address> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM address WHERE enabled =?";
 
