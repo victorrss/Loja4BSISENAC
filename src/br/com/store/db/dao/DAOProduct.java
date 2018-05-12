@@ -91,7 +91,7 @@ public class DAOProduct {
     //Performs logical deletion of a product in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
-        String sql = "UPDATE product SET enabled=? WHERE (product_id=?)";
+        String sql = "UPDATE product SET enabled=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -178,9 +178,9 @@ public class DAOProduct {
                 + "c.id as category_id, c.name as category_name, "
                 + "d.id as subcategory_id, d.name as subcategory_name "
                 + "FROM product a "
-                + "INNER JOIN brand b ON b.id = a.id "
-                + "INNER JOIN category c ON c.id= a.id "
-                + "INNER JOIN subcategory d ON d.id= a.id "
+                + "INNER JOIN brand b ON b.id = a.brand_id "
+                + "INNER JOIN category c ON c.id = a.category_id "
+                + "INNER JOIN subcategory d ON d.id = a.subcategory_id "
                 + "WHERE (UPPER(a.name) LIKE UPPER(?) AND a.enabled=?)";
 
         List<Product> listProduct = null;
@@ -238,9 +238,9 @@ public class DAOProduct {
                 + "c.id as category_id, c.name as category_name, "
                 + "d.id as subcategory_id, d.name as subcategory_name "
                 + "FROM product a "
-                + "INNER JOIN brand b ON b.id = a.id "
-                + "INNER JOIN category c ON c.id = a.id "
-                + "INNER JOIN subcategory d ON d.id = a.id "
+                + "INNER JOIN brand b ON b.id = a.brand_id "
+                + "INNER JOIN category c ON c.id = a.category_id "
+                + "INNER JOIN subcategory d ON d.id = a.subcategory_id "
                 + "WHERE (a.product_id=? AND a.enabled=?)";
 
         Connection con = null;

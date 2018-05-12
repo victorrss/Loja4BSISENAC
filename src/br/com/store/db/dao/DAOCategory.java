@@ -14,9 +14,9 @@ public class DAOCategory {
     //Inserts a brand into the category table of the database
     public static void insert(Category category) throws SQLException, Exception {
 
-        String sql = "INSERT INTO "
-                + "category (name) "
-                + "VALUES (?)";
+        String sql =  "INSERT INTO "
+                + "category (name, enabled) "
+                + "VALUES (?,?)";
 
         Connection con = null;
 
@@ -28,7 +28,7 @@ public class DAOCategory {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, category.getName());
-
+            stmt.setBoolean(2, true);
             //executes the command in the DB
             stmt.execute();
         } finally {
@@ -41,7 +41,7 @@ public class DAOCategory {
 
         String sql = "UPDATE "
                 + "category SET name=? "
-                + "WHERE (category_id=?)";
+                + "WHERE (id=?)";
 
         Connection con = null;
 
@@ -66,7 +66,7 @@ public class DAOCategory {
     //Performs logical deletion of a category in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
-        String sql = "UPDATE category SET enabled=? WHERE (category_id=?)";
+        String sql = "UPDATE category SET enabled=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -157,7 +157,7 @@ public class DAOCategory {
                 }
 
                 Category category = new Category();
-                category.setId(result.getInt("category_id"));
+                category.setId(result.getInt("id"));
                 category.setName(result.getString("name"));
 
                 listCategory.add(category);
@@ -172,7 +172,7 @@ public class DAOCategory {
     //Get an instance of the category class by id
     public static Category get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM category WHERE (category_id=? AND enabled=?)";
+        String sql = "SELECT * FROM category WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -193,7 +193,7 @@ public class DAOCategory {
             if (result.next()) {
 
                 Category category = new Category();
-                category.setId(result.getInt("category_id"));
+                category.setId(result.getInt("id"));
                 category.setName(result.getString("name"));
 
                 return category;

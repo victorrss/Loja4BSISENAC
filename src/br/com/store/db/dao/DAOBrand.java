@@ -157,7 +157,7 @@ public class DAOBrand {
                 }
 
                 Brand brand = new Brand();
-                brand.setId(result.getInt("brand_id"));
+                brand.setId(result.getInt("id"));
                 brand.setName(result.getString("name"));
 
                 listBrand.add(brand);
@@ -172,7 +172,7 @@ public class DAOBrand {
     //Get an instance of the brand class by id
     public static Brand get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM brand WHERE (brand_id=? AND enabled=?)";
+        String sql = "SELECT * FROM brand WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -193,7 +193,7 @@ public class DAOBrand {
             if (result.next()) {
 
                 Brand brand = new Brand();
-                brand.setId(result.getInt("brand_id"));
+                brand.setId(result.getInt("id"));
                 brand.setName(result.getString("name"));
 
                 return brand;

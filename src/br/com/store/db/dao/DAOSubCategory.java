@@ -15,8 +15,8 @@ public class DAOSubCategory {
     public static void insert(SubCategory subcategory) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
-                + "subcategory (name) "
-                + "VALUES (?)";
+                + "subcategory (name, enabled) "
+                + "VALUES (?,?)";
 
         Connection con = null;
 
@@ -28,7 +28,7 @@ public class DAOSubCategory {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, subcategory.getName());
-
+            stmt.setBoolean(2, true);
             //executes the command in the DB
             stmt.execute();
         } finally {
@@ -41,7 +41,7 @@ public class DAOSubCategory {
 
         String sql = "UPDATE "
                 + "subcategory SET name=? "
-                + "WHERE (subcategory_id=?)";
+                + "WHERE (id=?)";
 
         Connection con = null;
 
@@ -66,7 +66,7 @@ public class DAOSubCategory {
     //Performs logical deletion of a subcategory in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
-        String sql = "UPDATE subcategory SET enabled=? WHERE (subcategory_id=?)";
+        String sql = "UPDATE subcategory SET enabled=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -157,7 +157,7 @@ public class DAOSubCategory {
                 }
 
                 SubCategory subcategory = new SubCategory();
-                subcategory.setId(result.getInt("subcategory_id"));
+                subcategory.setId(result.getInt("id"));
                 subcategory.setName(result.getString("name"));
 
                 listSubcategory.add(subcategory);
@@ -172,7 +172,7 @@ public class DAOSubCategory {
     //Get an instance of the subcategory class by id
     public static SubCategory get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM subcategory WHERE (subcategory_id=? AND enabled=?)";
+        String sql = "SELECT * FROM subcategory WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -193,7 +193,7 @@ public class DAOSubCategory {
             if (result.next()) {
 
                 SubCategory subcategory = new SubCategory();
-                subcategory.setId(result.getInt("subcategory_id"));
+                subcategory.setId(result.getInt("id"));
                 subcategory.setName(result.getString("name"));
 
                 return subcategory;
