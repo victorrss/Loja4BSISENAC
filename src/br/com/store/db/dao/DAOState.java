@@ -11,10 +11,10 @@ import java.util.List;
 
 public class DAOState {
 
-    //Inserts a state into the document_type table of the database
+    //Inserts a State into the state table of the database
     public static void insert(State state) throws SQLException, Exception {
 
-        String sql = "INSERT INTO state (name, abbreviation) VALUES (?, ?)";
+        String sql = "INSERT INTO state (name, abbreviation, enabled) VALUES (?, ?, ?)";
 
         Connection con = null;
 
@@ -28,6 +28,7 @@ public class DAOState {
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, state.getName());
             stmt.setString(2, state.getAbbreviation());
+            stmt.setBoolean(3, true);
 
             //Executes the command in the DB
             stmt.execute();
@@ -37,8 +38,7 @@ public class DAOState {
     }
 
     //Performs the update of the data of a state
-    public static void update(State state)
-            throws SQLException, Exception {
+    public static void update(State state) throws SQLException, Exception {
 
         String sql = "UPDATE state SET name=?, abbreviation=? WHERE (id=?)";
 
@@ -76,7 +76,7 @@ public class DAOState {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-
+            //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
 
@@ -90,7 +90,7 @@ public class DAOState {
     //List all states in the table state
     public static List<State> list() throws SQLException, Exception {
 
-        String sql = "SELECT * FROM state WHERE enabled =?";
+        String sql = "SELECT * FROM state WHERE (enabled =?)";
 
         List<State> listState = null;
 
@@ -113,12 +113,14 @@ public class DAOState {
                 if (listState == null) {
                     listState = new ArrayList<State>();
                 }
-
+                // Create a State instance and population with BD values
                 State state = new State();
+                
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
                 state.setAbbreviation("abbreviation");
-
+                
+                // Add the instance in the list
                 listState.add(state);
             }
         } finally {
@@ -128,7 +130,7 @@ public class DAOState {
         return listState;
     }
     
-    //Search for a city by name
+    //Search for a state by name
     public static List<State> search(String value) throws SQLException, Exception {
 
         String sql = "SELECT * FROM state WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
@@ -157,11 +159,14 @@ public class DAOState {
                     listState = new ArrayList<State>();
                 }
 
+                // Create a State instance and population with BD values
                 State state = new State();
+                
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
                 state.setAbbreviation("abbreviation");
-
+                
+                // Add the instance in the list
                 listState.add(state);
             }
         } finally {
@@ -170,6 +175,7 @@ public class DAOState {
 
         return listState;
     }
+    
     //Get an instance of the state class by id
     public static State get(Integer id) throws SQLException, Exception {
 
@@ -193,7 +199,9 @@ public class DAOState {
 
             if (result.next()) {
 
+                // Create a State instance and population with BD values
                 State state = new State();
+
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
                 state.setAbbreviation("abbreviation");

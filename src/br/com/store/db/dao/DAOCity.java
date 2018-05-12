@@ -12,10 +12,10 @@ import java.util.List;
 
 public class DAOCity {
 
-    //Inserts a city into the city table of the database
+    //Inserts a City into the city table of the database
     public static void insert(City city) throws SQLException, Exception {
 
-        String sql = "INSERT INTO city (state_id, name) VALUES (?, ?)";
+        String sql = "INSERT INTO city (state_id, name, enabled) VALUES (?, ?, ?)";
 
         Connection con = null;
 
@@ -29,6 +29,7 @@ public class DAOCity {
             //Configures the parameters of the "PreparedStatement"
             stmt.setInt(1, city.getState().getId());
             stmt.setString(2, city.getName());
+            stmt.setBoolean(3, true);
 
             //Executes the command in the DB
             stmt.execute();
@@ -38,8 +39,7 @@ public class DAOCity {
     }
 
     //Performs the update of the data of a city
-    public static void update(City city)
-            throws SQLException, Exception {
+    public static void update(City city) throws SQLException, Exception {
 
         String sql = "UPDATE city SET state_id=?, name=? WHERE (id=?)";
 
@@ -77,7 +77,7 @@ public class DAOCity {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-
+            //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
 
@@ -88,10 +88,10 @@ public class DAOCity {
         }
     }
 
-    //List all cities in the table document_type
+    //List all cities in the table city
     public static List<City> list() throws SQLException, Exception {
 
-        String sql = "SELECT * FROM city WHERE enabled =?";
+        String sql = "SELECT * FROM city WHERE (enabled=?)";
 
         List<City> listCity = null;
 
@@ -114,13 +114,15 @@ public class DAOCity {
                 if (listCity == null) {
                     listCity = new ArrayList<City>();
                 }
-
+                // Create a City instance and population with BD values
                 City city = new City();
+
                 city.setId(result.getInt("id"));
                 State state = DAOState.get(result.getInt("id"));
                 city.setState(state);
                 city.setName(result.getString("name"));
 
+                // Add the instance in the list
                 listCity.add(city);
             }
         } finally {
@@ -159,12 +161,15 @@ public class DAOCity {
                     listCity = new ArrayList<City>();
                 }
 
+                // Create a City instance and population with BD values
                 City city = new City();
+
                 city.setId(result.getInt("id"));
-                State stateId = DAOState.get(result.getInt("id"));
-                city.setState(stateId);
+                State state = DAOState.get(result.getInt("id"));
+                city.setState(state);
                 city.setName(result.getString("name"));
 
+                // Add the instance in the list
                 listCity.add(city);
             }
         } finally {
@@ -197,11 +202,13 @@ public class DAOCity {
 
             if (result.next()) {
 
+                // Create a City instance and population with BD values
                 City city = new City();
+
                 city.setId(result.getInt("id"));
-                State stateId = DAOState.get(result.getInt("id"));
-                city.setState(stateId);
-                city.setName(result.getString("name"));
+                State state = DAOState.get(result.getInt("id"));
+                city.setState(state);
+                city.setName(result.getString("name"));;
 
                 return city;
             }

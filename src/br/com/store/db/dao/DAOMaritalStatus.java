@@ -11,10 +11,10 @@ import java.util.List;
 
 public class DAOMaritalStatus {
 
-    //Inserts a marital status into the maritalstatus table of the database
+    //Inserts a Marital status into the maritalstatus table of the database
     public static void insert(MaritalStatus maritalStatus) throws SQLException, Exception {
 
-        String sql = "INSERT INTO maritalstatus (description) VALUES (?)";
+        String sql = "INSERT INTO maritalstatus (description, enabled) VALUES (?, ?)";
 
         Connection con = null;
 
@@ -27,6 +27,7 @@ public class DAOMaritalStatus {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, maritalStatus.getDescription());
+            stmt.setBoolean(2, true);
 
             //Executes the command in the DB
             stmt.execute();
@@ -36,8 +37,7 @@ public class DAOMaritalStatus {
     }
 
     //Performs the update of the data of a marital status
-    public static void update(MaritalStatus maritalStatus)
-            throws SQLException, Exception {
+    public static void update(MaritalStatus maritalStatus) throws SQLException, Exception {
 
         String sql = "UPDATE maritalstatus SET description=? WHERE (id=?)";
 
@@ -74,7 +74,7 @@ public class DAOMaritalStatus {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-
+            //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
 
@@ -111,11 +111,13 @@ public class DAOMaritalStatus {
                 if (listMaritalStatus == null) {
                     listMaritalStatus = new ArrayList<MaritalStatus>();
                 }
-
+                // Create a MaritalStatus instance and population with BD values
                 MaritalStatus maritalStatus = new MaritalStatus();
+
                 maritalStatus.setId(result.getInt("id"));
                 maritalStatus.setDescription(result.getString("description"));
 
+                // Add the instance in the list
                 listMaritalStatus.add(maritalStatus);
             }
         } finally {
@@ -154,10 +156,13 @@ public class DAOMaritalStatus {
                     listMaritalStatus = new ArrayList<MaritalStatus>();
                 }
 
+                // Create a MaritalStatus instance and population with BD values
                 MaritalStatus maritalStatus = new MaritalStatus();
+
                 maritalStatus.setId(result.getInt("id"));
                 maritalStatus.setDescription(result.getString("description"));
 
+                // Add the instance in the list
                 listMaritalStatus.add(maritalStatus);
             }
         } finally {
@@ -190,10 +195,13 @@ public class DAOMaritalStatus {
 
             if (result.next()) {
 
+                // Create a MaritalStatus instance and population with BD values
                 MaritalStatus maritalStatus = new MaritalStatus();
+
                 maritalStatus.setId(result.getInt("id"));
                 maritalStatus.setDescription(result.getString("description"));
 
+                // Add the instance in the list
                 return maritalStatus;
             }
         } finally {

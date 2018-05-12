@@ -11,10 +11,10 @@ import java.util.List;
 
 public class DAODocumentType {
 
-    //Inserts a document type into the document_type table of the database
+    //Inserts a Document type into the document_type table of the database
     public static void insert(DocumentType documentType) throws SQLException, Exception {
 
-        String sql = "INSERT INTO document_type (name) VALUES (?)";
+        String sql = "INSERT INTO document_type (name, enabled) VALUES (?, ?)";
 
         Connection con = null;
 
@@ -27,6 +27,7 @@ public class DAODocumentType {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, documentType.getName());
+            stmt.setBoolean(2, true);
 
             //Executes the command in the DB
             stmt.execute();
@@ -36,8 +37,7 @@ public class DAODocumentType {
     }
 
     //Performs the update of the data of a document type
-    public static void update(DocumentType documentType)
-            throws SQLException, Exception {
+    public static void update(DocumentType documentType) throws SQLException, Exception {
 
         String sql = "UPDATE document_type SET name=? WHERE (id=?)";
 
@@ -74,7 +74,7 @@ public class DAODocumentType {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-
+            //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
 
@@ -85,10 +85,10 @@ public class DAODocumentType {
         }
     }
 
-    //List all document types in the table document_type
+    //List all Document types in the table document_type
     public static List<DocumentType> list() throws SQLException, Exception {
 
-        String sql = "SELECT * FROM document_type WHERE enabled =?";
+        String sql = "SELECT * FROM document_type WHERE (enabled =?)";
 
         List<DocumentType> listDocumentType = null;
 
@@ -111,11 +111,13 @@ public class DAODocumentType {
                 if (listDocumentType == null) {
                     listDocumentType = new ArrayList<DocumentType>();
                 }
-
+                // Create a DocumentType instance and population with BD values
                 DocumentType documentType = new DocumentType();
+
                 documentType.setId(result.getInt("id"));
                 documentType.setName(result.getString("name"));
 
+                // Add the instance in the list
                 listDocumentType.add(documentType);
             }
         } finally {
@@ -154,10 +156,13 @@ public class DAODocumentType {
                     listDocumentType = new ArrayList<DocumentType>();
                 }
 
+                // Create a DocumentType instance and population with BD values
                 DocumentType documentType = new DocumentType();
+
                 documentType.setId(result.getInt("id"));
                 documentType.setName(result.getString("name"));
 
+                // Add the instance in the list
                 listDocumentType.add(documentType);
             }
         } finally {
@@ -190,10 +195,13 @@ public class DAODocumentType {
 
             if (result.next()) {
 
+                // Create a DocumentType instance and population with BD values
                 DocumentType documentType = new DocumentType();
+
                 documentType.setId(result.getInt("id"));
                 documentType.setName(result.getString("name"));
 
+                // Add the instance in the list
                 return documentType;
             }
         } finally {

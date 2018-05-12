@@ -11,10 +11,10 @@ import java.util.List;
 
 public class DAOPublicPlaceType {
 
-    //Inserts a public place type into the publicplace_type table of the database
+    //Inserts a Public place type into the publicplace_type table of the database
     public static void insert(PublicPlaceType publicPlaceType) throws SQLException, Exception {
 
-        String sql = "INSERT INTO publicplace_type (name, abbreviation) VALUES (?, ?)";
+        String sql = "INSERT INTO publicplace_type (name, abbreviation, enabled) VALUES (?, ?, ?)";
 
         Connection con = null;
 
@@ -28,6 +28,7 @@ public class DAOPublicPlaceType {
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, publicPlaceType.getName());
             stmt.setString(2, publicPlaceType.getAbbreviation());
+            stmt.setBoolean(3, true);
 
             //Executes the command in the DB
             stmt.execute();
@@ -37,11 +38,9 @@ public class DAOPublicPlaceType {
     }
 
     //Performs the update of the data of a public place type
-    public static void update(PublicPlaceType publicPlaceType)
-            throws SQLException, Exception {
+    public static void update(PublicPlaceType publicPlaceType) throws SQLException, Exception {
 
-        String sql = "UPDATE publicplace_type SET name=?, abbreviation=? "
-                + "WHERE (id=?)";
+        String sql = "UPDATE publicplace_type SET name=?, abbreviation=? WHERE (id=?)";
 
         Connection con = null;
 
@@ -77,7 +76,7 @@ public class DAOPublicPlaceType {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-
+            //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
 
@@ -88,7 +87,7 @@ public class DAOPublicPlaceType {
         }
     }
 
-    //List all document types in the table publicplace_type
+    //List all Public place types in the table publicplace_type
     public static List<PublicPlaceType> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM publicplace_type WHERE enabled =?";
@@ -114,12 +113,14 @@ public class DAOPublicPlaceType {
                 if (listPublicPlaceType == null) {
                     listPublicPlaceType = new ArrayList<PublicPlaceType>();
                 }
-
+                // Create a PublicPlaceType instance and population with BD values
                 PublicPlaceType publicPlaceType = new PublicPlaceType();
+                
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
                 publicPlaceType.setAbbreviation("abbreviation");
-
+                
+                // Add the instance in the list
                 listPublicPlaceType.add(publicPlaceType);
             }
         } finally {
@@ -158,11 +159,14 @@ public class DAOPublicPlaceType {
                     listPublicPlaceType = new ArrayList<PublicPlaceType>();
                 }
 
+                // Create a PublicPlaceType instance and population with BD values
                 PublicPlaceType publicPlaceType = new PublicPlaceType();
+                
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
                 publicPlaceType.setAbbreviation("abbreviation");
-
+                
+                // Add the instance in the list
                 listPublicPlaceType.add(publicPlaceType);
             }
         } finally {
@@ -195,7 +199,9 @@ public class DAOPublicPlaceType {
 
             if (result.next()) {
 
+                // Create a PublicPlaceType instance and population with BD values
                 PublicPlaceType publicPlaceType = new PublicPlaceType();
+                
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
                 publicPlaceType.setAbbreviation("abbreviation");

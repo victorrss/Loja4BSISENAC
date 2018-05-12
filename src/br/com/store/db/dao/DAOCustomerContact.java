@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DAOCustomerContact {
 
-    //Inserts a customer contact into the customer_contact table of the database
+    //Inserts a Customer contact into the customer_contact table of the database
     public static void insert(CustomerContact customerContact) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
@@ -44,8 +44,7 @@ public class DAOCustomerContact {
     //Performs the update of the data of a customer contact
     public static void update(CustomerContact customerContact) throws SQLException, Exception {
 
-        String sql = "UPDATE "
-                + "customer_contact SET customer_id=?, contact_type_id=?, value=? "
+        String sql = "UPDATE customer_contact SET customer_id=?, contact_type_id=?, value=? "
                 + "WHERE (id=?)";
 
         Connection con = null;
@@ -57,6 +56,7 @@ public class DAOCustomerContact {
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
 
+            //Configures the parameters of the "PreparedStatement"
             stmt.setInt(1, customerContact.getCustomer().getId());
             stmt.setInt(2, customerContact.getContactType().getId());
             stmt.setString(3, customerContact.getValue());
@@ -93,7 +93,7 @@ public class DAOCustomerContact {
         }
     }
 
-    //List all contact types in the table costumer_contact
+    //List all Contact types in the table costumer_contact
     public static List<CustomerContact> list() throws SQLException, Exception {
 
         String sql = "SELECT * FROM customer_contact WHERE (enabled=?)";
@@ -119,15 +119,17 @@ public class DAOCustomerContact {
                 if (listCustomerContact == null) {
                     listCustomerContact = new ArrayList<CustomerContact>();
                 }
-
+                // Create a CustomerContact instance and population with BD values
                 CustomerContact customerContact = new CustomerContact();
+
                 customerContact.setId(result.getInt("id"));
                 Customer customer = DAOCustomer.get(result.getInt("id"));
                 customerContact.setCustomer(customer);
-                ContactType contactTypeId = DAOContactType.get(result.getInt("id"));
-                customerContact.setContactType(contactTypeId);
+                ContactType contactType = DAOContactType.get(result.getInt("id"));
+                customerContact.setContactType(contactType);
                 customerContact.setValue(result.getString("value"));
 
+                // Add the instance in the list
                 listCustomerContact.add(customerContact);
             }
         } finally {
@@ -166,16 +168,17 @@ public class DAOCustomerContact {
                     listCustomerContact = new ArrayList<CustomerContact>();
                 }
 
-                // Create a Customer instance and population with BD values
+                // Create a CustomerContact instance and population with BD values
                 CustomerContact customerContact = new CustomerContact();
 
                 customerContact.setId(result.getInt("id"));
-                Customer customerId = DAOCustomer.get(result.getInt("id"));
-                customerContact.setCustomer(customerId);
-                ContactType contactTypeId = DAOContactType.get(result.getInt("id"));
-                customerContact.setContactType(contactTypeId);
+                Customer customer = DAOCustomer.get(result.getInt("id"));
+                customerContact.setCustomer(customer);
+                ContactType contactType = DAOContactType.get(result.getInt("id"));
+                customerContact.setContactType(contactType);
                 customerContact.setValue(result.getString("value"));
 
+                // Add the instance in the list
                 listCustomerContact.add(customerContact);
             }
         } finally {
@@ -188,7 +191,7 @@ public class DAOCustomerContact {
     //Get an instance of the customer contact class by id
     public static CustomerContact get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM customer_contact WHERE id=? and (enabled=?)";
+        String sql = "SELECT * FROM customer_contact WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -208,14 +211,14 @@ public class DAOCustomerContact {
 
             if (result.next()) {
 
-                // Create a Customer instance and population with BD values
+                // Create a CustomerContactType instance and population with BD values
                 CustomerContact customerContact = new CustomerContact();
 
                 customerContact.setId(result.getInt("id"));
-                Customer customerId = DAOCustomer.get(result.getInt("id"));
-                customerContact.setCustomer(customerId);
-                ContactType contactTypeId = DAOContactType.get(result.getInt("id"));
-                customerContact.setContactType(contactTypeId);
+                Customer customer = DAOCustomer.get(result.getInt("id"));
+                customerContact.setCustomer(customer);
+                ContactType contactType = DAOContactType.get(result.getInt("id"));
+                customerContact.setContactType(contactType);
                 customerContact.setValue(result.getString("value"));
 
                 return customerContact;

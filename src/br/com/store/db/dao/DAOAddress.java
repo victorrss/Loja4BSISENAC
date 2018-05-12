@@ -47,10 +47,10 @@ public class DAOAddress {
     }
 
     //Performs the update of the data of a address
-    public static void update(Address address)
-            throws SQLException, Exception {
+    public static void update(Address address) throws SQLException, Exception {
 
-        String sql = "UPDATE address SET description=?"
+        String sql = "UPDATE address SET publicplace_type_id=?, city_id=?, publicplace=?, number=?,"
+                + " complement=?, district=?, zipcode=?"
                 + "WHERE (id=?)";
 
         Connection con = null;
@@ -92,7 +92,7 @@ public class DAOAddress {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-
+            //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
 
@@ -103,10 +103,10 @@ public class DAOAddress {
         }
     }
 
-    //List all marital status in the table maritalstatus
+    //List all address in the table address
     public static List<Address> list() throws SQLException, Exception {
 
-        String sql = "SELECT * FROM address WHERE enabled =?";
+        String sql = "SELECT * FROM address WHERE (enabled=?)";
 
         List<Address> listAddress = null;
 
@@ -129,19 +129,21 @@ public class DAOAddress {
                 if (listAddress == null) {
                     listAddress = new ArrayList<Address>();
                 }
-
+                // Create a Address instance and population with BD values
                 Address address = new Address();
+
                 address.setId(result.getInt("id"));
-                PublicPlaceType publicPlaceTypeId = DAOPublicPlaceType.get(result.getInt("id"));
-                address.setPublicPlaceType(publicPlaceTypeId);
-                City cityId = DAOCity.get(result.getInt("id"));
-                address.setCity(cityId);
+                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("id"));
+                address.setPublicPlaceType(publicPlaceType);
+                City city = DAOCity.get(result.getInt("id"));
+                address.setCity(city);
                 address.setPublicPlace(result.getString("publicplace"));
                 address.setNumber(result.getInt("number"));
                 address.setComplement(result.getString("complement"));
                 address.setDistrict(result.getString("district"));
                 address.setZipcode(result.getInt("zipcode"));
 
+                // Add the instance in the list
                 listAddress.add(address);
             }
         } finally {
@@ -180,16 +182,21 @@ public class DAOAddress {
                     listAddress = new ArrayList<Address>();
                 }
 
+                // Create a Address instance and population with BD values
                 Address address = new Address();
+
                 address.setId(result.getInt("id"));
-                PublicPlaceType publicplace_type = DAOPublicPlaceType.get(result.getInt("id"));
+                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("id"));
+                address.setPublicPlaceType(publicPlaceType);
                 City city = DAOCity.get(result.getInt("id"));
+                address.setCity(city);
                 address.setPublicPlace(result.getString("publicplace"));
                 address.setNumber(result.getInt("number"));
                 address.setComplement(result.getString("complement"));
                 address.setDistrict(result.getString("district"));
                 address.setZipcode(result.getInt("zipcode"));
 
+                // Add the instance in the list
                 listAddress.add(address);
             }
         } finally {
@@ -202,7 +209,7 @@ public class DAOAddress {
     //Get an instance of the address class by id
     public static Address get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM address WHERE (enabled=?)";
+        String sql = "SELECT * FROM address WHERE (id=? AND enabled=?)";
 
         Connection con = null;
 
@@ -222,7 +229,9 @@ public class DAOAddress {
 
             if (result.next()) {
 
+                // Create a Address instance and population with BD values
                 Address address = new Address();
+
                 address.setId(result.getInt("id"));
                 PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("id"));
                 address.setPublicPlaceType(publicPlaceType);

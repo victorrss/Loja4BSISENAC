@@ -9,13 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class DAOContactType {
-    
-     //Inserts a contact type into the contact_type table of the database
+
+    //Inserts a Contact type into the contact_type table of the database
     public static void insert(ContactType contactType) throws SQLException, Exception {
 
-        String sql = "INSERT INTO contact_type (description) VALUES (?)";
+        String sql = "INSERT INTO contact_type (description, enabled) VALUES (?, ?)";
 
         Connection con = null;
 
@@ -28,7 +27,7 @@ public class DAOContactType {
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setString(1, contactType.getDescription());
-            
+            stmt.setBoolean(2, true);
 
             //Executes the command in the DB
             stmt.execute();
@@ -36,9 +35,9 @@ public class DAOContactType {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
+
     //Performs the update of the data of a contact type
-    public static void update(ContactType contactType)
-            throws SQLException, Exception {
+    public static void update(ContactType contactType) throws SQLException, Exception {
 
         String sql = "UPDATE contact_type SET description=? WHERE (id=?)";
 
@@ -61,7 +60,7 @@ public class DAOContactType {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
-    
+
     //Performs logical deletion of a contact type in the DB
     public static void delete(Integer id) throws SQLException, Exception {
 
@@ -75,7 +74,7 @@ public class DAOContactType {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-
+            //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
 
@@ -85,6 +84,7 @@ public class DAOContactType {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
+
     //List all contact types in the table contact_type
     public static List<ContactType> list() throws SQLException, Exception {
 
@@ -111,11 +111,13 @@ public class DAOContactType {
                 if (listContactType == null) {
                     listContactType = new ArrayList<ContactType>();
                 }
-
+                // Create a ContactType instance and population with BD values
                 ContactType contactType = new ContactType();
+
                 contactType.setId(result.getInt("id"));
                 contactType.setDescription(result.getString("description"));
 
+                // Add the instance in the list
                 listContactType.add(contactType);
             }
         } finally {
@@ -124,6 +126,7 @@ public class DAOContactType {
 
         return listContactType;
     }
+
     //Search for a contact type by description
     public static List<ContactType> search(String value) throws SQLException, Exception {
 
@@ -153,10 +156,13 @@ public class DAOContactType {
                     listContactType = new ArrayList<ContactType>();
                 }
 
+                // Create a ContactType instance and population with BD values
                 ContactType contactType = new ContactType();
+
                 contactType.setId(result.getInt("id"));
                 contactType.setDescription(result.getString("description"));
 
+                // Add the instance in the list
                 listContactType.add(contactType);
             }
         } finally {
@@ -165,6 +171,7 @@ public class DAOContactType {
 
         return listContactType;
     }
+
     //Get an instance of the contact type class by id
     public static ContactType get(Integer id) throws SQLException, Exception {
 
@@ -188,7 +195,9 @@ public class DAOContactType {
 
             if (result.next()) {
 
+                // Create a ContactType instance and population with BD values
                 ContactType contactType = new ContactType();
+
                 contactType.setId(result.getInt("id"));
                 contactType.setDescription(result.getString("description"));
 
@@ -200,5 +209,5 @@ public class DAOContactType {
 
         return null;
     }
-    
+
 }
