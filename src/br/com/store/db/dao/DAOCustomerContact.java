@@ -122,8 +122,8 @@ public class DAOCustomerContact {
 
                 CustomerContact customerContact = new CustomerContact();
                 customerContact.setId(result.getInt("id"));
-                Customer customerId = DAOCustomer.get(result.getInt("id"));
-                customerContact.setCustomer(customerId);
+                Customer customer = DAOCustomer.get(result.getInt("id"));
+                customerContact.setCustomer(customer);
                 ContactType contactTypeId = DAOContactType.get(result.getInt("id"));
                 customerContact.setContactType(contactTypeId);
                 customerContact.setValue(result.getString("value"));
@@ -188,7 +188,7 @@ public class DAOCustomerContact {
     //Get an instance of the customer contact class by id
     public static CustomerContact get(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM customer_contact WHERE (enabled=?)";
+        String sql = "SELECT * FROM customer_contact WHERE id=? and (enabled=?)";
 
         Connection con = null;
 

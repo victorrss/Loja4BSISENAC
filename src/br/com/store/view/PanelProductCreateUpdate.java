@@ -422,7 +422,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         product.setModel(txtProductModel.getText());
         product.setPicture(ImageUtil.getByteArray(lblProductPicture));
         product.setStock(DataUtil.parseInteger(txtProductStock.getText()));
-        product.setPrice(DataUtil.parseFloat(txtProductPrice.getText()));
+        product.setPrice(DataUtil.parseFloat(txtProductPrice.getText().replace(",", ".")));
         product.setCategory((Category) cbProductCategory.getSelectedItem());
         product.setSubCategory((SubCategory) cbProductSubCategory.getSelectedItem());
         product.setBrand((Brand) cbProductBrand.getSelectedItem());

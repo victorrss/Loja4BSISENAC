@@ -1,10 +1,15 @@
 package br.com.store.view;
 
-
 import br.com.store.model.Product;
+import br.com.store.model.enums.FormOperationEnum;
 import br.com.store.service.ServiceProduct;
+import br.com.store.utils.DataUtil;
+import br.com.store.view.main.FrameMain;
+import java.awt.CardLayout;
 import java.util.List;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 
 public class PanelProductReadDelete extends javax.swing.JPanel {
@@ -79,6 +84,12 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableProductSearch.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableProductSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tableProductSearchMousePressed(evt);
+            }
+        });
         scrollProduct.setViewportView(tableProductSearch);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -92,10 +103,10 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
-                    .addComponent(panelProductSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelProductSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -112,8 +123,28 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProductSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductSearchActionPerformed
-
+        loadSearch(txtProductSearchField.getText());
     }//GEN-LAST:event_btnProductSearchActionPerformed
+
+    private void tableProductSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductSearchMousePressed
+        JPopupMenu popup = new JPopupMenu();
+        JMenuItem mItemUpdate = new JMenuItem("Alterar/Ver");
+        mItemUpdate.addActionListener((e) -> {
+            Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
+            //FrameMain.showProductUpdate(id);
+        });
+
+        JMenuItem mItemDelete = new JMenuItem("Deletar");
+        mItemDelete.addActionListener((e) -> {
+
+        });
+
+        popup.add(mItemUpdate);
+        popup.add(mItemDelete);
+        //popup.add(new JPopupMenu.Separator());
+
+        popup.show(tableProductSearch, (int) evt.getX(), (int) evt.getY());
+    }//GEN-LAST:event_tableProductSearchMousePressed
 
     private void loadList() {
         DefaultTableModel model = (DefaultTableModel) tableProductSearch.getModel();

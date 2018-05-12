@@ -24,6 +24,7 @@ public class DAOProduct {
         Connection con = null;
 
         PreparedStatement stmt = null;
+
         try {
             //Opens a connection to the DB
             con = ConnectionUtils.getConnection();
@@ -119,9 +120,9 @@ public class DAOProduct {
                 + "c.id as category_id, c.name as category_name, "
                 + "d.id as subcategory_id, d.name as subcategory_name "
                 + "FROM product a "
-                + "INNER JOIN brand b ON b.id = a.id "
-                + "INNER JOIN category c ON c.id = a.id "
-                + "INNER JOIN subcategory d ON d.id = a.id "
+                + "INNER JOIN brand b ON b.id = a.brand_id "
+                + "INNER JOIN category c ON c.id = a.category_id "
+                + "INNER JOIN subcategory d ON d.id = a.subcategory_id "
                 + "WHERE (a.enabled=?)";
 
         List<Product> listProduct = null;
@@ -147,13 +148,13 @@ public class DAOProduct {
                 }
 
                 Product product = new Product();
-                product.setId(result.getInt("product_id"));
+                product.setId(result.getInt("id"));
                 product.setBrand(new Brand(result.getInt("brand_id"), result.getString("brand_name"), true));
                 product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
                 product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
                 product.setName(result.getString("name"));
-                product.setBarcode("barcode");
-                product.setDescription("description");
+                product.setBarcode(result.getString("barcode"));
+                product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
                 product.setPicture(result.getBytes("picture"));
@@ -177,10 +178,10 @@ public class DAOProduct {
                 + "c.id as category_id, c.name as category_name, "
                 + "d.id as subcategory_id, d.name as subcategory_name "
                 + "FROM product a "
-                + "INNER JOIN brand b ON b.brand_id = a.brand_id "
-                + "INNER JOIN category c ON c.category_id = a.category_id "
-                + "INNER JOIN subcategory d ON d.subcategory_id = a.subcategory_id "
-                + "WHERE (UPPER(name) LIKE UPPER(?) AND enabled=?)";
+                + "INNER JOIN brand b ON b.id = a.id "
+                + "INNER JOIN category c ON c.id= a.id "
+                + "INNER JOIN subcategory d ON d.id= a.id "
+                + "WHERE (UPPER(a.name) LIKE UPPER(?) AND a.enabled=?)";
 
         List<Product> listProduct = null;
 
@@ -207,13 +208,13 @@ public class DAOProduct {
                 }
 
                 Product product = new Product();
-                product.setId(result.getInt("product_id"));
+                product.setId(result.getInt("id"));
                 product.setBrand(new Brand(result.getInt("brand_id"), result.getString("brand_name"), true));
                 product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
                 product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
                 product.setName(result.getString("name"));
-                product.setBarcode("barcode");
-                product.setDescription("description");
+                product.setBarcode(result.getString("barcode"));
+                product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
                 product.setPicture(result.getBytes("picture"));
@@ -261,13 +262,13 @@ public class DAOProduct {
             if (result.next()) {
 
                 Product product = new Product();
-                product.setId(result.getInt("product_id"));
+                product.setId(result.getInt("id"));
                 product.setBrand(new Brand(result.getInt("brand_id"), result.getString("brand_name"), true));
                 product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
                 product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
                 product.setName(result.getString("name"));
-                product.setBarcode("barcode");
-                product.setDescription("description");
+                product.setBarcode(result.getString("barcode"));
+                product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
                 product.setPicture(result.getBytes("picture"));

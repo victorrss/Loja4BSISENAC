@@ -117,8 +117,8 @@ public class DAOCity {
 
                 City city = new City();
                 city.setId(result.getInt("id"));
-                State stateId = DAOState.get(result.getInt("id"));
-                city.setState(stateId);
+                State state = DAOState.get(result.getInt("id"));
+                city.setState(state);
                 city.setName(result.getString("name"));
 
                 listCity.add(city);

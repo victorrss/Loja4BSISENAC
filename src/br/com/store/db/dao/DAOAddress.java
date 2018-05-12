@@ -224,8 +224,10 @@ public class DAOAddress {
 
                 Address address = new Address();
                 address.setId(result.getInt("id"));
-                PublicPlaceType publicplace_type = DAOPublicPlaceType.get(result.getInt("id"));
+                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("id"));
+                address.setPublicPlaceType(publicPlaceType);
                 City city = DAOCity.get(result.getInt("id"));
+                address.setCity(city);
                 address.setPublicPlace(result.getString("publicplace"));
                 address.setNumber(result.getInt("number"));
                 address.setComplement(result.getString("complement"));
