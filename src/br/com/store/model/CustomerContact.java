@@ -2,7 +2,7 @@ package br.com.store.model;
 
 public class CustomerContact {
 
-    private Integer Id;
+    private Integer id;
     private Customer customer;
     private ContactType contactType;
     private String value;
@@ -12,11 +12,11 @@ public class CustomerContact {
     private boolean enabled;
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public Customer getCustomer() {

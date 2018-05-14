@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -38,16 +39,17 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
 
     }
 
-    public PanelProductCreateUpdate(FormOperationEnum operation, Integer id) {
+    public PanelProductCreateUpdate(FormOperationEnum op, Integer id) {
+        this.operation = op;
         initComponents();
         loadBrand();
         loadCategory();
         loadSubCategory();
-        prepareFormOperation(FormOperationEnum.CREATE, null);
+        prepareFormOperation(op, id);
     }
 
-    private void prepareFormOperation(FormOperationEnum operation, Integer id) {
-        this.operation = operation;
+    private void prepareFormOperation(FormOperationEnum op, Integer id) {
+        this.operation = op;
         this.productId = id;
         if (this.operation == FormOperationEnum.CREATE) {
             lblProductId.setEnabled(false);
@@ -62,9 +64,9 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
     }
 
     void loadProduct(Integer id) {
-        Product p = new Product();
+        Product p;
         try {
-            ServiceProduct.getInstance().get(id);
+            p = ServiceProduct.getInstance().get(id);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
@@ -76,12 +78,49 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         txtProductDescription.setText(p.getDescription());
         txtProductWarranty.setText(p.getWarranty().toString());
         txtProductModel.setText(p.getModel());
-        ImageUtil.setImageLabel(p.getPicture(), lblProductPicture);
+        if (p.getPicture() != null) {
+            ImageUtil.setImageLabel(p.getPicture(), lblProductPicture);
+        }
         txtProductStock.setText(p.getStock().toString());
         txtProductPrice.setText(p.getPrice().toString().replace(".", ","));
-        cbProductCategory.setSelectedItem(p.getCategory());
-        cbProductSubCategory.setSelectedItem(p.getSubCategory());
-        cbProductBrand.setSelectedItem(p.getBrand());
+        JComboBox cbTemp = null;
+        // seleciona no cb
+        cbTemp = cbProductCategory;
+        cbTemp.setSelectedIndex(0);
+        for (int i = 1; i < cbTemp.getItemCount(); i++) {
+            Category cbSelectedItem = (Category) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == p.getCategory().getId()) {
+                cbTemp.setSelectedItem(cbSelectedItem);
+                continue;
+            }
+            cbTemp.setSelectedIndex(i);
+        }
+
+        // seleciona no cb
+        cbTemp = cbProductSubCategory;
+        cbTemp.setSelectedIndex(0);
+        for (int i = 1; i < cbTemp.getItemCount(); i++) {
+            SubCategory cbSelectedItem = (SubCategory) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == p.getSubCategory().getId()) {
+                cbTemp.setSelectedItem(cbSelectedItem);
+                continue;
+            }
+            cbTemp.setSelectedIndex(i);
+        }
+
+        // seleciona no cb
+        cbTemp = cbProductBrand;
+        cbTemp.setSelectedIndex(0);
+        for (int i = 1; i < cbTemp.getItemCount(); i++) {
+            Brand cbSelectedItem = (Brand) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == p.getBrand().getId()) {
+                cbTemp.setSelectedItem(cbSelectedItem);
+                continue;
+            }
+            cbTemp.setSelectedIndex(i);
+        }
+
+        lblProductPicture.setText("");
 
     }
 
@@ -104,14 +143,12 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         lblProductSubCategory = new javax.swing.JLabel();
         cbProductSubCategory = new javax.swing.JComboBox<>();
         lblProductWarranty = new javax.swing.JLabel();
-        txtProductWarranty = new javax.swing.JTextField();
         lblProductWarrantHelp = new javax.swing.JLabel();
         lblProductModel = new javax.swing.JLabel();
         txtProductModel = new javax.swing.JTextField();
         txtProductPrice = new javax.swing.JFormattedTextField();
         lblProductPrice = new javax.swing.JLabel();
         lblProductStock = new javax.swing.JLabel();
-        txtProductStock = new javax.swing.JTextField();
         btnProductRefreshCategory = new javax.swing.JButton();
         btnProductRefreshBrand = new javax.swing.JButton();
         btnProductRefreshSubCategory = new javax.swing.JButton();
@@ -119,6 +156,8 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         btnProductPicture = new javax.swing.JButton();
         scrollProductDescription = new javax.swing.JScrollPane();
         txtProductDescription = new javax.swing.JTextArea();
+        txtProductStock = new javax.swing.JFormattedTextField();
+        txtProductWarranty = new javax.swing.JFormattedTextField();
         btnProductFinalize = new javax.swing.JButton();
         lblPanelTitle = new javax.swing.JLabel();
 
@@ -127,6 +166,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         panelProductRegister.setBackground(new java.awt.Color(255, 255, 255));
         panelProductRegister.setBorder(javax.swing.BorderFactory.createTitledBorder("Produto"));
 
+        lblProductName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductName.setText("Nome");
 
@@ -137,6 +177,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             }
         });
 
+        lblProductBrand.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductBrand.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductBrand.setText("Marca");
 
@@ -163,9 +204,11 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
 
         cbProductCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lblProductCategory.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductCategory.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductCategory.setText("Categoria");
 
+        lblProductSubCategory.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductSubCategory.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductSubCategory.setText("Sub Categoria");
 
@@ -187,9 +230,13 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             }
         });
 
+        txtProductPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        lblProductPrice.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductPrice.setText("Preço");
 
+        lblProductStock.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductStock.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblProductStock.setText("Estoque");
 
@@ -229,6 +276,10 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         txtProductDescription.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         txtProductDescription.setRows(5);
         scrollProductDescription.setViewportView(txtProductDescription);
+
+        txtProductStock.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        txtProductWarranty.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         javax.swing.GroupLayout panelProductRegisterLayout = new javax.swing.GroupLayout(panelProductRegister);
         panelProductRegister.setLayout(panelProductRegisterLayout);
@@ -282,11 +333,11 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblProductStock)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtProductStock, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtProductStock, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblProductWarranty)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtProductWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtProductWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblProductWarrantHelp)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -335,16 +386,14 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                             .addComponent(txtProductModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblProductModel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtProductWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblProductWarranty)
-                                .addComponent(lblProductWarrantHelp))
-                            .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblProductPrice)
-                                .addComponent(txtProductStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblProductStock)))
+                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblProductPrice)
+                            .addComponent(lblProductStock)
+                            .addComponent(lblProductWarranty)
+                            .addComponent(lblProductWarrantHelp)
+                            .addComponent(txtProductStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtProductWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelProductRegisterLayout.createSequentialGroup()
@@ -420,7 +469,11 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         product.setDescription(txtProductDescription.getText());
         product.setWarranty(DataUtil.parseInteger(txtProductWarranty.getText()));
         product.setModel(txtProductModel.getText());
-        product.setPicture(ImageUtil.getByteArray(lblProductPicture));
+        if (lblProductPicture.getIcon() == null) {
+            product.setPicture(null);
+        } else {
+            product.setPicture(ImageUtil.getByteArray(image));
+        }
         product.setStock(DataUtil.parseInteger(txtProductStock.getText()));
         product.setPrice(DataUtil.parseFloat(txtProductPrice.getText().replace(",", ".")));
         product.setCategory((Category) cbProductCategory.getSelectedItem());
@@ -442,7 +495,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Produto " + temp2 + " com sucesso",
                 "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 
-        FormUtil.clearTextComponents(this);
+        FormUtil.clearTextComponents(panelProductRegister);
     }//GEN-LAST:event_btnProductFinalizeActionPerformed
 
     private void btnProductRefreshBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshBrandActionPerformed
@@ -570,7 +623,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JTextField txtProductModel;
     private javax.swing.JTextField txtProductName;
     private javax.swing.JFormattedTextField txtProductPrice;
-    private javax.swing.JTextField txtProductStock;
-    private javax.swing.JTextField txtProductWarranty;
+    private javax.swing.JFormattedTextField txtProductStock;
+    private javax.swing.JFormattedTextField txtProductWarranty;
     // End of variables declaration//GEN-END:variables
 }

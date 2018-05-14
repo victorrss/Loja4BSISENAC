@@ -81,13 +81,13 @@ public class ImageUtil {
         return newImg;
     }
 
-    public static byte[] getByteArray(javax.swing.JLabel label) {
-        Icon icon = label.getIcon();
-        BufferedImage image = new BufferedImage(icon.getIconWidth(),
-                icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
-
-        return getByteArray(image);
-    }
+//    public static byte[] getByteArray(javax.swing.JLabel label) {
+//        Icon icon = label.getIcon();
+//        BufferedImage image = new BufferedImage(icon.getIconWidth(),
+//                icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+//
+//        return getByteArray(image);
+//    }
 
     public static byte[] getByteArray(BufferedImage image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

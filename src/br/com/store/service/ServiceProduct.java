@@ -4,6 +4,7 @@ import br.com.store.exception.DataSourceException;
 import br.com.store.db.dao.DAOProduct;
 import br.com.store.exception.ProductException;
 import br.com.store.model.Product;
+import br.com.store.model.enums.ProductSearchTypeEnum;
 import br.com.store.model.validator.ValidatorProduct;
 import java.util.List;
 
@@ -66,6 +67,20 @@ public class ServiceProduct {
             }
         } catch (Exception e) {
 
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
+    public List<Product> search(ProductSearchTypeEnum searchType, String value) throws DataSourceException {
+        try {
+
+            if (value == null || "".equals(value)) {
+                return DAOProduct.list();
+            } else {
+                return DAOProduct.search(searchType, value);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados");
         }

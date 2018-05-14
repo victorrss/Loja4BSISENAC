@@ -5,10 +5,13 @@ import br.com.store.model.Brand;
 import br.com.store.model.Category;
 import br.com.store.model.Product;
 import br.com.store.model.SubCategory;
+import br.com.store.model.enums.ProductSearchTypeEnum;
+import br.com.store.utils.DataUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,12 @@ public class DAOProduct {
             stmt.setString(4, product.getName());
             stmt.setString(5, product.getBarcode());
             stmt.setString(6, product.getDescription());
-            stmt.setInt(7, product.getWarranty());
+            if (product.getWarranty() == null) {
+                stmt.setNull(7, Types.INTEGER);
+            } else {
+                stmt.setInt(7, product.getWarranty());
+            }
+            // stmt.setInt(7, product.getWarranty() == null ? 0 : product.getWarranty());
             stmt.setString(8, product.getModel());
             stmt.setBytes(9, product.getPicture());
             stmt.setBoolean(10, true);
@@ -56,7 +64,7 @@ public class DAOProduct {
 
         String sql = "UPDATE "
                 + "product SET brand_id=?, category_id=?, subcategory_id=?, name=?, barcode=?, description=?, warranty=?, model=?, picture=?, stock=?, price=? "
-                + "WHERE (product_id=?)";
+                + "WHERE (id=?)";
 
         Connection con = null;
 
@@ -157,7 +165,9 @@ public class DAOProduct {
                 product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
-                product.setPicture(result.getBytes("picture"));
+                if (result.getBlob("picture") != null) {
+                    product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                }
                 product.setStock(result.getInt("stock"));
                 product.setPrice(result.getFloat("price"));
 
@@ -217,7 +227,90 @@ public class DAOProduct {
                 product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
-                product.setPicture(result.getBytes("picture"));
+                product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                product.setStock(result.getInt("stock"));
+                product.setPrice(result.getFloat("price"));
+
+                listProduct.add(product);
+            }
+        } finally {
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+        }
+
+        return listProduct;
+    }
+
+    //Search for a product by name
+    public static List<Product> search(ProductSearchTypeEnum searchType, String value) throws SQLException, Exception {
+
+        String sql = "SELECT a.*, "
+                + "b.id as brand_id, b.name as brand_name, "
+                + "c.id as category_id, c.name as category_name, "
+                + "d.id as subcategory_id, d.name as subcategory_name "
+                + "FROM product a "
+                + "INNER JOIN brand b ON b.id = a.brand_id "
+                + "INNER JOIN category c ON c.id = a.category_id "
+                + "INNER JOIN subcategory d ON d.id = a.subcategory_id ";
+
+        switch (searchType) {
+            case BARCODE:
+                sql += "WHERE (a.barcode=?) AND (a.enabled=?)";
+                break;
+            case NAME:
+                sql += "WHERE (UPPER(a.name) LIKE UPPER(?)) AND (a.enabled=?)";
+                break;
+            case ID:
+                sql += "WHERE (a.id=?)  AND (a.enabled=?)";
+                break;
+        }
+        List<Product> listProduct = null;
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            switch (searchType) {
+                case BARCODE:
+                case ID:
+                    if (DataUtil.parseInteger(value) == null) {
+                        stmt.setNull(1, Types.INTEGER);
+                    } else {
+                        stmt.setInt(1, DataUtil.parseInteger(value));
+                    }
+                    break;
+                case NAME:
+                    stmt.setString(1, "%" + value + "%");
+                    break;
+            }
+
+            stmt.setBoolean(2, true);
+
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+
+                if (listProduct == null) {
+                    listProduct = new ArrayList<Product>();
+                }
+
+                Product product = new Product();
+                product.setId(result.getInt("id"));
+                product.setBrand(new Brand(result.getInt("brand_id"), result.getString("brand_name"), true));
+                product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
+                product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
+                product.setName(result.getString("name"));
+                product.setBarcode(result.getString("barcode"));
+                product.setDescription(result.getString("description"));
+                product.setWarranty(result.getInt("warranty"));
+                product.setModel(result.getString("model"));
+                product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
                 product.setStock(result.getInt("stock"));
                 product.setPrice(result.getFloat("price"));
 
@@ -241,7 +334,7 @@ public class DAOProduct {
                 + "INNER JOIN brand b ON b.id = a.brand_id "
                 + "INNER JOIN category c ON c.id = a.category_id "
                 + "INNER JOIN subcategory d ON d.id = a.subcategory_id "
-                + "WHERE (a.product_id=? AND a.enabled=?)";
+                + "WHERE (a.id=? AND a.enabled=?)";
 
         Connection con = null;
 
@@ -271,7 +364,7 @@ public class DAOProduct {
                 product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
-                product.setPicture(result.getBytes("picture"));
+                product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
                 product.setStock(result.getInt("stock"));
                 product.setPrice(result.getFloat("price"));
 

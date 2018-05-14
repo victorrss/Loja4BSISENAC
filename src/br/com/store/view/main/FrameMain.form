@@ -91,6 +91,9 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelMain">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
           <SubComponents>
@@ -126,14 +129,14 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="br.com.store.view.PanelCustomerList" name="panelCustomerList">
+            <Component class="br.com.store.view.PanelCustomerReadDelete" name="panelCustomerList">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="CustomerList"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="br.com.store.view.PanelCustomerAdd" name="panelCustomerAdd">
+            <Component class="br.com.store.view.PanelCustomerCreateUpdate" name="panelCustomerAdd">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="CustomerAdd"/>
@@ -251,6 +254,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="btnExit">
               <Properties>

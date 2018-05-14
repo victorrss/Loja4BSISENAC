@@ -15,7 +15,7 @@ public class ConnectionUtils {
         String url = "jdbc:mysql://localhost:3306/store";
         Properties prop = new Properties();
         prop.put("user", "root");
-        prop.put("password", "adminadmin");
+        prop.put("password", "");
 
         try {
             con = DriverManager.getConnection(url, prop);
