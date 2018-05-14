@@ -1,7 +1,6 @@
 package br.com.store.model.validator;
 
 import br.com.store.exception.DocumentTypeException;
-import br.com.store.exception.PublicPlaceTypeException;
 import br.com.store.model.DocumentType;
 
 public class ValidatorDocumentType {

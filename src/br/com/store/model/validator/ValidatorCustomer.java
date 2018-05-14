@@ -26,7 +26,6 @@ public class ValidatorCustomer {
         if (customer.getDocumentType() == null) {
             throw new CustomerException("Tipo de documento do cliente não fornecido");
         }
-
         if (customer.getDocument() == null || customer.getDocument().trim().isEmpty() || "".equals(customer.getDocument())) {
             throw new CustomerException("Documento do cliente não fornecido");
         }
@@ -41,13 +40,13 @@ public class ValidatorCustomer {
         if (customer.getBirthDate() == null) {
             throw new CustomerException("Data de nascimento do cliente não fornecida");
         }
-        if (customer.getBirthDate().after(new Date())) {
+        if (!String.valueOf(customer.getBirthDate()).isEmpty() && customer.getBirthDate().after(new Date())) {
             throw new CustomerException("Data de nascimento não pode ser futura");
         }
         if (customer.getNote().length() > 45) {
             throw new CustomerException("Anotação não pode ter mais de 45 caracteres");
         }
-        if (customer.getBirthDate().after(new Date())) {
+        if (!String.valueOf(customer.getCreatedAt()).isEmpty() && customer.getCreatedAt().after(new Date())) {
             throw new CustomerException("Data de criação não pode ser futura");
         }
     }
