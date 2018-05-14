@@ -30,8 +30,23 @@ public class ValidatorProduct {
             throw new ProductException("Nome do produto não pode ter mais que 45 caracteres");
         }
 
-        if (product.getBarcode().length() > 45) {
-            throw new ProductException("Código de barras do produto não pode ter mais que 45 caracteres");
+//        if (product.getBarcode().length() > 45) {
+//            throw new ProductException("Código de barras do produto não pode ter mais que 45 caracteres");
+//        }
+        
+        //Checks if the Barcode has 13 numeric characters
+        if (!product.getBarcode().matches("^[0-9]{13}$")) {
+            throw new ProductException("Código de barras deve possuir 13 caracteres numéricos");
+        }
+        
+        //Checks if the check digit is correct
+        int[] numbers = product.getBarcode().chars().map(Character::getNumericValue).toArray();
+        int sumEven = numbers[1] + numbers[3] + numbers[5] + numbers[7] + numbers[9] + numbers[11];
+        int sumOdd = numbers[0] + numbers[2] + numbers[4] + numbers[6] + numbers[8] + numbers[10];
+        int result = sumOdd + sumEven * 3;
+        int checkDigit = 10 - result % 10;
+        if(checkDigit != numbers[12]){
+            throw new ProductException("Código de barras é invalido, digito verficador não bate");
         }
 
         if (product.getDescription().length() > 10000) {
