@@ -2,6 +2,7 @@ package br.com.store.model.validator;
 
 import br.com.store.exception.ProductException;
 import br.com.store.model.Product;
+import br.com.store.utils.DataUtil;
 
 public class ValidatorProduct {
 
@@ -39,14 +40,8 @@ public class ValidatorProduct {
             throw new ProductException("Código de barras deve possuir 13 caracteres numéricos");
         }
         
-        //Checks if the check digit is correct
-        int[] numbers = product.getBarcode().chars().map(Character::getNumericValue).toArray();
-        int sumEven = numbers[1] + numbers[3] + numbers[5] + numbers[7] + numbers[9] + numbers[11];
-        int sumOdd = numbers[0] + numbers[2] + numbers[4] + numbers[6] + numbers[8] + numbers[10];
-        int result = sumOdd + sumEven * 3;
-        int checkDigit = 10 - result % 10;
-        if(checkDigit != numbers[12]){
-            throw new ProductException("Código de barras é invalido, digito verficador não bate");
+        if(!DataUtil.checkBarcodeEAN(product.getBarcode())){
+            throw new ProductException("O código de barras está inválido!");
         }
 
         if (product.getDescription().length() > 10000) {

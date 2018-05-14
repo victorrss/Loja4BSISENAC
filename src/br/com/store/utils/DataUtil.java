@@ -1,5 +1,6 @@
 package br.com.store.utils;
 
+import br.com.store.exception.ProductException;
 import java.io.File;
 
 public class DataUtil {
@@ -37,6 +38,16 @@ public class DataUtil {
             ext = s.substring(i + 1).toLowerCase();
         }
         return ext;
+    }
+
+    public static boolean checkBarcodeEAN(String barcode) {
+        //Checks if the check digit is correct
+        int[] numbers = barcode.chars().map(Character::getNumericValue).toArray();
+        int sumEven = numbers[1] + numbers[3] + numbers[5] + numbers[7] + numbers[9] + numbers[11];
+        int sumOdd = numbers[0] + numbers[2] + numbers[4] + numbers[6] + numbers[8] + numbers[10];
+        int result = sumOdd + sumEven * 3;
+        int checkDigit = 10 - result % 10;
+        return checkDigit == numbers[12];
     }
 
 }
