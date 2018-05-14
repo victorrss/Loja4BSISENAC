@@ -1,6 +1,8 @@
 package br.com.store.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Customer {
 
@@ -104,4 +106,25 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
+    public List<CustomerContact> listContact(Customer customerId) {
+
+        CustomerContact customerContact = new CustomerContact();
+        List<CustomerContact> listCustomerContact = null;
+        do {
+            if (listCustomerContact == null) {
+                listCustomerContact = new ArrayList<CustomerContact>();
+            }
+            customerContact.setId(customerContact.getId());
+            customerContact.setCustomer(customerContact.getCustomer());
+            customerContact.setContactType(customerContact.getContactType());
+            customerContact.setValue(customerContact.getValue());
+
+            // Add the instance in the list
+            listCustomerContact.add(customerContact);
+
+        } while (customerContact.getCustomer() == customerId && customerContact.isEnabled());
+        return listCustomerContact;
+
     }
+
+}
