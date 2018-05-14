@@ -26,7 +26,7 @@ public class ValidatorProduct {
         if (product.getName() == null || product.getName().trim().isEmpty()) {
             throw new ProductException("Nome do produto não fornecido");
         }
-        
+
         if (product.getName().length() > 45) {
             throw new ProductException("Nome do produto não pode ter mais que 45 caracteres");
         }
@@ -34,13 +34,12 @@ public class ValidatorProduct {
 //        if (product.getBarcode().length() > 45) {
 //            throw new ProductException("Código de barras do produto não pode ter mais que 45 caracteres");
 //        }
-        
         //Checks if the Barcode has 13 numeric characters
         if (!product.getBarcode().matches("^[0-9]{13}$")) {
             throw new ProductException("Código de barras deve possuir 13 caracteres numéricos");
         }
-        
-        if(!DataUtil.checkBarcodeEAN(product.getBarcode())){
+
+        if (!DataUtil.checkBarcodeEAN(product.getBarcode())) {
             throw new ProductException("O código de barras está inválido!");
         }
 

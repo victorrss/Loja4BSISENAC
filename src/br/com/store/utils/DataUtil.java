@@ -1,6 +1,7 @@
 package br.com.store.utils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 public class DataUtil {
 
@@ -47,6 +48,10 @@ public class DataUtil {
         int result = sumOdd + sumEven * 3;
         int checkDigit = 10 - result % 10;
         return checkDigit == numbers[12];
+    }
+
+    public static SimpleDateFormat getDateFormat(String fmt) {
+        return new SimpleDateFormat(fmt);
     }
 
 }

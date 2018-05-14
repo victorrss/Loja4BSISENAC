@@ -40,7 +40,6 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
     }
 
     public PanelProductCreateUpdate(FormOperationEnum op, Integer id) {
-        this.operation = op;
         initComponents();
         loadBrand();
         loadCategory();
@@ -52,12 +51,8 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         this.operation = op;
         this.productId = id;
         if (this.operation == FormOperationEnum.CREATE) {
-            lblProductId.setEnabled(false);
-            txtProductId.setEnabled(false);
             lblPanelTitle.setText("Produto - Novo");
         } else {
-            lblProductId.setEnabled(true);
-            txtProductId.setEnabled(true);
             lblPanelTitle.setText("Produto - Alteração");
             loadProduct(productId);
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -21,10 +21,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabPanelCustomer" pref="742" max="32767" attributes="0"/>
+          <Component id="tabPanelCustomer" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="lblPanelTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -33,7 +33,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="lblPanelTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="tabPanelCustomer" max="32767" attributes="0"/>
           </Group>
@@ -65,7 +65,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelCustomerBasic" max="32767" attributes="0"/>
+                          <Component id="lblCustomerNote" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="btnCustomerBasicNext" min="-2" pref="75" max="-2" attributes="0"/>
@@ -78,9 +78,9 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="panelCustomerBasic" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblCustomerNote" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCustomerBasicNext" min="-2" pref="35" max="-2" attributes="0"/>
                       <EmptySpace min="28" pref="28" max="-2" attributes="0"/>
                   </Group>
@@ -88,7 +88,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="panelCustomerBasic">
+            <Container class="javax.swing.JPanel" name="lblCustomerNote">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -106,51 +106,64 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lblCustomerBasicGender" max="32767" attributes="0"/>
-                                      <Component id="lblCustomerBasicMaritalSatus" pref="99" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="lblCustomerBasicName" min="-2" pref="57" max="-2" attributes="0"/>
+                                      <Component id="lblCustomerBasicDocument" min="-2" pref="99" max="-2" attributes="0"/>
+                                      <Component id="lblCustomerBasicBirthDate" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblCustomerBasicGender" alignment="1" min="-2" pref="99" max="-2" attributes="0"/>
+                                      <Component id="lblCustomerBasicMaritalSatus" alignment="1" min="-2" pref="99" max="-2" attributes="0"/>
+                                      <Component id="lblCustomerId" min="-2" pref="57" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="lblCustomerBasicBirthDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCustomerBasicName" alignment="1" min="-2" pref="57" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="lblCustomerBasicDocument" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblProductDescription" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollCustomerNote" max="32767" attributes="0"/>
                               <Component id="cbCustomerBasicMaritalStatus" alignment="0" max="32767" attributes="0"/>
                               <Component id="cbCustomerBasicGender" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="cbCustomerBasicDocumentType" min="-2" pref="89" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCustomerBasicDocument" pref="487" max="32767" attributes="0"/>
+                                  <Component id="txtCustomerBasicDocument" pref="471" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtCustomerBasicName" max="32767" attributes="0"/>
                               <Component id="txtCustomerBasicBirthDate" alignment="1" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txtCustomerId" min="-2" pref="62" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="txtCustomerBasicName" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblCustomerBasicName" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtCustomerId" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCustomerId" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="cbCustomerBasicDocumentType" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCustomerBasicDocument" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCustomerBasicDocument" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtCustomerBasicBirthDate" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lblCustomerBasicBirthDate" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtCustomerBasicName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCustomerBasicName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbCustomerBasicDocumentType" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCustomerBasicDocument" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCustomerBasicDocument" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtCustomerBasicBirthDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCustomerBasicBirthDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -162,7 +175,15 @@
                               <Component id="lblCustomerBasicMaritalSatus" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cbCustomerBasicMaritalStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lblProductDescription" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="scrollCustomerNote" pref="90" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -170,19 +191,22 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lblCustomerBasicName">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Nome:"/>
+                    <Property name="text" type="java.lang.String" value="Nome"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCustomerBasicName">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCustomerBasicNameActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerBasicDocument">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Documento:"/>
+                    <Property name="text" type="java.lang.String" value="Documento"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbCustomerBasicDocumentType">
@@ -219,27 +243,28 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerBasicMaritalSatus">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Estado Civil:"/>
+                    <Property name="text" type="java.lang.String" value="Estado Civil"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="txtCustomerBasicBirthDate">
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerBasicBirthDate">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Data de nascimento:"/>
+                    <Property name="text" type="java.lang.String" value="Data de nascimento"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbCustomerBasicGender">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
-                      </StringArray>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new javax.swing.DefaultComboBoxModel(br.com.store.model.enums.GenderEnum.values())" type="code"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -248,8 +273,47 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerBasicGender">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Sexo:"/>
+                    <Property name="text" type="java.lang.String" value="Sexo"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblCustomerId">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="Codigo"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtCustomerId">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="scrollCustomerNote">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTextArea" name="txtCustomerNote">
+                      <Properties>
+                        <Property name="columns" type="int" value="20"/>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="11" style="0"/>
+                        </Property>
+                        <Property name="rows" type="int" value="5"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JLabel" name="lblProductDescription">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xf5;es"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -258,9 +322,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pr&#xf3;ximo"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustomerBasicNextActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -327,23 +388,17 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblCustomerAddressPublicPlaceType" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="cbCustomerAddressPublicPlaceType" min="-2" pref="56" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="lblCustomerAddressPublicPlace" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtCustomerAddressPublicPlace" pref="476" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="lblCustomerAddressNumber" max="32767" attributes="0"/>
-                                      <Component id="lblCustomerAddressZipCode" max="32767" attributes="0"/>
-                                      <Component id="lblCustomerAddressState" max="32767" attributes="0"/>
-                                      <Component id="lblCustomerAddressComplement" pref="81" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                          <Component id="lblCustomerAddressNumber" min="-2" pref="81" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="lblCustomerAddressComplement" alignment="1" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="lblCustomerAddressState" alignment="1" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="lblCustomerAddressZipCode" alignment="1" min="-2" pref="81" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -361,18 +416,38 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="lblCustomerAddressCity" min="-2" pref="45" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="cbCustomerAddressCity" max="32767" attributes="0"/>
+                                          <Component id="cbCustomerAddressCity" pref="481" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="lblCustomerAddressId" max="32767" attributes="0"/>
+                                      <Component id="lblCustomerAddressPublicPlaceType" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="cbCustomerAddressPublicPlaceType" max="32767" attributes="0"/>
+                                      <Component id="txtCustomerAddressId" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblCustomerAddressPublicPlace" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCustomerAddressPublicPlace" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblCustomerAddressId" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCustomerAddressId" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="cbCustomerAddressPublicPlaceType" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblCustomerAddressPublicPlaceType" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -403,7 +478,7 @@
                               <Component id="lblCustomerAddressZipCode" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtCustomerAddressZipCode" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -426,13 +501,19 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressPublicPlaceType">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Tipo Logradouro:"/>
+                    <Property name="text" type="java.lang.String" value="Tipo Logradouro"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressPublicPlace">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Logradouro:"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Logradouro"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCustomerAddressPublicPlace">
@@ -440,33 +521,36 @@
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressNumber">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="N&#xfa;mero:"/>
+                    <Property name="text" type="java.lang.String" value="N&#xfa;mero"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCustomerAddressNumber">
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressDistrict">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Bairro:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCustomerAddressDistrict">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCustomerAddressDistrictActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressComplement">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Complemento:"/>
+                    <Property name="text" type="java.lang.String" value="Complemento"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCustomerAddressComplement">
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressState">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="UF:"/>
+                    <Property name="text" type="java.lang.String" value="UF"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbCustomerAddressState">
@@ -486,8 +570,11 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressCity">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="Cidade:"/>
+                    <Property name="text" type="java.lang.String" value="Cidade"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="cbCustomerAddressCity">
@@ -507,11 +594,29 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerAddressZipCode">
                   <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
                     <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="CEP:"/>
+                    <Property name="text" type="java.lang.String" value="CEP"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="txtCustomerAddressZipCode">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblCustomerAddressId">
+                  <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtCustomerAddressId">
+                  <Properties>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCustomerAddressIdActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -598,17 +703,14 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
-                                  <Component id="txtCustomerContactValue" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="scrollCustomerContact" pref="631" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="lblCustomerContactContactType" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  <Component id="cbCustomerContactContactType" min="-2" pref="67" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="cbCustomerContactContactType" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtCustomerContactValue" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="scrollCustomerContact" alignment="0" pref="631" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -634,7 +736,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="btnCustomerContactNew" min="-2" pref="46" max="-2" attributes="0"/>
-                                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                                  <EmptySpace pref="141" max="32767" attributes="0"/>
                                   <Component id="btnCustomerContactDelete" min="-2" pref="46" max="-2" attributes="0"/>
                               </Group>
                               <Component id="scrollCustomerContact" pref="0" max="32767" attributes="0"/>
@@ -661,7 +763,10 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCustomerContactContactType">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Tipo Contato:"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Tipo "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtCustomerContactValue">
@@ -700,9 +805,6 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Salvar"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustomerContactSaveActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -729,7 +831,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="lblPanelTitle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="36" style="0"/>

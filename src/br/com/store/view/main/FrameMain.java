@@ -201,6 +201,7 @@ public class FrameMain extends javax.swing.JFrame {
         mItemAdd.addActionListener((e) -> {
             card.show(panelMain, "CustomerAdd");
             panelMain.add("CustomerAdd", new PanelCustomerCreateUpdate());
+            
         });
         mItemList.addActionListener((e) -> {
             card.show(panelMain, "CustomerList");
