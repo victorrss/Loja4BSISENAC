@@ -1,11 +1,10 @@
 package br.com.store.view;
 
 import br.com.store.model.Product;
-import br.com.store.model.enums.FormOperationEnum;
+import br.com.store.model.enums.ProductSearchTypeEnum;
 import br.com.store.service.ServiceProduct;
 import br.com.store.utils.DataUtil;
 import br.com.store.view.main.FrameMain;
-import java.awt.CardLayout;
 import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -26,6 +25,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         panelProductSearch = new javax.swing.JPanel();
         txtProductSearchField = new javax.swing.JTextField();
         btnProductSearch = new javax.swing.JButton();
+        cbtxtProductSearchType = new javax.swing.JComboBox<>();
         scrollProduct = new javax.swing.JScrollPane();
         tableProductSearch = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -33,7 +33,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         panelProductSearch.setBackground(new java.awt.Color(255, 255, 255));
-        panelProductSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar por nome"));
+        panelProductSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Pesquisar"));
 
         btnProductSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
         btnProductSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -42,22 +42,27 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
             }
         });
 
+        cbtxtProductSearchType.setModel(new javax.swing.DefaultComboBoxModel(ProductSearchTypeEnum.values()));
+
         javax.swing.GroupLayout panelProductSearchLayout = new javax.swing.GroupLayout(panelProductSearch);
         panelProductSearch.setLayout(panelProductSearchLayout);
         panelProductSearchLayout.setHorizontalGroup(
             panelProductSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductSearchLayout.createSequentialGroup()
+                .addComponent(cbtxtProductSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtProductSearchField)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProductSearch)
-                .addGap(2, 2, 2))
+                .addContainerGap())
         );
         panelProductSearchLayout.setVerticalGroup(
             panelProductSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductSearchLayout.createSequentialGroup()
                 .addGroup(panelProductSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnProductSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProductSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProductSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbtxtProductSearchType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -66,7 +71,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Código de Barras", "Nome", "Modelo", "Preço", "Estoque"
+                "Código", "Código de Barras", "Nome", "Modelo", "Preço", "Estoque"
             }
         ) {
             Class[] types = new Class [] {
@@ -102,7 +107,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
+                    .addComponent(scrollProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -127,16 +132,19 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
     }//GEN-LAST:event_btnProductSearchActionPerformed
 
     private void tableProductSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductSearchMousePressed
+        Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
+        if (id < 1) {
+            return;
+        }
         JPopupMenu popup = new JPopupMenu();
         JMenuItem mItemUpdate = new JMenuItem("Alterar/Ver");
         mItemUpdate.addActionListener((e) -> {
-            Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
-            //FrameMain.showProductUpdate(id);
+            FrameMain.showProductUpdate(id);
         });
 
         JMenuItem mItemDelete = new JMenuItem("Deletar");
         mItemDelete.addActionListener((e) -> {
-
+            deleteProduct(id);
         });
 
         popup.add(mItemUpdate);
@@ -146,7 +154,28 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         popup.show(tableProductSearch, (int) evt.getX(), (int) evt.getY());
     }//GEN-LAST:event_tableProductSearchMousePressed
 
-    private void loadList() {
+    public void deleteProduct(Integer id) {
+        int dialogResult = JOptionPane.showConfirmDialog(this,
+                "Tem certeza que deseja excluir este produto?",
+                "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        try {
+            ServiceProduct.getInstance().delete(id);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+
+        JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!",
+                "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+        loadList();
+    }
+
+    public void loadList() {
         DefaultTableModel model = (DefaultTableModel) tableProductSearch.getModel();
         model.setNumRows(0);
         List<Product> list = null;
@@ -176,8 +205,9 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tableProductSearch.getModel();
         model.setNumRows(0);
         List<Product> list = null;
+        ProductSearchTypeEnum searchType = (ProductSearchTypeEnum) cbtxtProductSearchType.getSelectedItem();
         try {
-            list = ServiceProduct.getInstance().search(value);
+            list = ServiceProduct.getInstance().search(searchType, value);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
@@ -203,6 +233,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProductSearch;
+    private javax.swing.JComboBox<String> cbtxtProductSearchType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelProductSearch;
     private javax.swing.JScrollPane scrollProduct;

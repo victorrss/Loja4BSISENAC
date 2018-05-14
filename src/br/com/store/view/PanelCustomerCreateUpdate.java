@@ -11,12 +11,12 @@ import java.awt.Component;
  *
  * @author FAMILIA
  */
-public class PanelCustomerAdd extends javax.swing.JPanel {
+public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelAddClient
      */
-    public PanelCustomerAdd() {
+    public PanelCustomerCreateUpdate() {
         initComponents();
     }
 

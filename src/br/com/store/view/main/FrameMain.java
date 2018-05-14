@@ -1,8 +1,8 @@
 package br.com.store.view.main;
 
 import br.com.store.model.enums.FormOperationEnum;
-import br.com.store.view.PanelCustomerAdd;
-import br.com.store.view.PanelCustomerList;
+import br.com.store.view.PanelCustomerCreateUpdate;
+import br.com.store.view.PanelCustomerReadDelete;
 import br.com.store.view.PanelProductCreateUpdate;
 import br.com.store.view.PanelProductReadDelete;
 import java.awt.CardLayout;
@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 public class FrameMain extends javax.swing.JFrame {
+
+    private static CardLayout card;
 
     public FrameMain() {
         initComponents();
@@ -26,8 +28,8 @@ public class FrameMain extends javax.swing.JFrame {
         panelMain = new javax.swing.JPanel();
         Home = new javax.swing.JPanel();
         panelProductAdd = new br.com.store.view.PanelProductCreateUpdate();
-        panelCustomerList = new br.com.store.view.PanelCustomerList();
-        panelCustomerAdd = new br.com.store.view.PanelCustomerAdd();
+        panelCustomerList = new br.com.store.view.PanelCustomerReadDelete();
+        panelCustomerAdd = new br.com.store.view.PanelCustomerCreateUpdate();
         panelBrand = new br.com.store.view.PanelBrand();
         panelCategory = new br.com.store.view.PanelCategory();
         panelProductList = new br.com.store.view.PanelProductReadDelete();
@@ -192,18 +194,17 @@ public class FrameMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
-        CardLayout card = (CardLayout) panelMain.getLayout();
-
+        card = (CardLayout) panelMain.getLayout();
         JPopupMenu popup = new JPopupMenu();
         JMenuItem mItemAdd = new JMenuItem("Novo");
         JMenuItem mItemList = new JMenuItem("Listagem");
         mItemAdd.addActionListener((e) -> {
             card.show(panelMain, "CustomerAdd");
-            panelMain.add("CustomerAdd", new PanelCustomerAdd());
+            panelMain.add("CustomerAdd", new PanelCustomerCreateUpdate());
         });
         mItemList.addActionListener((e) -> {
             card.show(panelMain, "CustomerList");
-            panelMain.add("CustomerList", new PanelCustomerList());
+            panelMain.add("CustomerList", new PanelCustomerReadDelete());
         });
 
         popup.add(mItemAdd);
@@ -213,28 +214,29 @@ public class FrameMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCustomerActionPerformed
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        CardLayout card = (CardLayout) panelMain.getLayout();
+        card = (CardLayout) panelMain.getLayout();
         card.show(panelMain, "Home");
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed
-        CardLayout card = (CardLayout) panelMain.getLayout();
+        card = (CardLayout) panelMain.getLayout();
         JPopupMenu popup = new JPopupMenu();
-        JMenuItem mItemAdd = new JMenuItem("Novo");
-        JMenuItem mItemList = new JMenuItem("Listagem");
+        JMenuItem mItemCreateUpdate = new JMenuItem("Novo");
+        JMenuItem mItemReadDelete = new JMenuItem("Listagem");
         JMenuItem mItemBrand = new JMenuItem("Cadastro de Marca");
         JMenuItem mItemCategory = new JMenuItem("Cadastro de Categoria");
         JMenuItem mItemSubCategory = new JMenuItem("Cadastro de Sub Categoria");
-        mItemAdd.addActionListener((e) -> {
-
+        mItemCreateUpdate.addActionListener((e) -> {
             PanelProductCreateUpdate p = new PanelProductCreateUpdate(FormOperationEnum.CREATE, null);
             panelMain.add("ProductAdd", p);
             card.show(panelMain, "ProductAdd");
-
         });
-        mItemList.addActionListener((e) -> {
+        mItemReadDelete.addActionListener((e) -> {
             card.show(panelMain, "ProductList");
-            panelMain.add("ProductList", new PanelProductReadDelete());
+            PanelProductReadDelete p = new PanelProductReadDelete();
+            p.loadList();
+            panelMain.add("ProductList", p);
+
         });
         mItemBrand.addActionListener((e) -> {
             card.show(panelMain, "Brand");
@@ -245,8 +247,8 @@ public class FrameMain extends javax.swing.JFrame {
         mItemSubCategory.addActionListener((e) -> {
             card.show(panelMain, "SubCategory");
         });
-        popup.add(mItemAdd);
-        popup.add(mItemList);
+        popup.add(mItemCreateUpdate);
+        popup.add(mItemReadDelete);
         popup.add(new JPopupMenu.Separator());
         popup.add(mItemBrand);
         popup.add(mItemCategory);
@@ -255,8 +257,8 @@ public class FrameMain extends javax.swing.JFrame {
         popup.show(btnProduct, (int) btnProduct.getAlignmentX(), (int) btnProduct.getAlignmentY() + btnProduct.getHeight());
     }//GEN-LAST:event_btnProductActionPerformed
 
-    public void showProductUpdate(Integer id) {
-        CardLayout card = (CardLayout) panelMain.getLayout();
+    public static void showProductUpdate(Integer id) {
+        card = (CardLayout) panelMain.getLayout();
         PanelProductCreateUpdate p = new PanelProductCreateUpdate(FormOperationEnum.UPDATE, id);
         panelMain.add("ProductAdd", p);
         card.show(panelMain, "ProductAdd");
@@ -303,14 +305,14 @@ public class FrameMain extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomer;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnHome;
-    private javax.swing.JButton btnProduct;
+    public static javax.swing.JButton btnProduct;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private br.com.store.view.PanelBrand panelBrand;
     private br.com.store.view.PanelCategory panelCategory;
-    private br.com.store.view.PanelCustomerAdd panelCustomerAdd;
-    private br.com.store.view.PanelCustomerList panelCustomerList;
-    private javax.swing.JPanel panelMain;
+    private br.com.store.view.PanelCustomerCreateUpdate panelCustomerAdd;
+    private br.com.store.view.PanelCustomerReadDelete panelCustomerList;
+    private static javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelOption;
     private br.com.store.view.PanelProductCreateUpdate panelProductAdd;
     private br.com.store.view.PanelProductReadDelete panelProductList;

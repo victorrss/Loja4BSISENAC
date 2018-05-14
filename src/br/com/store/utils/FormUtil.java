@@ -4,11 +4,10 @@ import java.awt.Component;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.JTextComponent;
 
 public class FormUtil {
 
@@ -18,29 +17,34 @@ public class FormUtil {
     }
 
     public static void setModelComboBox(JComboBox cb, List list) {
-        //Instanciando o DefaultComboBoxModel
         DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(list.toArray());
-        //passando os valores do "modelo" pro ComboBox
         cb.setModel(defaultComboBox);
     }
 
     public static void clearTextComponents(JPanel panel) {
-        JTextComponent temp = null;
-        JLabel templbl = null;
-        for (Component c : panel.getComponents()) {
-            if (c.getClass().toString().contains("javax.swing.JTextField")) {
-                temp = (JTextField) c;
-                temp.setText("");
+        for (int i = 0; i < panel.getComponentCount(); i++) {
+            //iterate all components on the jpanel
+            Component c = panel.getComponent(i);
+            if (c instanceof JTextField) {
+                JTextField field = (JTextField) c;
+                field.setText("");
             }
 
-            if (c.getClass().toString().contains("javax.swing.JTextArea")) {
-                temp = (JTextArea) c;
-                temp.setText("");
+            if (c instanceof JFormattedTextField) {
+                JFormattedTextField field = (JFormattedTextField) c;
+                field.setText("");
             }
 
-            if (c.getClass().getName().contains("ProductPicture")) {
-                templbl = (JLabel) c;
-                templbl.setIcon(null);
+            if (c instanceof JLabel) {
+                JLabel field = (JLabel) c;
+                if ("lblProductPicture".equals(c.getName())) {
+                    field.setIcon(null);
+                }
+            }
+
+            if (c instanceof JComboBox) {
+                JComboBox field = (JComboBox) c;
+                field.setSelectedIndex(0);
             }
         }
     }

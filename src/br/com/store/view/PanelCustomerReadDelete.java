@@ -1,11 +1,11 @@
 package br.com.store.view;
 
-public class PanelCustomerList extends javax.swing.JPanel {
+public class PanelCustomerReadDelete extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelAddClient
      */
-    public PanelCustomerList() {
+    public PanelCustomerReadDelete() {
         initComponents();
     }
     @SuppressWarnings("unchecked")
