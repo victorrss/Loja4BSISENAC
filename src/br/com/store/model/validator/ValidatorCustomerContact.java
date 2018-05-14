@@ -10,15 +10,12 @@ public class ValidatorCustomerContact {
         if (customerContact == null) {
             throw new CustomerContactException("Não há uma instância de contato do cliente");
         }
-
         if (customerContact.getCustomer() == null) {
             throw new CustomerContactException("Cliente para contato não fornecido");
         }
-
         if (customerContact.getContactType() == null) {
             throw new CustomerContactException("Tipo de contato não fornecido");
         }
-
         if (customerContact.getValue() == null || customerContact.getValue().trim().isEmpty() 
                 || "".equals(customerContact.getValue())) {
             throw new CustomerContactException("Contato não fornecido");
