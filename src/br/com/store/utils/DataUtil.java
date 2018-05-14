@@ -1,6 +1,5 @@
 package br.com.store.utils;
 
-import br.com.store.exception.ProductException;
 import java.io.File;
 
 public class DataUtil {
