@@ -54,24 +54,8 @@ public class DataUtil {
         return new SimpleDateFormat(fmt);
     }
 
-<<<<<<< HEAD
-    //Proof of the value is numerical
-    static boolean isNumeric(String dado) {
-        try {
-            if (!dado.isEmpty()) {
-                Integer.parseInt(dado);
-            }
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     public static boolean isCPF(String CPF) {
 
-=======
-    public static boolean isCPF(String CPF) {
->>>>>>> 16f2b5848183a6e90f1adb236c94cce498c446b1
         //It is considered error CPF's formed by a sequence of equal numbers
         if (CPF.equals("00000000000") || CPF.equals("11111111111")
                 || CPF.equals("22222222222") || CPF.equals("33333333333")
@@ -129,8 +113,6 @@ public class DataUtil {
             return (false);
         }
     }
-<<<<<<< HEAD
-=======
 
     public static boolean isCNPJ(String CNPJ) {
 
@@ -197,9 +179,10 @@ public class DataUtil {
             return (false);
         }
     }
-        //Proof of the value is numerical
-    public static boolean isNumeric(String dado){
-                try {
+    //Proof of the value is numerical
+
+    public static boolean isNumeric(String dado) {
+        try {
             if (!dado.isEmpty()) {
                 Integer.parseInt(dado);
             }
@@ -208,6 +191,4 @@ public class DataUtil {
             return false;
         }
     }
-
->>>>>>> 16f2b5848183a6e90f1adb236c94cce498c446b1
 }
