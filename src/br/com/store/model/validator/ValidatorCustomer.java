@@ -2,6 +2,8 @@ package br.com.store.model.validator;
 
 import br.com.store.exception.CustomerException;
 import br.com.store.model.Customer;
+import static br.com.store.utils.DataUtil.isCNPJ;
+import static br.com.store.utils.DataUtil.isCPF;
 import java.util.Date;
 
 public class ValidatorCustomer {
@@ -31,6 +33,9 @@ public class ValidatorCustomer {
         }
         if (customer.getDocument().length() > 45) {
             throw new CustomerException("Número do documento muito grande");
+        }
+        if(!isCPF(customer.getDocument()) || !isCNPJ(customer.getDocument())){
+            throw new CustomerException("Documento do cliente inválido");
         }
         if (customer.getGender() == null || "".equals(customer.getGender())
                 || (!customer.getGender().equals("M"))
