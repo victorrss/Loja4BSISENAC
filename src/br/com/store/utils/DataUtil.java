@@ -2,6 +2,8 @@ package br.com.store.utils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DataUtil {
 
@@ -179,8 +181,8 @@ public class DataUtil {
             return (false);
         }
     }
-    //Proof of the value is numerical
 
+    //Proof of the value is numerical
     public static boolean isNumeric(String dado) {
         try {
             if (!dado.isEmpty()) {
@@ -191,4 +193,24 @@ public class DataUtil {
             return false;
         }
     }
+
+    //Check if the string is email
+    public static boolean isEmail(String email) {
+        boolean isEmailIdValid = false;
+        if (email != null && email.length() > 0) {
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
+            if (matcher.matches()) {
+                isEmailIdValid = true;
+            }
+        }
+        return isEmailIdValid;
+    }
+    //Check if the string is phone
+    public static boolean isPhone(String numeroTelephone) {
+        return numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}")
+                || numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
+    }
+
 }
