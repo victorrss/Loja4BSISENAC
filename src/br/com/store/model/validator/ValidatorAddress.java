@@ -2,6 +2,7 @@ package br.com.store.model.validator;
 
 import br.com.store.exception.AddressException;
 import br.com.store.model.Address;
+import static br.com.store.utils.DataUtil.isNumeric;
 
 public class ValidatorAddress {
 
@@ -42,16 +43,6 @@ public class ValidatorAddress {
         }
 
     }
-    //Proof of the value is numerical
-    static boolean isNumeric(String dado){
-                try {
-            if (!dado.isEmpty()) {
-                Integer.parseInt(dado);
-            }
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
+
 
 }
