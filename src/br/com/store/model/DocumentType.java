@@ -30,4 +30,8 @@ public class DocumentType {
         this.enabled = enabled;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

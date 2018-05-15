@@ -39,4 +39,9 @@ public class City {
         this.enabled = enabled;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

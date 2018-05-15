@@ -29,7 +29,7 @@ public class DAOCustomerContact {
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, customerContact.getCustomer().getId());
+            stmt.setInt(1, customerContact.getCustomerId());
             stmt.setInt(2, customerContact.getContactType().getId());
             stmt.setString(3, customerContact.getValue());
             stmt.setBoolean(4, true);
@@ -57,7 +57,7 @@ public class DAOCustomerContact {
             stmt = con.prepareStatement(sql);
 
             //Configures the parameters of the "PreparedStatement"
-            stmt.setInt(1, customerContact.getCustomer().getId());
+            stmt.setInt(1, customerContact.getCustomerId());
             stmt.setInt(2, customerContact.getContactType().getId());
             stmt.setString(3, customerContact.getValue());
             stmt.setInt(4, customerContact.getId());
@@ -93,10 +93,11 @@ public class DAOCustomerContact {
         }
     }
 
-    //List all Contact types in the table costumer_contact
-    public static List<CustomerContact> list() throws SQLException, Exception {
+    // List all contacts from a customer
+    public static List<CustomerContact> list(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM customer_contact WHERE (enabled=?)";
+        String sql = "SELECT * FROM customer_contact "
+                + "WHERE customer_id = ? AND (enabled=?)";
 
         List<CustomerContact> listCustomerContact = null;
 
@@ -110,7 +111,8 @@ public class DAOCustomerContact {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-            stmt.setBoolean(1, true);
+            stmt.setInt(1, id);
+            stmt.setBoolean(2, true);
 
             result = stmt.executeQuery();
 
@@ -123,9 +125,8 @@ public class DAOCustomerContact {
                 CustomerContact customerContact = new CustomerContact();
 
                 customerContact.setId(result.getInt("id"));
-                Customer customer = DAOCustomer.get(result.getInt("id"));
-                customerContact.setCustomer(customer);
-                ContactType contactType = DAOContactType.get(result.getInt("id"));
+                customerContact.setCustomerId(result.getInt("customer_id"));
+                ContactType contactType = DAOContactType.get(result.getInt("contact_type_id"));
                 customerContact.setContactType(contactType);
                 customerContact.setValue(result.getString("value"));
 
@@ -172,9 +173,8 @@ public class DAOCustomerContact {
                 CustomerContact customerContact = new CustomerContact();
 
                 customerContact.setId(result.getInt("id"));
-                Customer customer = DAOCustomer.get(result.getInt("id"));
-                customerContact.setCustomer(customer);
-                ContactType contactType = DAOContactType.get(result.getInt("id"));
+                customerContact.setCustomerId(result.getInt("customer_id"));
+                ContactType contactType = DAOContactType.get(result.getInt("contact_type_id"));
                 customerContact.setContactType(contactType);
                 customerContact.setValue(result.getString("value"));
 
@@ -215,9 +215,8 @@ public class DAOCustomerContact {
                 CustomerContact customerContact = new CustomerContact();
 
                 customerContact.setId(result.getInt("id"));
-                Customer customer = DAOCustomer.get(result.getInt("id"));
-                customerContact.setCustomer(customer);
-                ContactType contactType = DAOContactType.get(result.getInt("id"));
+                customerContact.setCustomerId(result.getInt("customer_id"));
+                ContactType contactType = DAOContactType.get(result.getInt("contact_type_id"));
                 customerContact.setContactType(contactType);
                 customerContact.setValue(result.getString("value"));
 

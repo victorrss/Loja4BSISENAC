@@ -31,6 +31,11 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         lblCustomerSearchField.setText("Campo");
 
         btnCustomerSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/search.png"))); // NOI18N
+        btnCustomerSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCustomerSearchLayout = new javax.swing.GroupLayout(panelCustomerSearch);
         panelCustomerSearch.setLayout(panelCustomerSearchLayout);
@@ -113,6 +118,10 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCustomerSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustomerSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

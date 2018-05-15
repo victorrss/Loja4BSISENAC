@@ -5,6 +5,7 @@ import br.com.store.exception.CustomerContactException;
 import br.com.store.exception.DataSourceException;
 import br.com.store.model.CustomerContact;
 import br.com.store.model.validator.ValidatorCustomerContact;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceCustomerContact {
@@ -50,10 +51,10 @@ public class ServiceCustomerContact {
         }
     }
 
-    public List<CustomerContact> list() throws DataSourceException {
+    public List<CustomerContact> list(Integer id) throws DataSourceException {
         List<CustomerContact> list = null;
         try {
-            list = DAOCustomerContact.list();
+            list = DAOCustomerContact.list(id);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados");
@@ -64,7 +65,7 @@ public class ServiceCustomerContact {
     public List<CustomerContact> search(String value) throws CustomerContactException, DataSourceException {
         try {
             if (value == null || "".equals(value)) {
-                return DAOCustomerContact.list();
+                return new ArrayList<>();
             } else {
                 return DAOCustomerContact.search(value);
             }

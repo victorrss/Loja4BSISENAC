@@ -30,4 +30,9 @@ public class PublicPlaceType {
         this.abbreviation = abbreviation;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

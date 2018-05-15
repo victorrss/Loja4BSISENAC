@@ -30,4 +30,9 @@ public class MaritalStatus {
         this.enabled = enabled;
     }
 
+    @Override
+    public String toString() {
+        return getDescription();
+    }
+
 }

@@ -139,6 +139,7 @@ public class DAOCustomer {
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
+                customer.setContacts(DAOCustomerContact.list(customer.getId()));
                 customer.setName(result.getString("name"));
                 DocumentType documentType = DAODocumentType.get(result.getInt("id"));
                 customer.setDocumentType(documentType);
@@ -193,10 +194,11 @@ public class DAOCustomer {
                     listCustomer = new ArrayList<Customer>();
                 }
 
-                                // Create a Customer instance and population with BD values
+                // Create a Customer instance and population with BD values
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
+                customer.setContacts(DAOCustomerContact.list(customer.getId()));
                 customer.setName(result.getString("name"));
                 DocumentType documentType = DAODocumentType.get(result.getInt("id"));
                 customer.setDocumentType(documentType);
@@ -248,6 +250,7 @@ public class DAOCustomer {
                 Customer customer = new Customer();
 
                 customer.setId(result.getInt("id"));
+                customer.setContacts(DAOCustomerContact.list(customer.getId()));
                 customer.setName(result.getString("name"));
                 DocumentType documentType = DAODocumentType.get(result.getInt("id"));
                 customer.setDocumentType(documentType);

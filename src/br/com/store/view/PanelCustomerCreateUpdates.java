@@ -1,8 +1,10 @@
 package br.com.store.view;
 
+import br.com.store.model.Address;
 import br.com.store.model.City;
 import br.com.store.model.ContactType;
 import br.com.store.model.Customer;
+import br.com.store.model.CustomerContact;
 import br.com.store.model.DocumentType;
 import br.com.store.model.MaritalStatus;
 import br.com.store.model.PublicPlaceType;
@@ -19,14 +21,16 @@ import br.com.store.utils.DataUtil;
 import br.com.store.utils.FormUtil;
 import java.awt.Component;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
+public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
 
     private FormOperationEnum operation = null;
     private Integer customerId = null;
 
-    public PanelCustomerCreateUpdate() {
+    public PanelCustomerCreateUpdates() {
         initComponents();
         loadDocumentType();
         loadMaritalStatus();
@@ -36,7 +40,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         loadCity();
     }
 
-    public PanelCustomerCreateUpdate(FormOperationEnum op, Integer id) {
+    public PanelCustomerCreateUpdates(FormOperationEnum op, Integer id) {
         initComponents();
         loadDocumentType();
         loadMaritalStatus();
@@ -70,21 +74,15 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         txtCustomerId.setText(c.getId().toString());
         txtCustomerBasicDocument.setText(c.getDocument());
         txtCustomerBasicBirthDate.setText(DataUtil.getDateFormat("dd/MM/yyyy").format(c.getBirthDate()));
-        txtCustomern.setText(c.getDescription());
-        txtCustomerWarranty.setText(c.getWarranty().toString());
-        txtCustomerModel.setText(c.getModel());
-        if (c.getPicture() != null) {
-            ImageUtil.setImageLabel(c.getPicture(), lblCustomerPicture);
-        }
-        txtCustomerStock.setText(c.getStock().toString());
-        txtCustomerPrice.setText(c.getPrice().toString().replace(".", ","));
+        txtCustomerNote.setText(c.getNote());
+
         JComboBox cbTemp = null;
         // seleciona no cb
-        cbTemp = cbCustomerCategory;
+        cbTemp = cbCustomerBasicMaritalStatus;
         cbTemp.setSelectedIndex(0);
         for (int i = 1; i < cbTemp.getItemCount(); i++) {
-            Category cbSelectedItem = (Category) cbTemp.getSelectedItem();
-            if (cbSelectedItem.getId() == c.getCategory().getId()) {
+            MaritalStatus cbSelectedItem = (MaritalStatus) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == c.getMaritalStatus().getId()) {
                 cbTemp.setSelectedItem(cbSelectedItem);
                 continue;
             }
@@ -92,11 +90,32 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         }
 
         // seleciona no cb
-        cbTemp = cbCustomerSubCategory;
+        cbTemp = cbCustomerBasicDocumentType;
         cbTemp.setSelectedIndex(0);
         for (int i = 1; i < cbTemp.getItemCount(); i++) {
-            SubCategory cbSelectedItem = (SubCategory) cbTemp.getSelectedItem();
-            if (cbSelectedItem.getId() == c.getSubCategory().getId()) {
+            DocumentType cbSelectedItem = (DocumentType) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == c.getDocumentType().getId()) {
+                cbTemp.setSelectedItem(cbSelectedItem);
+                continue;
+            }
+            cbTemp.setSelectedIndex(i);
+        }
+
+        //address
+        Address a = c.getAddress();
+        txtCustomerAddressComplement.setText(a.getComplement());
+        txtCustomerAddressDistrict.setText(a.getDistrict());
+        txtCustomerAddressId.setText(a.getId().toString());
+        txtCustomerAddressNumber.setText(a.getNumber().toString());
+        txtCustomerAddressPublicPlace.setText(a.getPublicPlace());
+        txtCustomerAddressZipCode.setText(a.getZipcode().toString());
+
+        // seleciona no cb
+        cbTemp = cbCustomerAddressPublicPlaceType;
+        cbTemp.setSelectedIndex(0);
+        for (int i = 1; i < cbTemp.getItemCount(); i++) {
+            PublicPlaceType cbSelectedItem = (PublicPlaceType) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == a.getPublicPlaceType().getId()) {
                 cbTemp.setSelectedItem(cbSelectedItem);
                 continue;
             }
@@ -104,18 +123,39 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         }
 
         // seleciona no cb
-        cbTemp = cbCustomerBrand;
+        cbTemp = cbCustomerAddressState;
         cbTemp.setSelectedIndex(0);
         for (int i = 1; i < cbTemp.getItemCount(); i++) {
-            Brand cbSelectedItem = (Brand) cbTemp.getSelectedItem();
-            if (cbSelectedItem.getId() == c.getBrand().getId()) {
+            State cbSelectedItem = (State) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == a.getCity().getState().getId()) {
                 cbTemp.setSelectedItem(cbSelectedItem);
                 continue;
             }
             cbTemp.setSelectedIndex(i);
         }
 
-        lblCustomerPicture.setText("");
+        // seleciona no cb
+        cbTemp = cbCustomerAddressCity;
+        cbTemp.setSelectedIndex(0);
+        for (int i = 1; i < cbTemp.getItemCount(); i++) {
+            City cbSelectedItem = (City) cbTemp.getSelectedItem();
+            if (cbSelectedItem.getId() == a.getCity().getId()) {
+                cbTemp.setSelectedItem(cbSelectedItem);
+                continue;
+            }
+            cbTemp.setSelectedIndex(i);
+        }
+
+        // load contacts
+        DefaultTableModel model = (DefaultTableModel) tableCustomerContact.getModel();
+        model.setNumRows(0);
+        for (CustomerContact ctt : c.getContacts()) {
+            model.addRow(new Object[]{
+                ctt.getId(),
+                ctt.getContactType(),
+                ctt.getValue()
+            });
+        }
 
     }
 
@@ -577,6 +617,11 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
         btnCustomerContactCustomerSave.setText("Salvar");
         btnCustomerContactCustomerSave.setPreferredSize(new java.awt.Dimension(71, 23));
+        btnCustomerContactCustomerSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerContactCustomerSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabCustomerContactLayout = new javax.swing.GroupLayout(tabCustomerContact);
         tabCustomerContact.setLayout(tabCustomerContactLayout);
@@ -644,6 +689,10 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
     private void txtCustomerAddressIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomerAddressIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCustomerAddressIdActionPerformed
+
+    private void btnCustomerContactCustomerSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactCustomerSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustomerContactCustomerSaveActionPerformed
 
     void setActiveTab(Component c) {
         tabPanelCustomer.setSelectedComponent(c);

@@ -165,7 +165,7 @@ public class DAOProduct {
                 product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
-                if (result.getBlob("picture") != null) {
+                if (result.getObject("picture") != null) {
                     product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
                 }
                 product.setStock(result.getInt("stock"));
@@ -227,7 +227,9 @@ public class DAOProduct {
                 product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
-                product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                if (result.getObject("picture") != null) {
+                    product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                }
                 product.setStock(result.getInt("stock"));
                 product.setPrice(result.getFloat("price"));
 
@@ -310,7 +312,9 @@ public class DAOProduct {
                 product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
-                product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                if (result.getObject("picture") != null) {
+                    product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                }
                 product.setStock(result.getInt("stock"));
                 product.setPrice(result.getFloat("price"));
 
@@ -364,7 +368,10 @@ public class DAOProduct {
                 product.setDescription(result.getString("description"));
                 product.setWarranty(result.getInt("warranty"));
                 product.setModel(result.getString("model"));
-                product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+
+                if (result.getObject("picture") != null) {
+                    product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                }
                 product.setStock(result.getInt("stock"));
                 product.setPrice(result.getFloat("price"));
 

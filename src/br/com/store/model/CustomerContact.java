@@ -3,12 +3,14 @@ package br.com.store.model;
 public class CustomerContact {
 
     private Integer id;
-    private Customer customer;
+    //private Customer customer;
+    private Integer customerId;
     private ContactType contactType;
     private String value;
     /*Example: for contactType = email --> xxxyyyzzz@email.com
                             for contactType = tel --> 123456789, etc...
      */
+
     private boolean enabled;
 
     public Integer getId() {
@@ -19,14 +21,21 @@ public class CustomerContact {
         this.id = Id;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Integer getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
     public ContactType getContactType() {
         return contactType;
     }

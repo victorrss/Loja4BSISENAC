@@ -39,7 +39,7 @@ public class ValidatorProduct {
 //            throw new ProductException("O código de barras precisa ter 13 caracteres numéricos");
 //        }
 
-        if (product.getBarcode() != null && !DataUtil.checkBarcodeEAN(product.getBarcode())) {
+        if (!DataUtil.empty(product.getBarcode()) && !DataUtil.checkBarcodeEAN(product.getBarcode())) {
             throw new ProductException("O código de barras está inválido!");
         }
 

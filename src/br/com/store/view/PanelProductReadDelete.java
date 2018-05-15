@@ -198,7 +198,6 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
                 p.getStock()
             });
         }
-
     }
 
     private void loadSearch(String value) {

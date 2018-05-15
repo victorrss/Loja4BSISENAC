@@ -17,6 +17,7 @@ public class Customer {
     private String note; //Example: Legal and frequent customer, annoying customer, etc...
     private boolean enabled;
     private Date createdAt;
+    private List<CustomerContact> contacts;
 
     public Integer getId() {
         return Id;
@@ -106,25 +107,12 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
-    public List<CustomerContact> listContact(Customer customerId) {
+    public List<CustomerContact> getContacts() {
+        return contacts;
+    }
 
-        CustomerContact customerContact = new CustomerContact();
-        List<CustomerContact> listCustomerContact = null;
-        do {
-            if (listCustomerContact == null) {
-                listCustomerContact = new ArrayList<CustomerContact>();
-            }
-            customerContact.setId(customerContact.getId());
-            customerContact.setCustomer(customerContact.getCustomer());
-            customerContact.setContactType(customerContact.getContactType());
-            customerContact.setValue(customerContact.getValue());
-
-            // Add the instance in the list
-            listCustomerContact.add(customerContact);
-
-        } while (customerContact.getCustomer() == customerId && customerContact.isEnabled());
-        return listCustomerContact;
-
+    public void setContacts(List<CustomerContact> contacts) {
+        this.contacts = contacts;
     }
 
 }

@@ -136,7 +136,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="br.com.store.view.PanelCustomerCreateUpdate" name="panelCustomerAdd">
+            <Component class="br.com.store.view.PanelCustomerCreateUpdates" name="panelCustomerAdd">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                   <CardConstraints cardName="CustomerAdd"/>

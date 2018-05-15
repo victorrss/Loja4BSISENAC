@@ -39,4 +39,8 @@ public class State {
         this.enabled = enabled;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

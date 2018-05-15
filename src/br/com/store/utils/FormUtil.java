@@ -35,12 +35,12 @@ public class FormUtil {
                 field.setText("");
             }
 
-            if (c instanceof JLabel) {
-                JLabel field = (JLabel) c;
-                if ("lblProductPicture".equals(c.getName())) {
-                    field.setIcon(null);
-                }
-            }
+//            if (c instanceof JLabel) {
+//                JLabel field = (JLabel) c;
+//                if ("Picture".contains(c.getName())) {
+//                    field.setIcon(null);
+//                }
+//            }
 
             if (c instanceof JComboBox) {
                 JComboBox field = (JComboBox) c;
