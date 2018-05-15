@@ -61,6 +61,17 @@ public class ServiceCity {
         return list;
     }
 
+    public List<City> list(Integer stateId) throws DataSourceException {
+        List<City> list = null;
+        try {
+            list = DAOCity.list(stateId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+        return list;
+    }
+
     public List<City> search(String name) throws CityException, DataSourceException {
         try {
             if (name == null || "".equals(name)) {

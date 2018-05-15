@@ -27,19 +27,19 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class PanelProductCreateUpdate extends javax.swing.JPanel {
-    
+
     private FormOperationEnum operation = null;
     private Integer productId = null;
     BufferedImage image;
-    
+
     public PanelProductCreateUpdate() {
         initComponents();
         loadBrand();
         loadCategory();
         loadSubCategory();
-        
+
     }
-    
+
     public PanelProductCreateUpdate(FormOperationEnum op, Integer id) {
         initComponents();
         loadBrand();
@@ -47,7 +47,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         loadSubCategory();
         prepareFormOperation(op, id);
     }
-    
+
     private void prepareFormOperation(FormOperationEnum op, Integer id) {
         this.operation = op;
         this.productId = id;
@@ -58,7 +58,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             loadProduct(productId);
         }
     }
-    
+
     void loadProduct(Integer id) {
         Product p;
         try {
@@ -75,11 +75,11 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         txtProductWarranty.setText(p.getWarranty().toString());
         txtProductModel.setText(p.getModel());
         if (p.getPicture() != null) {
-            
+
             ImageUtil.setImageLabel(p.getPicture(), lblProductPicture);
             ImageIcon icon = (ImageIcon) lblProductPicture.getIcon();
             image = (BufferedImage) ((Image) icon.getImage());
-            
+
         }
         txtProductStock.setText(p.getStock().toString());
         txtProductPrice.setText(p.getPrice().toString().replace(".", ","));
@@ -119,16 +119,16 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             }
             cbTemp.setSelectedIndex(i);
         }
-        
+
         lblProductPicture.setText("");
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelProductRegister = new javax.swing.JPanel();
+        panelProduct = new javax.swing.JPanel();
         lblProductName = new javax.swing.JLabel();
         txtProductName = new javax.swing.JTextField();
         lblProductBrand = new javax.swing.JLabel();
@@ -163,8 +163,8 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        panelProductRegister.setBackground(new java.awt.Color(255, 255, 255));
-        panelProductRegister.setBorder(javax.swing.BorderFactory.createTitledBorder("Produto"));
+        panelProduct.setBackground(new java.awt.Color(255, 255, 255));
+        panelProduct.setBorder(javax.swing.BorderFactory.createTitledBorder("Produto"));
 
         lblProductName.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -281,54 +281,54 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
 
         txtProductWarranty.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        javax.swing.GroupLayout panelProductRegisterLayout = new javax.swing.GroupLayout(panelProductRegister);
-        panelProductRegister.setLayout(panelProductRegisterLayout);
-        panelProductRegisterLayout.setHorizontalGroup(
-            panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProductRegisterLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelProductLayout = new javax.swing.GroupLayout(panelProduct);
+        panelProduct.setLayout(panelProductLayout);
+        panelProductLayout.setHorizontalGroup(
+            panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProductLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductRegisterLayout.createSequentialGroup()
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductLayout.createSequentialGroup()
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblProductSubCategory)
                             .addComponent(lblProductCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbProductCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbProductSubCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnProductRefreshCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnProductRefreshSubCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductRegisterLayout.createSequentialGroup()
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductLayout.createSequentialGroup()
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(lblProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblProductId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblProductBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtProductName)
-                            .addGroup(panelProductRegisterLayout.createSequentialGroup()
+                            .addGroup(panelProductLayout.createSequentialGroup()
                                 .addComponent(txtProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblProductBarcode)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtProductBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 228, Short.MAX_VALUE))
-                            .addGroup(panelProductRegisterLayout.createSequentialGroup()
+                            .addGroup(panelProductLayout.createSequentialGroup()
                                 .addComponent(cbProductBrand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnProductRefreshBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panelProductRegisterLayout.createSequentialGroup()
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelProductLayout.createSequentialGroup()
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblProductDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblProductModel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtProductModel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelProductRegisterLayout.createSequentialGroup()
+                            .addGroup(panelProductLayout.createSequentialGroup()
                                 .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblProductStock)
@@ -343,50 +343,50 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(scrollProductDescription))))
                 .addGap(18, 18, 18)
-                .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblProductPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        panelProductRegisterLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblProductBrand, lblProductCategory, lblProductId, lblProductName, lblProductPrice, lblProductSubCategory});
+        panelProductLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblProductBrand, lblProductCategory, lblProductId, lblProductName, lblProductPrice, lblProductSubCategory});
 
-        panelProductRegisterLayout.setVerticalGroup(
-            panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProductRegisterLayout.createSequentialGroup()
-                .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        panelProductLayout.setVerticalGroup(
+            panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelProductLayout.createSequentialGroup()
+                .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProductId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProductId)
                     .addComponent(txtProductBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProductBarcode))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProductName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelProductRegisterLayout.createSequentialGroup()
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelProductLayout.createSequentialGroup()
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnProductRefreshBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cbProductBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblProductBrand)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbProductCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblProductCategory)
                             .addComponent(btnProductRefreshCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbProductSubCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblProductSubCategory)
                             .addComponent(btnProductRefreshSubCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtProductModel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblProductModel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblProductPrice)
                             .addComponent(lblProductStock)
@@ -395,12 +395,12 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                             .addComponent(txtProductStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtProductWarranty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelProductRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelProductRegisterLayout.createSequentialGroup()
+                        .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelProductLayout.createSequentialGroup()
                                 .addComponent(lblProductDescription)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(scrollProductDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)))
-                    .addGroup(panelProductRegisterLayout.createSequentialGroup()
+                    .addGroup(panelProductLayout.createSequentialGroup()
                         .addComponent(lblProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
                         .addComponent(btnProductPicture)))
@@ -424,7 +424,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelProductRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnProductFinalize, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -437,7 +437,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblPanelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelProductRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProductFinalize, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -453,7 +453,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             temp = "alterar";
             temp2 = "alterado";
         }
-        
+
         int dialogResult = JOptionPane.showConfirmDialog(this,
                 "Tem certeza que deseja " + temp + " um produto?",
                 "Confirmação",
@@ -461,7 +461,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         if (dialogResult == JOptionPane.NO_OPTION) {
             return;
         }
-        
+
         Product product = new Product();
         product.setId(DataUtil.parseInteger(txtProductId.getText()));
         product.setName(txtProductName.getText());
@@ -479,7 +479,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         product.setCategory((Category) cbProductCategory.getSelectedItem());
         product.setSubCategory((SubCategory) cbProductSubCategory.getSelectedItem());
         product.setBrand((Brand) cbProductBrand.getSelectedItem());
-        
+
         try {
             if (operation == FormOperationEnum.CREATE) {
                 ServiceProduct.getInstance().insert(product);
@@ -491,11 +491,11 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Produto " + temp2 + " com sucesso",
                 "Confirmação", JOptionPane.INFORMATION_MESSAGE);
-        
-        FormUtil.clearTextComponents(panelProductRegister);
+
+        FormUtil.clearTextComponents(panelProduct);
         lblProductPicture.setIcon(null);
     }//GEN-LAST:event_btnProductFinalizeActionPerformed
 
@@ -519,7 +519,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         fc.setAcceptAllFileFilterUsed(false);
         fc.setFileFilter(new FileNameExtensionFilter("Imagens", ImageIO.getReaderFileSuffixes()));
         int res = fc.showOpenDialog(null);
-        
+
         if (res == JFileChooser.APPROVE_OPTION) {
             File arquivo = fc.getSelectedFile();
             try {
@@ -540,7 +540,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
     private void maxLenght(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_maxLenght
         FormUtil.maxLenghtTextField((JTextField) evt.getSource(), evt);
     }//GEN-LAST:event_maxLenght
-    
+
     private void loadBrand() {
         FormUtil.clearComboBox(cbProductBrand);
         List<Brand> list = null;
@@ -550,14 +550,14 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         if (list == null) {
             return;
         }
-        
+
         FormUtil.setModelComboBox(cbProductBrand, list);
     }
-    
+
     private void loadCategory() {
         FormUtil.clearComboBox(cbProductCategory);
         List<Category> list = null;
@@ -567,14 +567,14 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         if (list == null) {
             return;
         }
-        
+
         FormUtil.setModelComboBox(cbProductCategory, list);
     }
-    
+
     private void loadSubCategory() {
         FormUtil.clearComboBox(cbProductSubCategory);
         List<SubCategory> list = null;
@@ -584,14 +584,13 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         if (list == null) {
             return;
         }
-        
+
         FormUtil.setModelComboBox(cbProductSubCategory, list);
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnProductFinalize;
@@ -616,7 +615,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JLabel lblProductSubCategory;
     private javax.swing.JLabel lblProductWarrantHelp;
     private javax.swing.JLabel lblProductWarranty;
-    private javax.swing.JPanel panelProductRegister;
+    private javax.swing.JPanel panelProduct;
     private javax.swing.JScrollPane scrollProductDescription;
     private javax.swing.JTextField txtProductBarcode;
     private javax.swing.JTextArea txtProductDescription;

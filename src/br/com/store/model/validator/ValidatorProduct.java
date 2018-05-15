@@ -34,11 +34,9 @@ public class ValidatorProduct {
 //        if (product.getBarcode().length() > 45) {
 //            throw new ProductException("Código de barras do produto não pode ter mais que 45 caracteres");
 //        }
-        
 //        if(product.getBarcode() != null && !DataUtil.validatorIsNumericBarcode(product.getBarcode())){
 //            throw new ProductException("O código de barras precisa ter 13 caracteres numéricos");
 //        }
-
         if (!DataUtil.empty(product.getBarcode()) && !DataUtil.checkBarcodeEAN(product.getBarcode())) {
             throw new ProductException("O código de barras está inválido!");
         }
@@ -59,5 +57,5 @@ public class ValidatorProduct {
             throw new ProductException("Preço do produto não fornecido");
         }
     }
-    
+
 }

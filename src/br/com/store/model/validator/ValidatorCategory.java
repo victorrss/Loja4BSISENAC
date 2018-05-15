@@ -13,7 +13,7 @@ public class ValidatorCategory {
         if (category.getName() == null || category.getName().trim().isEmpty()) {
             throw new CategoryException("Nome da categoria não fornecido");
         }
-        
+
         if (category.getName().length() > 45) {
             throw new CategoryException("Nome da categoria não pode ter mais que 45 caracteres");
         }

@@ -13,7 +13,7 @@ public class ValidatorSubcategory {
         if (subcategory.getName() == null || subcategory.getName().trim().isEmpty()) {
             throw new SubcategoryException("Nome da subcategoria não fornecido");
         }
-        
+
         if (subcategory.getName().length() > 45) {
             throw new SubcategoryException("Nome da subcategoria não pode ter mais que 45 caracteres");
         }

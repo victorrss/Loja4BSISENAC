@@ -10,6 +10,7 @@ import br.com.store.model.MaritalStatus;
 import br.com.store.model.PublicPlaceType;
 import br.com.store.model.State;
 import br.com.store.model.enums.FormOperationEnum;
+import br.com.store.model.enums.GenderEnum;
 import br.com.store.service.ServiceCity;
 import br.com.store.service.ServiceContactType;
 import br.com.store.service.ServiceCustomer;
@@ -20,34 +21,48 @@ import br.com.store.service.ServiceState;
 import br.com.store.utils.DataUtil;
 import br.com.store.utils.FormUtil;
 import java.awt.Component;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.text.DefaultFormatterFactory;
 
-public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
+public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
     private FormOperationEnum operation = null;
     private Integer customerId = null;
 
-    public PanelCustomerCreateUpdates() {
+    public PanelCustomerCreateUpdate() {
         initComponents();
         loadDocumentType();
+        setMaskDocumentType();
         loadMaritalStatus();
         loadContactType();
+        setMaskContactType();
         loadPublicPlaceType();
         loadState();
         loadCity();
+        setMaskBirthDate();
     }
 
-    public PanelCustomerCreateUpdates(FormOperationEnum op, Integer id) {
+    public PanelCustomerCreateUpdate(FormOperationEnum op, Integer id) {
         initComponents();
         loadDocumentType();
+        setMaskDocumentType();
         loadMaritalStatus();
         loadContactType();
+        setMaskContactType();
         loadPublicPlaceType();
         loadState();
         loadCity();
+        setMaskBirthDate();
         prepareFormOperation(op, id);
     }
 
@@ -55,14 +70,14 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         this.operation = op;
         this.customerId = id;
         if (this.operation == FormOperationEnum.CREATE) {
-            lblPanelTitle.setText("Produto - Novo");
+            lblPanelTitle.setText("Cliente - Novo");
         } else {
-            lblPanelTitle.setText("Produto - Alteração");
+            lblPanelTitle.setText("Cliente - Alteração");
             loadCustomer(customerId);
         }
     }
 
-    void loadCustomer(Integer id) {
+    private void loadCustomer(Integer id) {
         Customer c;
         try {
             c = ServiceCustomer.getInstance().get(id);
@@ -71,10 +86,10 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        txtCustomerId.setText(c.getId().toString());
+        txtCustomerBasicId.setText(c.getId().toString());
         txtCustomerBasicDocument.setText(c.getDocument());
         txtCustomerBasicBirthDate.setText(DataUtil.getDateFormat("dd/MM/yyyy").format(c.getBirthDate()));
-        txtCustomerNote.setText(c.getNote());
+        txtCustomerBasicNote.setText(c.getNote());
 
         JComboBox cbTemp = null;
         // seleciona no cb
@@ -163,6 +178,7 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelCustomer = new javax.swing.JPanel();
         tabPanelCustomer = new javax.swing.JTabbedPane();
         tabCustomerBasic = new javax.swing.JPanel();
         lblCustomerNote = new javax.swing.JPanel();
@@ -177,11 +193,11 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         lblCustomerBasicBirthDate = new javax.swing.JLabel();
         cbCustomerBasicGender = new javax.swing.JComboBox<>();
         lblCustomerBasicGender = new javax.swing.JLabel();
-        lblCustomerId = new javax.swing.JLabel();
-        txtCustomerId = new javax.swing.JTextField();
-        scrollCustomerNote = new javax.swing.JScrollPane();
-        txtCustomerNote = new javax.swing.JTextArea();
-        lblProductDescription = new javax.swing.JLabel();
+        lblCustomerBasicId = new javax.swing.JLabel();
+        txtCustomerBasicId = new javax.swing.JTextField();
+        scrollCustomerBasicNote = new javax.swing.JScrollPane();
+        txtCustomerBasicNote = new javax.swing.JTextArea();
+        lblCustomerBasicNote = new javax.swing.JLabel();
         btnCustomerBasicNext = new javax.swing.JButton();
         tabCustomerAddress = new javax.swing.JPanel();
         panelCustomerAddress = new javax.swing.JPanel();
@@ -209,12 +225,12 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         paneCustomerlContact = new javax.swing.JPanel();
         cbCustomerContactContactType = new javax.swing.JComboBox<>();
         lblCustomerContactContactType = new javax.swing.JLabel();
-        txtCustomerContactValue = new javax.swing.JTextField();
         scrollCustomerContact = new javax.swing.JScrollPane();
         tableCustomerContact = new javax.swing.JTable();
-        btnCustomerContactNew = new javax.swing.JButton();
-        btnCustomerContactDelete = new javax.swing.JButton();
-        btnCustomerContactSave = new javax.swing.JButton();
+        btnCustomerContactAdd = new javax.swing.JButton();
+        txtCustomerContactValue = new javax.swing.JFormattedTextField();
+        lblCustomerContactId = new javax.swing.JLabel();
+        txtCustomerContactId = new javax.swing.JTextField();
         btnCustomerContactBack = new javax.swing.JButton();
         btnCustomerContactCustomerSave = new javax.swing.JButton();
         lblPanelTitle = new javax.swing.JLabel();
@@ -235,12 +251,19 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         lblCustomerBasicDocument.setText("Documento");
 
         cbCustomerBasicDocumentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCustomerBasicDocumentType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCustomerBasicDocumentTypeActionPerformed(evt);
+            }
+        });
 
         cbCustomerBasicMaritalStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblCustomerBasicMaritalSatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCustomerBasicMaritalSatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCustomerBasicMaritalSatus.setText("Estado Civil");
+
+        txtCustomerBasicBirthDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
         lblCustomerBasicBirthDate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCustomerBasicBirthDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -252,19 +275,19 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         lblCustomerBasicGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCustomerBasicGender.setText("Sexo");
 
-        lblCustomerId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCustomerId.setText("Codigo");
-        lblCustomerId.setEnabled(false);
+        lblCustomerBasicId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCustomerBasicId.setText("Codigo");
+        lblCustomerBasicId.setEnabled(false);
 
-        txtCustomerId.setEnabled(false);
+        txtCustomerBasicId.setEnabled(false);
 
-        txtCustomerNote.setColumns(20);
-        txtCustomerNote.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        txtCustomerNote.setRows(5);
-        scrollCustomerNote.setViewportView(txtCustomerNote);
+        txtCustomerBasicNote.setColumns(20);
+        txtCustomerBasicNote.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        txtCustomerBasicNote.setRows(5);
+        scrollCustomerBasicNote.setViewportView(txtCustomerBasicNote);
 
-        lblProductDescription.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblProductDescription.setText("Observações");
+        lblCustomerBasicNote.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCustomerBasicNote.setText("Observações");
 
         javax.swing.GroupLayout lblCustomerNoteLayout = new javax.swing.GroupLayout(lblCustomerNote);
         lblCustomerNote.setLayout(lblCustomerNoteLayout);
@@ -280,23 +303,23 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
                             .addComponent(lblCustomerBasicBirthDate)
                             .addComponent(lblCustomerBasicGender, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCustomerBasicMaritalSatus, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblCustomerBasicId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblCustomerNoteLayout.createSequentialGroup()
-                        .addComponent(lblProductDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCustomerBasicNote, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollCustomerNote)
+                    .addComponent(scrollCustomerBasicNote)
                     .addComponent(cbCustomerBasicMaritalStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbCustomerBasicGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(lblCustomerNoteLayout.createSequentialGroup()
                         .addComponent(cbCustomerBasicDocumentType, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCustomerBasicDocument, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                        .addComponent(txtCustomerBasicDocument, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
                     .addComponent(txtCustomerBasicName)
                     .addComponent(txtCustomerBasicBirthDate, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(lblCustomerNoteLayout.createSequentialGroup()
-                        .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCustomerBasicId, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -304,8 +327,8 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
             lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lblCustomerNoteLayout.createSequentialGroup()
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCustomerId))
+                    .addComponent(txtCustomerBasicId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCustomerBasicId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCustomerBasicName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,13 +353,18 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(lblCustomerNoteLayout.createSequentialGroup()
-                        .addComponent(lblProductDescription)
+                        .addComponent(lblCustomerBasicNote)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollCustomerNote, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
+                    .addComponent(scrollCustomerBasicNote, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        btnCustomerBasicNext.setText("Próximo");
+        btnCustomerBasicNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/next.png"))); // NOI18N
+        btnCustomerBasicNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerBasicNextActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabCustomerBasicLayout = new javax.swing.GroupLayout(tabCustomerBasic);
         tabCustomerBasic.setLayout(tabCustomerBasicLayout);
@@ -391,6 +419,11 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         lblCustomerAddressState.setText("UF");
 
         cbCustomerAddressState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCustomerAddressState.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCustomerAddressStateActionPerformed(evt);
+            }
+        });
 
         lblCustomerAddressCity.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCustomerAddressCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -402,16 +435,17 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         lblCustomerAddressZipCode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCustomerAddressZipCode.setText("CEP");
 
+        try {
+            txtCustomerAddressZipCode.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         lblCustomerAddressId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCustomerAddressId.setText("Código");
         lblCustomerAddressId.setEnabled(false);
 
         txtCustomerAddressId.setEnabled(false);
-        txtCustomerAddressId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCustomerAddressIdActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelCustomerAddressLayout = new javax.swing.GroupLayout(panelCustomerAddress);
         panelCustomerAddress.setLayout(panelCustomerAddressLayout);
@@ -443,7 +477,7 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblCustomerAddressCity, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbCustomerAddressCity, 0, 481, Short.MAX_VALUE))))
+                                .addComponent(cbCustomerAddressCity, 0, 501, Short.MAX_VALUE))))
                     .addGroup(panelCustomerAddressLayout.createSequentialGroup()
                         .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblCustomerAddressId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -493,14 +527,15 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
                 .addGap(25, 25, 25))
         );
 
-        btnAddressNext.setText("Próximo");
+        btnAddressNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/next.png"))); // NOI18N
+        btnAddressNext.setToolTipText("");
         btnAddressNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddressNextActionPerformed(evt);
             }
         });
 
-        btnAddressBack.setText("Voltar");
+        btnAddressBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/back.png"))); // NOI18N
         btnAddressBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddressBackActionPerformed(evt);
@@ -541,13 +576,18 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         paneCustomerlContact.setBorder(javax.swing.BorderFactory.createTitledBorder("Contato"));
 
         cbCustomerContactContactType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbCustomerContactContactType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCustomerContactContactTypeActionPerformed(evt);
+            }
+        });
 
         lblCustomerContactContactType.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCustomerContactContactType.setText("Tipo ");
 
         tableCustomerContact.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
                 "Id", "Tipo", "Valor"
@@ -561,13 +601,30 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        tableCustomerContact.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCustomerContactMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableCustomerContactMouseReleased(evt);
+            }
+        });
         scrollCustomerContact.setViewportView(tableCustomerContact);
 
-        btnCustomerContactNew.setText("Novo");
+        btnCustomerContactAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/ok.png"))); // NOI18N
+        btnCustomerContactAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerContactAddActionPerformed(evt);
+            }
+        });
 
-        btnCustomerContactDelete.setText("Del");
+        txtCustomerContactValue.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
-        btnCustomerContactSave.setText("Salvar");
+        lblCustomerContactId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCustomerContactId.setText("Código");
+        lblCustomerContactId.setEnabled(false);
+
+        txtCustomerContactId.setEnabled(false);
 
         javax.swing.GroupLayout paneCustomerlContactLayout = new javax.swing.GroupLayout(paneCustomerlContact);
         paneCustomerlContact.setLayout(paneCustomerlContactLayout);
@@ -576,38 +633,37 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
             .addGroup(paneCustomerlContactLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+                    .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
                     .addGroup(paneCustomerlContactLayout.createSequentialGroup()
+                        .addComponent(lblCustomerContactId)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCustomerContactId, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCustomerContactContactType)
-                        .addGap(1, 1, 1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbCustomerContactContactType, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCustomerContactValue)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCustomerContactDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCustomerContactNew, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(btnCustomerContactSave, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(txtCustomerContactValue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCustomerContactAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         paneCustomerlContactLayout.setVerticalGroup(
             paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneCustomerlContactLayout.createSequentialGroup()
-                .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCustomerContactSave)
-                    .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCustomerContactContactType)
-                        .addComponent(cbCustomerContactContactType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCustomerContactValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(lblCustomerContactContactType)
+                    .addComponent(txtCustomerContactValue)
+                    .addComponent(btnCustomerContactAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(cbCustomerContactContactType)
+                    .addComponent(lblCustomerContactId)
+                    .addComponent(txtCustomerContactId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paneCustomerlContactLayout.createSequentialGroup()
-                        .addComponent(btnCustomerContactNew, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
-                        .addComponent(btnCustomerContactDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrollCustomerContact, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        btnCustomerContactBack.setText("Voltar");
+        btnCustomerContactBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/back.png"))); // NOI18N
         btnCustomerContactBack.setPreferredSize(new java.awt.Dimension(71, 23));
         btnCustomerContactBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -615,7 +671,7 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
             }
         });
 
-        btnCustomerContactCustomerSave.setText("Salvar");
+        btnCustomerContactCustomerSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
         btnCustomerContactCustomerSave.setPreferredSize(new java.awt.Dimension(71, 23));
         btnCustomerContactCustomerSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -642,9 +698,9 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
             .addGroup(tabCustomerContactLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(paneCustomerlContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(112, 112, 112)
                 .addGroup(tabCustomerContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCustomerContactCustomerSave, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(btnCustomerContactCustomerSave, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(btnCustomerContactBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
         );
@@ -654,23 +710,35 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         lblPanelTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblPanelTitle.setText("Cliente - Novo");
 
+        javax.swing.GroupLayout panelCustomerLayout = new javax.swing.GroupLayout(panelCustomer);
+        panelCustomer.setLayout(panelCustomerLayout);
+        panelCustomerLayout.setHorizontalGroup(
+            panelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tabPanelCustomer)
+            .addGroup(panelCustomerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblPanelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelCustomerLayout.setVerticalGroup(
+            panelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCustomerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblPanelTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabPanelCustomer)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPanelCustomer)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblPanelTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblPanelTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabPanelCustomer))
+            .addComponent(panelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -686,27 +754,155 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         setActiveTab(tabCustomerAddress);
     }//GEN-LAST:event_btnCustomerContactBackActionPerformed
 
-    private void txtCustomerAddressIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustomerAddressIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCustomerAddressIdActionPerformed
-
     private void btnCustomerContactCustomerSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactCustomerSaveActionPerformed
-        // TODO add your handling code here:
+        String temp = "", temp2 = "";
+        if (operation == FormOperationEnum.CREATE) {
+            temp = "cadastrar";
+            temp2 = "cadastrado";
+        } else {
+            temp = "alterar";
+            temp2 = "alterado";
+        }
+
+        int dialogResult = JOptionPane.showConfirmDialog(this,
+                "Tem certeza que deseja " + temp + " um cliente?",
+                "Confirmação",
+                JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        Customer customer = new Customer();
+        customer.setId(DataUtil.parseInteger(txtCustomerBasicId.getText()));
+        customer.setName(txtCustomerBasicName.getText());
+        customer.setDocument((String) txtCustomerBasicDocument.getValue());
+        customer.setBirthDate(DataUtil.parseDate("dd/MM/yyyy", (String) txtCustomerBasicBirthDate.getValue()));
+        customer.setGender(((GenderEnum) cbCustomerBasicGender.getSelectedItem()).equals(GenderEnum.MALE) ? "M" : "F");
+        customer.setMaritalStatus((MaritalStatus) cbCustomerBasicMaritalStatus.getSelectedItem());
+        customer.setNote(txtCustomerBasicNote.getText());
+        customer.setDocumentType((DocumentType) cbCustomerBasicDocumentType.getSelectedItem());
+        // address
+        Address address = new Address();
+        address.setId(DataUtil.parseInteger(txtCustomerAddressId.getText()));
+        address.setComplement(txtCustomerAddressComplement.getText());
+        address.setDistrict(txtCustomerAddressDistrict.getText());
+        address.setNumber(DataUtil.parseInteger(txtCustomerAddressNumber.getText()));
+        address.setPublicPlace(txtCustomerAddressPublicPlace.getText());
+        address.setPublicPlaceType((PublicPlaceType) cbCustomerAddressPublicPlaceType.getSelectedItem());
+        address.setZipcode(DataUtil.parseInteger((String) txtCustomerAddressZipCode.getValue()));
+        address.setCity((City) cbCustomerAddressCity.getSelectedItem());
+        customer.setAddress(address);
+        // contacts
+        List<CustomerContact> contacts = new ArrayList<>();
+        TableModel model = tableCustomerContact.getModel();
+        for (int i = 0; i < tableCustomerContact.getRowCount(); i++) {
+            CustomerContact ctt = new CustomerContact();
+            ctt.setId(DataUtil.parseInteger(model.getValueAt(i, 0) + ""));
+            ctt.setContactType((ContactType) model.getValueAt(i, 1));
+            ctt.setValue((String) model.getValueAt(i, 0));
+            contacts.add(ctt);
+        }
+        customer.setContacts(contacts);
+        try {
+            if (operation == FormOperationEnum.CREATE) {
+                ServiceCustomer.getInstance().insert(customer);
+            } else {
+                ServiceCustomer.getInstance().update(customer);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Cliente " + temp2 + " com sucesso",
+                "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+
+        FormUtil.clearTextComponents(panelCustomer);
     }//GEN-LAST:event_btnCustomerContactCustomerSaveActionPerformed
+
+    private void cbCustomerAddressStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerAddressStateActionPerformed
+        loadCity();
+    }//GEN-LAST:event_cbCustomerAddressStateActionPerformed
+
+    private void btnCustomerBasicNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerBasicNextActionPerformed
+        setActiveTab(tabCustomerAddress);
+    }//GEN-LAST:event_btnCustomerBasicNextActionPerformed
+
+    private void cbCustomerBasicDocumentTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerBasicDocumentTypeActionPerformed
+        setMaskDocumentType();
+    }//GEN-LAST:event_cbCustomerBasicDocumentTypeActionPerformed
+
+    private void cbCustomerContactContactTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerContactContactTypeActionPerformed
+        setMaskContactType();
+    }//GEN-LAST:event_cbCustomerContactContactTypeActionPerformed
+
+    private void btnCustomerContactAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactAddActionPerformed
+        ContactType docType = (ContactType) cbCustomerContactContactType.getSelectedItem();
+        DefaultTableModel model = (DefaultTableModel) tableCustomerContact.getModel();
+        String value = (String) txtCustomerContactValue.getValue();
+        model.addRow(new Object[]{
+            null,
+            docType,
+            value
+        });
+
+        txtCustomerContactValue.setText("");
+        cbCustomerContactContactType.setSelectedIndex(0);
+        txtCustomerContactId.setText("");
+    }//GEN-LAST:event_btnCustomerContactAddActionPerformed
+
+    private void tableCustomerContactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerContactMouseClicked
+        Integer id = DataUtil.parseInteger(tableCustomerContact.getModel().getValueAt(tableCustomerContact.getSelectedRow(), 0) + "");
+        JPopupMenu popup = new JPopupMenu();
+        JMenuItem mItemDelete = new JMenuItem("Deletar");
+        JMenuItem mItemUpdate = new JMenuItem("Alterar");
+        mItemDelete.addActionListener((e) -> {
+            if (tableCustomerContact.getSelectedRow() != -1) {
+                DefaultTableModel dtm = (DefaultTableModel) tableCustomerContact.getModel();
+                if (tableCustomerContact.getSelectedRow() >= 0) {
+                    dtm.removeRow(tableCustomerContact.getSelectedRow());
+                    tableCustomerContact.setModel(dtm);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+                };
+            }
+        });
+
+        mItemUpdate.addActionListener((e) -> {
+
+            ContactType docType = (ContactType) tableCustomerContact.getModel().getValueAt(tableCustomerContact.getSelectedRow(), 1);
+            String value = (String) tableCustomerContact.getModel().getValueAt(tableCustomerContact.getSelectedRow(), 2);
+
+            txtCustomerContactId.setText(id.toString());
+            cbCustomerContactContactType.setSelectedItem(docType);
+            txtCustomerContactValue.setText(value);
+        });
+
+        if (id == null) {
+            popup.add(mItemDelete);
+        } else {
+            popup.add(mItemUpdate);
+            popup.add(mItemDelete);
+        }
+
+        popup.show(tableCustomerContact, (int) evt.getX(), (int) evt.getY());
+    }//GEN-LAST:event_tableCustomerContactMouseClicked
+
+    private void tableCustomerContactMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerContactMouseReleased
+
+    }//GEN-LAST:event_tableCustomerContactMouseReleased
 
     void setActiveTab(Component c) {
         tabPanelCustomer.setSelectedComponent(c);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddressBack;
     private javax.swing.JButton btnAddressNext;
     private javax.swing.JButton btnCustomerBasicNext;
+    private javax.swing.JButton btnCustomerContactAdd;
     private javax.swing.JButton btnCustomerContactBack;
     private javax.swing.JButton btnCustomerContactCustomerSave;
-    private javax.swing.JButton btnCustomerContactDelete;
-    private javax.swing.JButton btnCustomerContactNew;
-    private javax.swing.JButton btnCustomerContactSave;
     private javax.swing.JComboBox<String> cbCustomerAddressCity;
     private javax.swing.JComboBox<String> cbCustomerAddressPublicPlaceType;
     private javax.swing.JComboBox<String> cbCustomerAddressState;
@@ -726,17 +922,19 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
     private javax.swing.JLabel lblCustomerBasicBirthDate;
     private javax.swing.JLabel lblCustomerBasicDocument;
     private javax.swing.JLabel lblCustomerBasicGender;
+    private javax.swing.JLabel lblCustomerBasicId;
     private javax.swing.JLabel lblCustomerBasicMaritalSatus;
     private javax.swing.JLabel lblCustomerBasicName;
+    private javax.swing.JLabel lblCustomerBasicNote;
     private javax.swing.JLabel lblCustomerContactContactType;
-    private javax.swing.JLabel lblCustomerId;
+    private javax.swing.JLabel lblCustomerContactId;
     private javax.swing.JPanel lblCustomerNote;
     private javax.swing.JLabel lblPanelTitle;
-    private javax.swing.JLabel lblProductDescription;
     private javax.swing.JPanel paneCustomerlContact;
+    private javax.swing.JPanel panelCustomer;
     private javax.swing.JPanel panelCustomerAddress;
+    private javax.swing.JScrollPane scrollCustomerBasicNote;
     private javax.swing.JScrollPane scrollCustomerContact;
-    private javax.swing.JScrollPane scrollCustomerNote;
     private javax.swing.JPanel tabCustomerAddress;
     private javax.swing.JPanel tabCustomerBasic;
     private javax.swing.JPanel tabCustomerContact;
@@ -750,10 +948,11 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField txtCustomerAddressZipCode;
     private javax.swing.JFormattedTextField txtCustomerBasicBirthDate;
     private javax.swing.JFormattedTextField txtCustomerBasicDocument;
+    private javax.swing.JTextField txtCustomerBasicId;
     private javax.swing.JTextField txtCustomerBasicName;
-    private javax.swing.JTextField txtCustomerContactValue;
-    private javax.swing.JTextField txtCustomerId;
-    private javax.swing.JTextArea txtCustomerNote;
+    private javax.swing.JTextArea txtCustomerBasicNote;
+    private javax.swing.JTextField txtCustomerContactId;
+    private javax.swing.JFormattedTextField txtCustomerContactValue;
     // End of variables declaration//GEN-END:variables
 
     private void loadDocumentType() {
@@ -808,12 +1007,16 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
     }
 
     private void loadCity() {
-//        Integer stateId = ((State) cbCustomerAddressState.getSelectedItem()).getId();
+        State s = (State) cbCustomerAddressState.getSelectedItem();
+        if (s == null) {
+            return;
+        }
+        Integer stateId = s.getId();
 
         FormUtil.clearComboBox(cbCustomerAddressCity);
         List<City> list = null;
         try {
-            list = ServiceCity.getInstance().list();
+            list = ServiceCity.getInstance().list(stateId);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
@@ -858,5 +1061,71 @@ public class PanelCustomerCreateUpdates extends javax.swing.JPanel {
         }
 
         FormUtil.setModelComboBox(cbCustomerAddressState, list);
+    }
+
+    private void setMaskDocumentType() {
+        javax.swing.text.MaskFormatter maskFmt = new javax.swing.text.MaskFormatter();
+        DocumentType dt = (DocumentType) cbCustomerBasicDocumentType.getSelectedItem();
+        if (dt != null) {
+            try {
+                if (dt.getName().equals("CPF")) {
+                    maskFmt = new javax.swing.text.MaskFormatter("###.###.###-##");
+                } else {
+                    maskFmt = new javax.swing.text.MaskFormatter("##.###.###/####-##");
+                }
+                maskFmt.setPlaceholderCharacter('_');
+                txtCustomerBasicDocument.setValue(null);
+                txtCustomerBasicDocument.setFormatterFactory(new DefaultFormatterFactory(maskFmt));
+            } catch (ParseException ex) {
+                Logger.getLogger(PanelCustomerCreateUpdate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
+    private void setMaskBirthDate() {
+        javax.swing.text.MaskFormatter maskFmt = new javax.swing.text.MaskFormatter();
+        try {
+            maskFmt = new javax.swing.text.MaskFormatter("##/##/####");
+            maskFmt.setPlaceholderCharacter('_');
+            txtCustomerBasicBirthDate.setValue(null);
+            txtCustomerBasicBirthDate.setFormatterFactory(new DefaultFormatterFactory(maskFmt));
+        } catch (ParseException ex) {
+            Logger.getLogger(PanelCustomerCreateUpdate.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void setMaskContactType() {
+        javax.swing.text.MaskFormatter maskFmt = new javax.swing.text.MaskFormatter();
+        ContactType ct = (ContactType) cbCustomerContactContactType.getSelectedItem();
+        if (ct != null) {
+            try {
+                String title = ct.getDescription().toUpperCase();
+
+                if (title.contains("FIXO")) {
+                    maskFmt = new javax.swing.text.MaskFormatter("(##) ####-####");
+                } else if (title.contains("CELULAR")) {
+                    maskFmt = new javax.swing.text.MaskFormatter("(##) #####-####");
+                } else {
+                    txtCustomerContactValue.setText("");
+                    txtCustomerContactValue.setValue(null);
+                    txtCustomerContactValue.setFormatterFactory(null);
+                }
+
+                if (title.contains("FIXO")
+                        || title.contains("CELULAR")) {
+                    maskFmt.setPlaceholderCharacter('_');
+                    txtCustomerContactValue.setValue(null);
+                    txtCustomerContactValue.setFormatterFactory(new DefaultFormatterFactory(maskFmt));
+                } else {
+                    txtCustomerContactValue.setText("");
+                    txtCustomerContactValue.setValue(null);
+                    txtCustomerContactValue.setFormatterFactory(null);
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(PanelCustomerCreateUpdate.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

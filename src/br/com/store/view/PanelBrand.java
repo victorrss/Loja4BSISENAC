@@ -220,7 +220,6 @@ public class PanelBrand extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBrandIdActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrandFinalize;
     private javax.swing.JButton btnBrandSearch;

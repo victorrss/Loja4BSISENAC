@@ -3,6 +3,7 @@ package br.com.store.model;
 import java.util.Date;
 
 public class User {
+
     private Integer userId;
     private String name;
     private String password;
@@ -49,6 +50,4 @@ public class User {
         this.enabled = enabled;
     }
 
-    
-    
 }

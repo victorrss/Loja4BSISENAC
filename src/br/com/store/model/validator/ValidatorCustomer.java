@@ -34,7 +34,7 @@ public class ValidatorCustomer {
         if (customer.getDocument().length() > 45) {
             throw new CustomerException("Número do documento muito grande");
         }
-        if(!isCPF(customer.getDocument()) || !isCNPJ(customer.getDocument())){
+        if (!isCPF(customer.getDocument()) || !isCNPJ(customer.getDocument())) {
             throw new CustomerException("Documento do cliente inválido");
         }
         if (customer.getGender() == null || "".equals(customer.getGender())

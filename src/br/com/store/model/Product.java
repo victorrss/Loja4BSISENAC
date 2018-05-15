@@ -1,6 +1,7 @@
 package br.com.store.model;
 
 public class Product {
+
     private Integer id;
     private Brand brand;//Example: Intel, Amd, Nvidia, etc...
     private Category category;//Example: motherboard, gpu, cpu, etc...
@@ -118,6 +119,5 @@ public class Product {
     public void setPrice(Float price) {
         this.price = price;
     }
-    
-    
+
 }

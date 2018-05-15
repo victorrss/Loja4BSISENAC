@@ -25,7 +25,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="panelCustomerSearch" max="32767" attributes="0"/>
-                  <Component id="scrollCustomerSearch" pref="982" max="32767" attributes="0"/>
+                  <Component id="scrollCustomerSearch" pref="788" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -67,12 +67,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblCustomerSearchField" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbCustomerSearchField" min="-2" pref="94" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cbCustomerSearchField" min="-2" pref="104" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   <Component id="txtCustomerSearchField" max="32767" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCustomerSearch" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -85,7 +83,6 @@
                       <Component id="btnCustomerSearch" alignment="0" min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbCustomerSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblCustomerSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCustomerSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -97,23 +94,13 @@
       <SubComponents>
         <Component class="javax.swing.JComboBox" name="cbCustomerSearchField">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(br.com.store.model.enums.CustomerSearchTypeEnum.values())" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblCustomerSearchField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Campo"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCustomerSearchField">
         </Component>
@@ -140,14 +127,17 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="5" rowCount="0">
-                <Column editable="false" title="Id" type="java.lang.String"/>
+                <Column editable="false" title="C&#xf3;digo" type="java.lang.String"/>
                 <Column editable="false" title="Nome" type="java.lang.String"/>
-                <Column editable="false" title="Tipo Doc." type="java.lang.String"/>
+                <Column editable="false" title="Tipo Doc." type="java.lang.Object"/>
                 <Column editable="false" title="Documento" type="java.lang.String"/>
                 <Column editable="false" title="Nascimento" type="java.lang.String"/>
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableCustomerSearchMousePressed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

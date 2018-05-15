@@ -115,11 +115,11 @@ public class DAOPublicPlaceType {
                 }
                 // Create a PublicPlaceType instance and population with BD values
                 PublicPlaceType publicPlaceType = new PublicPlaceType();
-                
+
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
                 publicPlaceType.setAbbreviation("abbreviation");
-                
+
                 // Add the instance in the list
                 listPublicPlaceType.add(publicPlaceType);
             }
@@ -161,11 +161,11 @@ public class DAOPublicPlaceType {
 
                 // Create a PublicPlaceType instance and population with BD values
                 PublicPlaceType publicPlaceType = new PublicPlaceType();
-                
+
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
                 publicPlaceType.setAbbreviation("abbreviation");
-                
+
                 // Add the instance in the list
                 listPublicPlaceType.add(publicPlaceType);
             }
@@ -201,7 +201,7 @@ public class DAOPublicPlaceType {
 
                 // Create a PublicPlaceType instance and population with BD values
                 PublicPlaceType publicPlaceType = new PublicPlaceType();
-                
+
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
                 publicPlaceType.setAbbreviation("abbreviation");

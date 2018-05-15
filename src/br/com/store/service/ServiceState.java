@@ -8,7 +8,7 @@ import br.com.store.model.validator.ValidatorState;
 import java.util.List;
 
 public class ServiceState {
-    
+
     private static final ServiceState INSTANCE = new ServiceState();
 
     private ServiceState() {
@@ -82,5 +82,5 @@ public class ServiceState {
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
-    
+
 }

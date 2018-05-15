@@ -2,6 +2,7 @@ package br.com.store.utils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +20,14 @@ public class DataUtil {
         try {
             return Float.parseFloat(s);
         } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public static Date parseDate(String fmt, String date) {
+        try {
+            return getDateFormat(fmt).parse(date);
+        } catch (Exception e) {
             return null;
         }
     }
@@ -106,11 +115,8 @@ public class DataUtil {
             }
 
             // Check if the calculated digits match the entered digits.
-            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
-                return (true);
-            } else {
-                return (false);
-            }
+            return ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)));
+
         } catch (Exception e) {
             return (false);
         }
@@ -207,6 +213,7 @@ public class DataUtil {
         }
         return isEmailIdValid;
     }
+
     //Check if the string is phone
     public static boolean isPhone(String numeroTelephone) {
         return numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}")

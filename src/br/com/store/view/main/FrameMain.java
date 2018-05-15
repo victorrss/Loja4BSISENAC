@@ -1,7 +1,7 @@
 package br.com.store.view.main;
 
 import br.com.store.model.enums.FormOperationEnum;
-import br.com.store.view.PanelCustomerCreateUpdates;
+import br.com.store.view.PanelCustomerCreateUpdate;
 import br.com.store.view.PanelCustomerReadDelete;
 import br.com.store.view.PanelProductCreateUpdate;
 import br.com.store.view.PanelProductReadDelete;
@@ -29,7 +29,7 @@ public class FrameMain extends javax.swing.JFrame {
         Home = new javax.swing.JPanel();
         panelProductAdd = new br.com.store.view.PanelProductCreateUpdate();
         panelCustomerList = new br.com.store.view.PanelCustomerReadDelete();
-        panelCustomerAdd = new br.com.store.view.PanelCustomerCreateUpdates();
+        panelCustomerAdd = new br.com.store.view.PanelCustomerCreateUpdate();
         panelBrand = new br.com.store.view.PanelBrand();
         panelCategory = new br.com.store.view.PanelCategory();
         panelProductList = new br.com.store.view.PanelProductReadDelete();
@@ -200,7 +200,7 @@ public class FrameMain extends javax.swing.JFrame {
         JMenuItem mItemList = new JMenuItem("Listagem");
         mItemAdd.addActionListener((e) -> {
             card.show(panelMain, "CustomerAdd");
-            panelMain.add("CustomerAdd", new PanelCustomerCreateUpdates());
+            panelMain.add("CustomerAdd", new PanelCustomerCreateUpdate());
 
         });
         mItemList.addActionListener((e) -> {
@@ -266,6 +266,13 @@ public class FrameMain extends javax.swing.JFrame {
         card.show(panelMain, "ProductAdd");
     }
 
+    public static void showCustomerUpdate(Integer id) {
+        card = (CardLayout) panelMain.getLayout();
+        PanelCustomerCreateUpdate p = new PanelCustomerCreateUpdate(FormOperationEnum.UPDATE, id);
+        panelMain.add("CustomerAdd", p);
+        card.show(panelMain, "CustomerAdd");
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -312,7 +319,7 @@ public class FrameMain extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private br.com.store.view.PanelBrand panelBrand;
     private br.com.store.view.PanelCategory panelCategory;
-    private br.com.store.view.PanelCustomerCreateUpdates panelCustomerAdd;
+    private br.com.store.view.PanelCustomerCreateUpdate panelCustomerAdd;
     private br.com.store.view.PanelCustomerReadDelete panelCustomerList;
     private static javax.swing.JPanel panelMain;
     private javax.swing.JPanel panelOption;

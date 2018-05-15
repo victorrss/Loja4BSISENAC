@@ -40,7 +40,7 @@ public class ServiceSubCategory {
         }
         return list;
     }
-    
+
     public void update(SubCategory subcategory) throws SubcategoryException, DataSourceException {
         ValidatorSubcategory.validate(subcategory);
         try {
@@ -82,5 +82,5 @@ public class ServiceSubCategory {
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
-    
+
 }

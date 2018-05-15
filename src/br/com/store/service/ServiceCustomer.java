@@ -4,6 +4,7 @@ import br.com.store.db.dao.DAOCustomer;
 import br.com.store.exception.CustomerException;
 import br.com.store.exception.DataSourceException;
 import br.com.store.model.Customer;
+import br.com.store.model.enums.CustomerSearchTypeEnum;
 import br.com.store.model.validator.ValidatorCustomer;
 import java.util.List;
 
@@ -67,6 +68,19 @@ public class ServiceCustomer {
                 return DAOCustomer.list();
             } else {
                 return DAOCustomer.search(name);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
+    public List<Customer> search(CustomerSearchTypeEnum searchType, String name) throws CustomerException, DataSourceException {
+        try {
+            if (name == null || "".equals(name)) {
+                return DAOCustomer.list();
+            } else {
+                return DAOCustomer.search(searchType, name);
             }
         } catch (Exception e) {
             e.printStackTrace();

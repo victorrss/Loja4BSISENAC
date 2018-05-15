@@ -5,10 +5,13 @@ import br.com.store.model.Address;
 import br.com.store.model.Customer;
 import br.com.store.model.DocumentType;
 import br.com.store.model.MaritalStatus;
+import br.com.store.model.enums.CustomerSearchTypeEnum;
+import br.com.store.utils.DataUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -184,6 +187,88 @@ public class DAOCustomer {
             stmt = con.prepareStatement(sql);
 
             stmt.setString(1, "%" + value + "%");
+            stmt.setBoolean(2, true);
+
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+
+                if (listCustomer == null) {
+                    listCustomer = new ArrayList<Customer>();
+                }
+
+                // Create a Customer instance and population with BD values
+                Customer customer = new Customer();
+
+                customer.setId(result.getInt("id"));
+                customer.setContacts(DAOCustomerContact.list(customer.getId()));
+                customer.setName(result.getString("name"));
+                DocumentType documentType = DAODocumentType.get(result.getInt("id"));
+                customer.setDocumentType(documentType);
+                customer.setDocument(result.getString("document"));
+                customer.setGender(result.getString("gender"));
+                Date bd = new Date(result.getDate("birth_date").getTime());
+                customer.setBirthDate(bd);
+                Address address = DAOAddress.get(result.getInt("id"));
+                customer.setAddress(address);
+                MaritalStatus maritalStatus = DAOMaritalStatus.get(result.getInt("id"));
+                customer.setMaritalStatus(maritalStatus);
+                customer.setNote(result.getString("note"));
+                Date ca = new Date(result.getDate("created_at").getTime());
+                customer.setCreatedAt(ca);
+
+                listCustomer.add(customer);
+            }
+        } finally {
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+        }
+
+        return listCustomer;
+    }
+
+    //Search for a customer custom
+    public static List<Customer> search(CustomerSearchTypeEnum searchType, String value) throws SQLException, Exception {
+
+        String sql = "SELECT * FROM customer ";
+
+        switch (searchType) {
+            case DOCUMENT:
+                sql += "WHERE document = ? AND enabled=?";
+                break;
+            case NAME:
+                sql += "WHERE UPPER(name) LIKE UPPER(?) AND enabled=?";
+                break;
+            case ID:
+                sql += "WHERE id=?  AND enabled=?";
+                break;
+        }
+        List<Customer> listCustomer = null;
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            switch (searchType) {
+                case ID:
+                    if (DataUtil.parseInteger(value) == null) {
+                        stmt.setNull(1, Types.INTEGER);
+                    } else {
+                        stmt.setInt(1, DataUtil.parseInteger(value));
+                    }
+                    break;
+                case NAME:
+                case DOCUMENT:
+                    stmt.setString(1, "%" + value + "%");
+                    break;
+            }
+
             stmt.setBoolean(2, true);
 
             result = stmt.executeQuery();

@@ -7,7 +7,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class FormUtil {
 
@@ -41,10 +43,15 @@ public class FormUtil {
 //                    field.setIcon(null);
 //                }
 //            }
-
             if (c instanceof JComboBox) {
                 JComboBox field = (JComboBox) c;
                 field.setSelectedIndex(0);
+            }
+
+            if (c instanceof JTable) {
+                JTable table = (JTable) c;
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                model.setNumRows(0);
             }
         }
     }

@@ -132,6 +132,51 @@ public class DAOCity {
         return listCity;
     }
 
+    //List all cities in the state id
+    public static List<City> list(Integer stateId) throws SQLException, Exception {
+
+        String sql = "SELECT * FROM city WHERE  (state_id=? AND enabled=?)";
+
+        List<City> listCity = null;
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, stateId);
+            stmt.setBoolean(2, true);
+
+            result = stmt.executeQuery();
+
+            while (result.next()) {
+
+                if (listCity == null) {
+                    listCity = new ArrayList<City>();
+                }
+                // Create a City instance and population with BD values
+                City city = new City();
+
+                city.setId(result.getInt("id"));
+                State state = DAOState.get(result.getInt("id"));
+                city.setState(state);
+                city.setName(result.getString("name"));
+
+                // Add the instance in the list
+                listCity.add(city);
+            }
+        } finally {
+            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+        }
+
+        return listCity;
+    }
+
     //Search for a city by name
     public static List<City> search(String value) throws SQLException, Exception {
 

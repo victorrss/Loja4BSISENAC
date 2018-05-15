@@ -16,7 +16,7 @@ public class ValidatorCity {
         if (city.getName() == null || city.getName().trim().isEmpty() || "".equals(city.getName())) {
             throw new CityException("Cidade não fornecida");
         }
-        if(city.getName().length() > 45){
+        if (city.getName().length() > 45) {
             throw new CityException("Nome da cidade não pode ter mais de 45 caracteres");
         }
     }

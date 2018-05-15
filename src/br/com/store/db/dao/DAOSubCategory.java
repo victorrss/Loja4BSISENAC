@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOSubCategory {
-    
+
     //Inserts a brand into the subcategory table of the database
     public static void insert(SubCategory subcategory) throws SQLException, Exception {
 

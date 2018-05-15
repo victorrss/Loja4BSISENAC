@@ -87,7 +87,6 @@ public class ImageUtil {
 //
 //        return getByteArray(image);
 //    }
-
     public static byte[] getByteArray(BufferedImage image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {

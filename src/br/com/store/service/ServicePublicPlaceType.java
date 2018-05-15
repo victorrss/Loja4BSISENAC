@@ -8,8 +8,8 @@ import br.com.store.model.validator.ValidatorPublicPlaceType;
 import java.util.List;
 
 public class ServicePublicPlaceType {
-    
-        private static final ServicePublicPlaceType INSTANCE = new ServicePublicPlaceType();
+
+    private static final ServicePublicPlaceType INSTANCE = new ServicePublicPlaceType();
 
     private ServicePublicPlaceType() {
     }
@@ -82,5 +82,5 @@ public class ServicePublicPlaceType {
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
-    
+
 }

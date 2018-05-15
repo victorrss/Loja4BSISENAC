@@ -14,7 +14,7 @@ public class DAOCategory {
     //Inserts a brand into the category table of the database
     public static void insert(Category category) throws SQLException, Exception {
 
-        String sql =  "INSERT INTO "
+        String sql = "INSERT INTO "
                 + "category (name, enabled) "
                 + "VALUES (?,?)";
 

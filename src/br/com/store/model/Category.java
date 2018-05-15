@@ -1,6 +1,7 @@
 package br.com.store.model;
 
 public class Category { //Example: motherboard, gpu, cpu, etc...
+
     private Integer id;
     private String name;
     private boolean enabled;
@@ -42,6 +43,5 @@ public class Category { //Example: motherboard, gpu, cpu, etc...
     public String toString() {
         return getName();
     }
-    
- 
+
 }

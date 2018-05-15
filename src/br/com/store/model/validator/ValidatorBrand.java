@@ -13,7 +13,7 @@ public class ValidatorBrand {
         if (brand.getName() == null || brand.getName().trim().isEmpty()) {
             throw new BrandException("Nome da marca não fornecido");
         }
-        
+
         if (brand.getName().length() > 45) {
             throw new BrandException("Nome da marca não pode ter mais que 45 caracteres");
         }

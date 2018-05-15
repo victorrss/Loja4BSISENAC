@@ -115,11 +115,11 @@ public class DAOState {
                 }
                 // Create a State instance and population with BD values
                 State state = new State();
-                
+
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
                 state.setAbbreviation("abbreviation");
-                
+
                 // Add the instance in the list
                 listState.add(state);
             }
@@ -129,7 +129,7 @@ public class DAOState {
 
         return listState;
     }
-    
+
     //Search for a state by name
     public static List<State> search(String value) throws SQLException, Exception {
 
@@ -161,11 +161,11 @@ public class DAOState {
 
                 // Create a State instance and population with BD values
                 State state = new State();
-                
+
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
                 state.setAbbreviation("abbreviation");
-                
+
                 // Add the instance in the list
                 listState.add(state);
             }
@@ -175,7 +175,7 @@ public class DAOState {
 
         return listState;
     }
-    
+
     //Get an instance of the state class by id
     public static State get(Integer id) throws SQLException, Exception {
 

@@ -223,7 +223,6 @@ public class PanelCategory extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCategoryIdActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategoryFinalize;
     private javax.swing.JButton btnCategorySearch;

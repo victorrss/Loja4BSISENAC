@@ -8,7 +8,7 @@ import br.com.store.model.validator.ValidatorAddress;
 import java.util.List;
 
 public class ServiceAddress {
-    
+
     private static final ServiceAddress INSTANCE = new ServiceAddress();
 
     private ServiceAddress() {
@@ -82,5 +82,5 @@ public class ServiceAddress {
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
-    
+
 }

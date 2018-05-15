@@ -23,7 +23,7 @@ public class ValidatorAddress {
         if (address.getPublicPlace().length() > 100) {
             throw new AddressException("Logradouro não pode ter mais de 100 caracteres");
         }
-        if(!isNumeric(String.valueOf(address.getNumber()))){
+        if (!isNumeric(String.valueOf(address.getNumber()))) {
             throw new AddressException("Número da residência inválido");
         }
         if (address.getComplement().length() > 45) {
@@ -35,14 +35,13 @@ public class ValidatorAddress {
         if (address.getDistrict().length() > 45) {
             throw new AddressException("Distrito não pode ter mais de 45 caracteres");
         }
-        if (address.getZipcode() == null ) {
+        if (address.getZipcode() == null) {
             throw new AddressException("Código postal do cliente não fornecido");
         }
-        if(!isNumeric(String.valueOf(address.getZipcode()))){
+        if (!isNumeric(String.valueOf(address.getZipcode()))) {
             throw new AddressException("Código postal inválido");
         }
 
     }
-
 
 }
