@@ -54,4 +54,8 @@ public class DataUtil {
         return new SimpleDateFormat(fmt);
     }
 
+    public static boolean validatorIsNumericBarcode(String barcode) {
+        //Checks if the Barcode has 13 numeric characters
+        return barcode.matches("^[0-9]{13}$");
+    }
 }
