@@ -5,6 +5,7 @@ import br.com.store.model.enums.ProductSearchTypeEnum;
 import br.com.store.service.ServiceProduct;
 import br.com.store.utils.DataUtil;
 import br.com.store.view.main.FrameMain;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -130,6 +131,9 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
     }//GEN-LAST:event_btnProductSearchActionPerformed
 
     private void tableProductSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductSearchMousePressed
+        if (evt.getButton() != MouseEvent.BUTTON3) {
+            return;
+        }
         Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
         if (id < 1) {
             return;
@@ -137,7 +141,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         JPopupMenu popup = new JPopupMenu();
         JMenuItem mItemUpdate = new JMenuItem("Alterar/Ver");
         mItemUpdate.addActionListener((e) -> {
-            FrameMain.showProductUpdate(id);
+            FrameMain.loadCardProductUpdate(id, true);
         });
 
         JMenuItem mItemDelete = new JMenuItem("Deletar");

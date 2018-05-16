@@ -4,17 +4,20 @@ import br.com.store.db.util.ConnectionUtils;
 import br.com.store.model.Address;
 import br.com.store.model.City;
 import br.com.store.model.PublicPlaceType;
+import br.com.store.utils.DataUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DAOAddress {
 
     //Inserts a Address into the address table of the database
-    public static void insert(Address address) throws SQLException, Exception {
+    public static Integer insert(Address address) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
                 + "address (publicplace_type_id, city_id, publicplace, number, complement, district, zipcode, enabled)"
@@ -27,20 +30,24 @@ public class DAOAddress {
             //Opens a connection to the DB
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
-            stmt = con.prepareStatement(sql);
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setInt(1, address.getPublicPlaceType().getId());
             stmt.setInt(2, address.getCity().getId());
             stmt.setString(3, address.getPublicPlace());
-            stmt.setInt(4, address.getNumber());
+            if (address.getNumber() == null) {
+                stmt.setNull(4, Types.INTEGER);
+            } else {
+                stmt.setInt(4, address.getNumber());
+            }
             stmt.setString(5, address.getComplement());
             stmt.setString(6, address.getDistrict());
             stmt.setInt(7, address.getZipcode());
             stmt.setBoolean(8, true);
 
             //Executes the command in the DB
-            stmt.execute();
+            return stmt.executeUpdate();
         } finally {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
@@ -50,7 +57,7 @@ public class DAOAddress {
     public static void update(Address address) throws SQLException, Exception {
 
         String sql = "UPDATE address SET publicplace_type_id=?, city_id=?, publicplace=?, number=?,"
-                + " complement=?, district=?, zipcode=?"
+                + " complement=?, district=?, zipcode=? "
                 + "WHERE (id=?)";
 
         Connection con = null;
@@ -233,9 +240,9 @@ public class DAOAddress {
                 Address address = new Address();
 
                 address.setId(result.getInt("id"));
-                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("id"));
+                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("publicplace_type_id"));
                 address.setPublicPlaceType(publicPlaceType);
-                City city = DAOCity.get(result.getInt("id"));
+                City city = DAOCity.get(result.getInt("city_id"));
                 address.setCity(city);
                 address.setPublicPlace(result.getString("publicplace"));
                 address.setNumber(result.getInt("number"));

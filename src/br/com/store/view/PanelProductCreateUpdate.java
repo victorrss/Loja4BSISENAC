@@ -14,6 +14,7 @@ import br.com.store.service.ServiceSubCategory;
 import br.com.store.utils.FormUtil;
 import br.com.store.utils.ImageUtil;
 import br.com.store.utils.DataUtil;
+import br.com.store.view.main.FrameMain;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -278,9 +279,21 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         txtProductDescription.setRows(5);
         scrollProductDescription.setViewportView(txtProductDescription);
 
+        txtProductStock.setColumns(9);
         txtProductStock.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtProductStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                maxLenght(evt);
+            }
+        });
 
+        txtProductWarranty.setColumns(4);
         txtProductWarranty.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtProductWarranty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                maxLenght(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelProductLayout = new javax.swing.GroupLayout(panelProduct);
         panelProduct.setLayout(panelProductLayout);
@@ -495,8 +508,12 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(this, "Produto " + temp2 + " com sucesso",
                 "Confirmação", JOptionPane.INFORMATION_MESSAGE);
-
-        FormUtil.clearTextComponents(panelProduct);
+        if (operation == FormOperationEnum.CREATE) {
+            FrameMain.loadCardProductCreate(true);
+            FrameMain.loadCardProductList(false);
+        } else {
+            FrameMain.loadCardProductList(true);
+        }
     }//GEN-LAST:event_btnProductFinalizeActionPerformed
 
     private void btnProductRefreshBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshBrandActionPerformed

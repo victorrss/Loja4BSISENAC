@@ -23,7 +23,7 @@ public class ValidatorAddress {
         if (address.getPublicPlace().length() > 100) {
             throw new AddressException("Logradouro não pode ter mais de 100 caracteres");
         }
-        if (!isNumeric(String.valueOf(address.getNumber()))) {
+        if (address.getNumber() != null && !isNumeric(String.valueOf(address.getNumber()))) {
             throw new AddressException("Número da residência inválido");
         }
         if (address.getComplement().length() > 45) {

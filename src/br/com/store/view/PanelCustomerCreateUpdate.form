@@ -21,7 +21,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelCustomer" min="-2" max="-2" attributes="0"/>
+          <Component id="panelCustomer" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -32,6 +32,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="panelCustomer">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -145,7 +150,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="cbCustomerBasicDocumentType" min="-2" pref="89" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtCustomerBasicDocument" pref="491" max="32767" attributes="0"/>
+                                      <Component id="txtCustomerBasicDocument" pref="592" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="txtCustomerBasicName" max="32767" attributes="0"/>
                                   <Component id="txtCustomerBasicBirthDate" alignment="1" max="32767" attributes="0"/>
@@ -391,9 +396,9 @@
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="panelCustomerAddress" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnAddressNext" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="btnAddressBack" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="btnAddressBack" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
@@ -445,7 +450,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="lblCustomerAddressCity" min="-2" pref="45" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="cbCustomerAddressCity" pref="501" max="32767" attributes="0"/>
+                                              <Component id="cbCustomerAddressCity" pref="602" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -713,7 +718,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="paneCustomerlContact" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btnCustomerContactCustomerSave" pref="39" max="32767" attributes="0"/>
                               <Component id="btnCustomerContactBack" max="32767" attributes="0"/>
@@ -742,7 +747,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="scrollCustomerContact" pref="705" max="32767" attributes="0"/>
+                                  <Component id="scrollCustomerContact" pref="806" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="lblCustomerContactId" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -764,16 +769,18 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" max="-2" attributes="0">
-                                  <Component id="lblCustomerContactContactType" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="txtCustomerContactValue" alignment="0" max="32767" attributes="0"/>
                                   <Component id="btnCustomerContactAdd" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="cbCustomerContactContactType" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="lblCustomerContactId" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtCustomerContactId" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="lblCustomerContactContactType" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbCustomerContactContactType" alignment="3" max="32767" attributes="0"/>
+                                      <Component id="lblCustomerContactId" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCustomerContactId" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollCustomerContact" pref="115" max="32767" attributes="0"/>
+                              <Component id="scrollCustomerContact" pref="221" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -817,7 +824,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="3" rowCount="0">
-                                <Column editable="true" title="Id" type="java.lang.Integer"/>
+                                <Column editable="true" title="C&#xf3;digo" type="java.lang.Integer"/>
                                 <Column editable="true" title="Tipo" type="java.lang.Object"/>
                                 <Column editable="true" title="Valor" type="java.lang.String"/>
                               </Table>

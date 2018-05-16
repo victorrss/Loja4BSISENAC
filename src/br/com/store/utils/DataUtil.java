@@ -37,7 +37,7 @@ public class DataUtil {
     }
 
     public static String onlyNumbers(String s) {
-        return s.replaceAll("[^0-9.]", "");
+        return s.replaceAll("[^0-9]", "");
     }
 
     public static String getExtension(File f) {

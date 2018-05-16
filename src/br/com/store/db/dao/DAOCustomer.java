@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,11 +20,10 @@ import java.util.List;
 public class DAOCustomer {
 
     //Inserts a customer into the customer table of the database
-    public static void insert(Customer customer) throws SQLException, Exception {
-
+    public static Integer insert(Customer customer) throws SQLException, Exception {
         String sql = "INSERT INTO "
-                + "customer (address_id, maritalstatus_id, name, document_type_id, document, gender, birth_date, note, enabled, created_at)"
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "customer (address_id, maritalstatus_id, name, document_type_id, document, gender, birth_date, note, enabled)"
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         Connection con = null;
 
@@ -32,7 +32,7 @@ public class DAOCustomer {
             //Opens a connection to the DB
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
-            stmt = con.prepareStatement(sql);
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setInt(1, customer.getAddress().getId());
@@ -41,13 +41,13 @@ public class DAOCustomer {
             stmt.setInt(4, customer.getDocumentType().getId());
             stmt.setString(5, customer.getDocument());
             stmt.setString(6, customer.getGender());
-            stmt.setDate(7, (java.sql.Date) new Date(customer.getBirthDate().getTime()));
+            stmt.setDate(7, new java.sql.Date(customer.getBirthDate().getTime()));
             stmt.setString(8, customer.getNote());
             stmt.setBoolean(9, true);
-            stmt.setDate(10, (java.sql.Date) new Date(customer.getCreatedAt().getTime()));
+            //stmt.setDate(10, (java.sql.Date) new Date(customer.getCreatedAt().getTime()));
 
             //Executes the command in the DB
-            stmt.execute();
+            return stmt.executeUpdate();
         } finally {
             ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
@@ -57,7 +57,7 @@ public class DAOCustomer {
     public static void update(Customer customer) throws SQLException, Exception {
 
         String sql = "UPDATE customer SET address_id=?, maritalstatus_id=?, name=?, document_type_id=?, "
-                + "document=?, gender=?, birth_date=?, note=?, created_at=?"
+                + "document=?, gender=?, birth_date=?, note=? "
                 + "WHERE (id=?)";
 
         Connection con = null;
@@ -76,10 +76,10 @@ public class DAOCustomer {
             stmt.setInt(4, customer.getDocumentType().getId());
             stmt.setString(5, customer.getDocument());
             stmt.setString(6, customer.getGender());
-            stmt.setDate(7, (java.sql.Date) new Date(customer.getBirthDate().getTime()));
+            stmt.setDate(7, new java.sql.Date(customer.getBirthDate().getTime()));
             stmt.setString(8, customer.getNote());
-            stmt.setDate(9, (java.sql.Date) new Date(customer.getCreatedAt().getTime()));
-            stmt.setInt(10, customer.getId());
+            stmt.setInt(9, customer.getId());
+            //stmt.setDate(9, (java.sql.Date) new Date(customer.getCreatedAt().getTime()));
 
             //Executes the command in the DB
             stmt.execute();
@@ -337,7 +337,7 @@ public class DAOCustomer {
                 customer.setId(result.getInt("id"));
                 customer.setContacts(DAOCustomerContact.list(customer.getId()));
                 customer.setName(result.getString("name"));
-                DocumentType documentType = DAODocumentType.get(result.getInt("id"));
+                DocumentType documentType = DAODocumentType.get(result.getInt("document_type_id"));
                 customer.setDocumentType(documentType);
                 customer.setDocument(result.getString("document"));
                 customer.setGender(result.getString("gender"));
@@ -345,7 +345,7 @@ public class DAOCustomer {
                 customer.setBirthDate(bd);
                 Address address = DAOAddress.get(result.getInt("id"));
                 customer.setAddress(address);
-                MaritalStatus maritalStatus = DAOMaritalStatus.get(result.getInt("id"));
+                MaritalStatus maritalStatus = DAOMaritalStatus.get(result.getInt("maritalstatus_id"));
                 customer.setMaritalStatus(maritalStatus);
                 customer.setNote(result.getString("note"));
                 Date ca = new Date(result.getDate("created_at").getTime());

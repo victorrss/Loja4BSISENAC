@@ -2,7 +2,6 @@ package br.com.store.db.dao;
 
 import br.com.store.db.util.ConnectionUtils;
 import br.com.store.model.ContactType;
-import br.com.store.model.Customer;
 import br.com.store.model.CustomerContact;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,65 +13,88 @@ import java.util.List;
 public class DAOCustomerContact {
 
     //Inserts a Customer contact into the customer_contact table of the database
-    public static void insert(CustomerContact customerContact) throws SQLException, Exception {
+    public static void insert(List<CustomerContact> customerContacts, Integer customerId) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
                 + "customer_contact (customer_id, contact_type_id, value, enabled) "
                 + "VALUES (?,?,?,?)";
 
         Connection con = null;
-
         PreparedStatement stmt = null;
-        try {
-            //Opens a connection to the DB
-            con = ConnectionUtils.getConnection();
-            //Creates a statement for SQL commands
-            stmt = con.prepareStatement(sql);
+        //Opens a connection to the DB
+        con = ConnectionUtils.getConnection();
+        for (CustomerContact customerContact : customerContacts) {
+            try {
+                //Creates a statement for SQL commands
+                stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, customerContact.getCustomerId());
-            stmt.setInt(2, customerContact.getContactType().getId());
-            stmt.setString(3, customerContact.getValue());
-            stmt.setBoolean(4, true);
+                stmt.setInt(1, customerId);
+                stmt.setInt(2, customerContact.getContactType().getId());
+                stmt.setString(3, customerContact.getValue());
+                stmt.setBoolean(4, true);
 
-            //executes the command in the DB
-            stmt.execute();
-        } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+                //executes the command in the DB
+                stmt.execute();
+            } finally {
+            }
         }
+        ConnectionUtils.finalizeStatementConnection(stmt, con);
     }
 
-    //Performs the update of the data of a customer contact
-    public static void update(CustomerContact customerContact) throws SQLException, Exception {
+//    //Performs the update of the data of a customer contact
+//    public static void update(CustomerContact customerContact) throws SQLException, Exception {
+//
+//        String sql = "UPDATE customer_contact SET customer_id=?, contact_type_id=?, value=? "
+//                + "WHERE (id=?)";
+//
+//        Connection con = null;
+//
+//        PreparedStatement stmt = null;
+//        try {
+//            //Opens a connection to the DB
+//            con = ConnectionUtils.getConnection();
+//            //Creates a statement for SQL commands
+//            stmt = con.prepareStatement(sql);
+//
+//            //Configures the parameters of the "PreparedStatement"
+//            stmt.setInt(1, customerContact.getCustomerId());
+//            stmt.setInt(2, customerContact.getContactType().getId());
+//            stmt.setString(3, customerContact.getValue());
+//            stmt.setInt(4, customerContact.getId());
+//
+//            //executes the command in the DB
+//            stmt.execute();
+//        } finally {
+//            ConnectionUtils.finalizeStatementConnection(stmt, con);
+//        }
+//    }
+//    //Performs logical deletion of a customer contact in the DB
+//    public static void delete(Integer id) throws SQLException, Exception {
+//
+//        String sql = "UPDATE customer_contact SET enabled=? WHERE (id=?)";
+//
+//        Connection con = null;
+//
+//        PreparedStatement stmt = null;
+//        try {
+//            //Opens a connection to the DB
+//            con = ConnectionUtils.getConnection();
+//            //Creates a statement for SQL commands
+//            stmt = con.prepareStatement(sql);
+//            //Configures the parameters of the "PreparedStatement"
+//            stmt.setBoolean(1, false);
+//            stmt.setInt(2, id);
+//
+//            //executes the command in the DB
+//            stmt.execute();
+//        } finally {
+//            ConnectionUtils.finalizeStatementConnection(stmt, con);
+//        }
+//    }
+    // Executes logical exclusion of all contacts from a client in the database
+    public static void deleteAll(Integer customerId) throws SQLException, Exception {
 
-        String sql = "UPDATE customer_contact SET customer_id=?, contact_type_id=?, value=? "
-                + "WHERE (id=?)";
-
-        Connection con = null;
-
-        PreparedStatement stmt = null;
-        try {
-            //Opens a connection to the DB
-            con = ConnectionUtils.getConnection();
-            //Creates a statement for SQL commands
-            stmt = con.prepareStatement(sql);
-
-            //Configures the parameters of the "PreparedStatement"
-            stmt.setInt(1, customerContact.getCustomerId());
-            stmt.setInt(2, customerContact.getContactType().getId());
-            stmt.setString(3, customerContact.getValue());
-            stmt.setInt(4, customerContact.getId());
-
-            //executes the command in the DB
-            stmt.execute();
-        } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
-        }
-    }
-
-    //Performs logical deletion of a customer contact in the DB
-    public static void delete(Integer id) throws SQLException, Exception {
-
-        String sql = "UPDATE customer_contact SET enabled=? WHERE (id=?)";
+        String sql = "UPDATE customer_contact SET enabled=? WHERE (customer_id=?)";
 
         Connection con = null;
 
@@ -84,7 +106,7 @@ public class DAOCustomerContact {
             stmt = con.prepareStatement(sql);
             //Configures the parameters of the "PreparedStatement"
             stmt.setBoolean(1, false);
-            stmt.setInt(2, id);
+            stmt.setInt(2, customerId);
 
             //executes the command in the DB
             stmt.execute();
@@ -94,7 +116,7 @@ public class DAOCustomerContact {
     }
 
     // List all contacts from a customer
-    public static List<CustomerContact> list(Integer id) throws SQLException, Exception {
+    public static List<CustomerContact> list(Integer customerId) throws SQLException, Exception {
 
         String sql = "SELECT * FROM customer_contact "
                 + "WHERE customer_id = ? AND (enabled=?)";
@@ -111,7 +133,7 @@ public class DAOCustomerContact {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setInt(1, customerId);
             stmt.setBoolean(2, true);
 
             result = stmt.executeQuery();

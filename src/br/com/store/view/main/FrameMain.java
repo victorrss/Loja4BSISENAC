@@ -8,6 +8,7 @@ import br.com.store.view.PanelProductReadDelete;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
@@ -103,6 +104,11 @@ public class FrameMain extends javax.swing.JFrame {
         btnCustomer.setMinimumSize(new java.awt.Dimension(73, 73));
         btnCustomer.setPreferredSize(new java.awt.Dimension(80, 73));
         btnCustomer.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCustomerMouseClicked(evt);
+            }
+        });
         btnCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCustomerActionPerformed(evt);
@@ -118,6 +124,11 @@ public class FrameMain extends javax.swing.JFrame {
         btnProduct.setMinimumSize(new java.awt.Dimension(73, 73));
         btnProduct.setPreferredSize(new java.awt.Dimension(80, 73));
         btnProduct.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnProductMouseClicked(evt);
+            }
+        });
         btnProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductActionPerformed(evt);
@@ -196,20 +207,18 @@ public class FrameMain extends javax.swing.JFrame {
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         card = (CardLayout) panelMain.getLayout();
         JPopupMenu popup = new JPopupMenu();
-        JMenuItem mItemAdd = new JMenuItem("Novo");
-        JMenuItem mItemList = new JMenuItem("Listagem");
-        mItemAdd.addActionListener((e) -> {
-            card.show(panelMain, "CustomerAdd");
-            panelMain.add("CustomerAdd", new PanelCustomerCreateUpdate());
+        JMenuItem mItemCreateUpdate = new JMenuItem("Novo");
+        JMenuItem mItemReadDelete = new JMenuItem("Listagem");
+        mItemCreateUpdate.addActionListener((e) -> {
+            loadCardCustomerCreate(true);
 
         });
-        mItemList.addActionListener((e) -> {
-            card.show(panelMain, "CustomerList");
-            panelMain.add("CustomerList", new PanelCustomerReadDelete());
+        mItemReadDelete.addActionListener((e) -> {
+            loadCardCustomerList(true);
         });
 
-        popup.add(mItemAdd);
-        popup.add(mItemList);
+        popup.add(mItemCreateUpdate);
+        popup.add(mItemReadDelete);
 
         popup.show(btnCustomer, (int) btnCustomer.getAlignmentX(), (int) btnCustomer.getAlignmentY() + btnCustomer.getHeight());
     }//GEN-LAST:event_btnCustomerActionPerformed
@@ -220,6 +229,7 @@ public class FrameMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed
+
         card = (CardLayout) panelMain.getLayout();
         JPopupMenu popup = new JPopupMenu();
         JMenuItem mItemCreateUpdate = new JMenuItem("Novo");
@@ -228,16 +238,10 @@ public class FrameMain extends javax.swing.JFrame {
         JMenuItem mItemCategory = new JMenuItem("Cadastro de Categoria");
         JMenuItem mItemSubCategory = new JMenuItem("Cadastro de Sub Categoria");
         mItemCreateUpdate.addActionListener((e) -> {
-            PanelProductCreateUpdate p = new PanelProductCreateUpdate(FormOperationEnum.CREATE, null);
-            panelMain.add("ProductAdd", p);
-            card.show(panelMain, "ProductAdd");
+            loadCardProductCreate(true);
         });
         mItemReadDelete.addActionListener((e) -> {
-
-            PanelProductReadDelete p = new PanelProductReadDelete();
-            p.loadList();
-            panelMain.add("ProductList", p);
-            card.show(panelMain, "ProductList");
+            loadCardProductList(true);
 
         });
         mItemBrand.addActionListener((e) -> {
@@ -259,18 +263,67 @@ public class FrameMain extends javax.swing.JFrame {
         popup.show(btnProduct, (int) btnProduct.getAlignmentX(), (int) btnProduct.getAlignmentY() + btnProduct.getHeight());
     }//GEN-LAST:event_btnProductActionPerformed
 
-    public static void showProductUpdate(Integer id) {
+    private void btnCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustomerMouseClicked
+
+
+    }//GEN-LAST:event_btnCustomerMouseClicked
+
+    private void btnProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProductMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProductMouseClicked
+
+    public static void loadCardProductList(boolean show) {
+        PanelProductReadDelete p = new PanelProductReadDelete();
+        p.loadList();
+        panelMain.add("ProductList", p);
+        if (show) {
+            card.show(panelMain, "ProductList");
+        }
+    }
+
+    public static void loadCardProductUpdate(Integer id, boolean show) {
         card = (CardLayout) panelMain.getLayout();
         PanelProductCreateUpdate p = new PanelProductCreateUpdate(FormOperationEnum.UPDATE, id);
         panelMain.add("ProductAdd", p);
-        card.show(panelMain, "ProductAdd");
+        if (show) {
+            card.show(panelMain, "ProductAdd");
+        }
     }
 
-    public static void showCustomerUpdate(Integer id) {
+    public static void loadCardProductCreate(boolean show) {
+        card = (CardLayout) panelMain.getLayout();
+        PanelProductCreateUpdate p = new PanelProductCreateUpdate(FormOperationEnum.CREATE, null);
+        panelMain.add("ProductAdd", p);
+        if (show) {
+            card.show(panelMain, "ProductAdd");
+        }
+    }
+
+    public static void loadCardCustomerList(boolean show) {
+        PanelCustomerReadDelete p = new PanelCustomerReadDelete();
+        p.loadList();
+        panelMain.add("CustomerList", p);
+        if (show) {
+            card.show(panelMain, "CustomerList");
+        }
+    }
+
+    public static void loadCardCustomerUpdate(Integer id, boolean show) {
         card = (CardLayout) panelMain.getLayout();
         PanelCustomerCreateUpdate p = new PanelCustomerCreateUpdate(FormOperationEnum.UPDATE, id);
         panelMain.add("CustomerAdd", p);
-        card.show(panelMain, "CustomerAdd");
+        if (show) {
+            card.show(panelMain, "CustomerAdd");
+        }
+    }
+
+    public static void loadCardCustomerCreate(boolean show) {
+        card = (CardLayout) panelMain.getLayout();
+        PanelCustomerCreateUpdate p = new PanelCustomerCreateUpdate(FormOperationEnum.CREATE, null);
+        panelMain.add("CustomerAdd", p);
+        if (show) {
+            card.show(panelMain, "CustomerAdd");
+        }
     }
 
     /**
