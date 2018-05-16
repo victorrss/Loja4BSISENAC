@@ -256,21 +256,18 @@ public class DAOProduct {
 
         switch (searchType) {
             case BARCODE:
-                sql += "WHERE (a.barcode=?) AND (a.enabled=?)";
+                sql += "WHERE a.barcode LIKE ? AND a.enabled=?";
                 break;
             case NAME:
-                sql += "WHERE (UPPER(a.name) LIKE UPPER(?)) AND (a.enabled=?)";
+                sql += "WHERE (UPPER(a.name) LIKE UPPER(?)) AND a.enabled=?";
                 break;
             case ID:
-                sql += "WHERE (a.id=?)  AND (a.enabled=?)";
+                sql += "WHERE a.id=? AND a.enabled=?";
                 break;
         }
         List<Product> listProduct = null;
-
         Connection con = null;
-
         PreparedStatement stmt = null;
-
         ResultSet result = null;
         try {
             //Opens a connection to the DB
@@ -279,7 +276,6 @@ public class DAOProduct {
             stmt = con.prepareStatement(sql);
 
             switch (searchType) {
-                case BARCODE:
                 case ID:
                     if (DataUtil.parseInteger(value) == null) {
                         stmt.setNull(1, Types.INTEGER);
@@ -288,6 +284,7 @@ public class DAOProduct {
                     }
                     break;
                 case NAME:
+                case BARCODE:
                     stmt.setString(1, "%" + value + "%");
                     break;
             }

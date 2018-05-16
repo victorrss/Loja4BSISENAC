@@ -201,6 +201,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         lblProductPicture.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblProductPicture.setText("Selecione uma foto");
         lblProductPicture.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
+        lblProductPicture.setName("ProductPicture"); // NOI18N
 
         cbProductCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -496,7 +497,6 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                 "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 
         FormUtil.clearTextComponents(panelProduct);
-        lblProductPicture.setIcon(null);
     }//GEN-LAST:event_btnProductFinalizeActionPerformed
 
     private void btnProductRefreshBrandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductRefreshBrandActionPerformed

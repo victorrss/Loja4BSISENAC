@@ -53,12 +53,15 @@ public class DataUtil {
 
     public static boolean checkBarcodeEAN(String barcode) {
         //Checks if the check digit is correct
-        int[] numbers = barcode.chars().map(Character::getNumericValue).toArray();
-        int sumEven = numbers[1] + numbers[3] + numbers[5] + numbers[7] + numbers[9] + numbers[11];
-        int sumOdd = numbers[0] + numbers[2] + numbers[4] + numbers[6] + numbers[8] + numbers[10];
-        int result = sumOdd + sumEven * 3;
-        int checkDigit = 10 - result % 10;
-        return checkDigit == numbers[12];
+        if (!barcode.matches("^[0-9]{13}$")) {
+            return false;
+        }
+        int[] numeros = barcode.chars().map(Character::getNumericValue).toArray();
+        int somaPares = numeros[1] + numeros[3] + numeros[5] + numeros[7] + numeros[9] + numeros[11];
+        int somaImpares = numeros[0] + numeros[2] + numeros[4] + numeros[6] + numeros[8] + numeros[10];
+        int resultado = somaImpares + somaPares * 3;
+        int digitoVerificador = 10 - resultado % 10;
+        return digitoVerificador == numeros[12];
     }
 
     public static SimpleDateFormat getDateFormat(String fmt) {

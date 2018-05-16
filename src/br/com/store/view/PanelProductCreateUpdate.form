@@ -293,6 +293,7 @@
                 <TitledBorder title="Foto"/>
               </Border>
             </Property>
+            <Property name="name" type="java.lang.String" value="ProductPicture" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbProductCategory">
