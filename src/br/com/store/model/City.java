@@ -2,17 +2,17 @@ package br.com.store.model;
 
 public class City {
 
-    private Integer Id;
+    private Integer id;
     private State state;
     private String name; //Example: São Paulo, Dubai, Miami, etc...
     private boolean enabled;
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public State getState() {

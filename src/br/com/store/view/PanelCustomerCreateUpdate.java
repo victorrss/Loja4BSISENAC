@@ -38,10 +38,12 @@ import javax.swing.text.DefaultFormatterFactory;
 
 public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
+    private boolean preLoad;
     private FormOperationEnum operation = null;
     private Integer customerId = null;
 
     public PanelCustomerCreateUpdate() {
+        preLoad = true;
         initComponents();
         loadDocumentType();
         setMaskDocumentType();
@@ -52,9 +54,11 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         loadState();
         loadCity();
         setMaskBirthDate();
+        preLoad = false;
     }
 
     public PanelCustomerCreateUpdate(FormOperationEnum op, Integer id) {
+        preLoad = true;
         initComponents();
         loadDocumentType();
         setMaskDocumentType();
@@ -66,6 +70,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         loadCity();
         setMaskBirthDate();
         prepareFormOperation(op, id);
+        preLoad = false;
     }
 
     private void prepareFormOperation(FormOperationEnum op, Integer id) {
@@ -144,7 +149,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         txtCustomerAddressId.setText(a.getId().toString());
         txtCustomerAddressNumber.setText(a.getNumber().toString());
         txtCustomerAddressPublicPlace.setText(a.getPublicPlace());
-        txtCustomerAddressZipCode.setText(a.getZipcode().toString());
+        txtCustomerAddressZipCode.setText(String.format("%08d", a.getZipcode()));
 
         // seleciona no cb
         if (a.getPublicPlaceType()
@@ -162,8 +167,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         }
         // seleciona no cb
 
-        if (a.getCity()
-                != null && a.getCity().getState() != null) {
+        if (a.getCity() != null && a.getCity().getState() != null) {
             cbTemp = cbCustomerAddressState;
             cbTemp.setSelectedIndex(0);
             for (int i = 0; i < cbTemp.getItemCount(); i++) {
@@ -175,20 +179,23 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 cbTemp.setSelectedIndex(i);
             }
         }
+        //loadCity();
         // seleciona no cb
 
-        if (a.getCity()
-                != null) {
+        if (a.getCity() != null) {
             cbTemp = cbCustomerAddressCity;
             cbTemp.setSelectedIndex(0);
             for (int i = 0; i < cbTemp.getItemCount(); i++) {
                 City cbSelectedItem = (City) cbTemp.getSelectedItem();
-                if (cbSelectedItem.getId() == a.getCity().getId()) {
+                int tmp = a.getCity().getId();
+                int tmp2 = cbSelectedItem.getId();
+                if (tmp == tmp2) {
                     cbTemp.setSelectedItem(cbSelectedItem);
                     break;
                 }
                 cbTemp.setSelectedIndex(i);
             }
+
         }
         // load contacts
 
@@ -639,9 +646,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableCustomerContactMouseClicked(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tableCustomerContactMouseReleased(evt);
-            }
         });
         scrollCustomerContact.setViewportView(tableCustomerContact);
 
@@ -863,7 +867,9 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCustomerContactCustomerSaveActionPerformed
 
     private void cbCustomerAddressStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerAddressStateActionPerformed
-        loadCity();
+        if (!preLoad) {
+            loadCity();
+        }
     }//GEN-LAST:event_cbCustomerAddressStateActionPerformed
 
     private void btnCustomerBasicNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerBasicNextActionPerformed
@@ -879,13 +885,18 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
     }//GEN-LAST:event_cbCustomerContactContactTypeActionPerformed
 
     private void btnCustomerContactAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactAddActionPerformed
-        if (DataUtil.empty(DataUtil.onlyNumbers(txtCustomerContactValue.getText()))) {
-            JOptionPane.showMessageDialog(this, "Insira o contato corretamente");
-            return;
+
+        if (!"E-mail".equals(((ContactType) cbCustomerContactContactType.getSelectedItem()).getDescription())
+                && !"Nextel ID".equals(((ContactType) cbCustomerContactContactType.getSelectedItem()).getDescription())) {
+            if (DataUtil.empty(DataUtil.onlyNumbers(txtCustomerContactValue.getText()))) {
+                JOptionPane.showMessageDialog(this, "Insira o contato corretamente");
+                return;
+            }
+
         }
         ContactType docType = (ContactType) cbCustomerContactContactType.getSelectedItem();
         DefaultTableModel model = (DefaultTableModel) tableCustomerContact.getModel();
-        String value = (String) txtCustomerContactValue.getValue();
+        String value = (String) txtCustomerContactValue.getText();
         model.addRow(new Object[]{
             null,
             docType,
@@ -936,10 +947,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
         popup.show(tableCustomerContact, (int) evt.getX(), (int) evt.getY());
     }//GEN-LAST:event_tableCustomerContactMouseClicked
-
-    private void tableCustomerContactMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerContactMouseReleased
-
-    }//GEN-LAST:event_tableCustomerContactMouseReleased
 
     void setActiveTab(Component c) {
         tabPanelCustomer.setSelectedComponent(c);

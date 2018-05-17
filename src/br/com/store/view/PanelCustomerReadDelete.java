@@ -186,11 +186,11 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCustomerSearchActionPerformed
 
     private void tableCustomerSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerSearchMousePressed
-        if (evt.getButton() != MouseEvent.BUTTON3) {
+        if (evt.getButton() != MouseEvent.BUTTON3 || tableCustomerSearch.getSelectedRow() < 0) {
             return;
         }
         Integer id = DataUtil.parseInteger(tableCustomerSearch.getModel().getValueAt(tableCustomerSearch.getSelectedRow(), 0) + "");
-        if (id < 1) {
+        if (id != null && id < 1) {
             return;
         }
         JPopupMenu popup = new JPopupMenu();

@@ -233,7 +233,7 @@ public class DAOCustomer {
 
         switch (searchType) {
             case DOCUMENT:
-                sql += "WHERE document = ? AND enabled=?";
+                sql += "WHERE document LIKE ? AND enabled=?";
                 break;
             case NAME:
                 sql += "WHERE UPPER(name) LIKE UPPER(?) AND enabled=?";
@@ -343,7 +343,7 @@ public class DAOCustomer {
                 customer.setGender(result.getString("gender"));
                 Date bd = new Date(result.getDate("birth_date").getTime());
                 customer.setBirthDate(bd);
-                Address address = DAOAddress.get(result.getInt("id"));
+                Address address = DAOAddress.get(result.getInt("address_id"));
                 customer.setAddress(address);
                 MaritalStatus maritalStatus = DAOMaritalStatus.get(result.getInt("maritalstatus_id"));
                 customer.setMaritalStatus(maritalStatus);
