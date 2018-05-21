@@ -4,6 +4,7 @@ import br.com.store.exception.CustomerException;
 import br.com.store.model.Customer;
 import static br.com.store.utils.DataUtil.isCNPJ;
 import static br.com.store.utils.DataUtil.isCPF;
+import static br.com.store.utils.DataUtil.validData;
 import java.util.Date;
 
 public class ValidatorCustomer {
@@ -48,11 +49,18 @@ public class ValidatorCustomer {
         if (!String.valueOf(customer.getBirthDate()).isEmpty() && customer.getBirthDate().after(new Date())) {
             throw new CustomerException("Data de nascimento não pode ser futura");
         }
+//        if (!String.valueOf(customer.getBirthDate()).isEmpty() && !validData(String.valueOf(customer.getBirthDate()))) {
+//            throw new CustomerException("Data de nascimento inválida");
+//        }
         if (customer.getNote().length() > 45) {
             throw new CustomerException("Anotação não pode ter mais de 45 caracteres");
         }
 //        if (!String.valueOf(customer.getCreatedAt()).isEmpty() && customer.getCreatedAt().after(new Date())) {;
 //            throw new CustomerException("Data de criação não pode ser futura");
 //        }
+//        if (!String.valueOf(customer.getCreatedAt()).isEmpty() && !validData(String.valueOf(customer.getCreatedAt()))) {
+//            throw new CustomerException("Data de criação inválida");
+//        }
+
     }
 }

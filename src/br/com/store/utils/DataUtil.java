@@ -1,6 +1,7 @@
 package br.com.store.utils;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -222,5 +223,15 @@ public class DataUtil {
         return numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}")
                 || numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
     }
-
+    //Check if the date is valid
+    public static boolean validData(String data) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+            sdf.setLenient(false);
+            sdf.parse(data);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
+    }
 }
