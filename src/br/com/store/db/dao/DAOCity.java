@@ -118,7 +118,7 @@ public class DAOCity {
                 City city = new City();
 
                 city.setId(result.getInt("id"));
-                State state = DAOState.get(result.getInt("id"));
+                State state = DAOState.get(result.getInt("state_id"));
                 city.setState(state);
                 city.setName(result.getString("name"));
 
@@ -163,7 +163,7 @@ public class DAOCity {
                 City city = new City();
 
                 city.setId(result.getInt("id"));
-                State state = DAOState.get(result.getInt("id"));
+                State state = DAOState.get(result.getInt("state_id"));
                 city.setState(state);
                 city.setName(result.getString("name"));
 
@@ -210,7 +210,7 @@ public class DAOCity {
                 City city = new City();
 
                 city.setId(result.getInt("id"));
-                State state = DAOState.get(result.getInt("id"));
+                State state = DAOState.get(result.getInt("state_id"));
                 city.setState(state);
                 city.setName(result.getString("name"));
 

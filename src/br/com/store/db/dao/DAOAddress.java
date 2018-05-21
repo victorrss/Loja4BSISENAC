@@ -140,9 +140,9 @@ public class DAOAddress {
                 Address address = new Address();
 
                 address.setId(result.getInt("id"));
-                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("id"));
+                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("publicplace_type_id"));
                 address.setPublicPlaceType(publicPlaceType);
-                City city = DAOCity.get(result.getInt("id"));
+                City city = DAOCity.get(result.getInt("city_id"));
                 address.setCity(city);
                 address.setPublicPlace(result.getString("publicplace"));
                 address.setNumber(result.getInt("number"));
@@ -193,11 +193,10 @@ public class DAOAddress {
                 Address address = new Address();
 
                 address.setId(result.getInt("id"));
-                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("id"));
+                PublicPlaceType publicPlaceType = DAOPublicPlaceType.get(result.getInt("publicplace_type_id"));
                 address.setPublicPlaceType(publicPlaceType);
-                City city = DAOCity.get(result.getInt("id"));
+                City city = DAOCity.get(result.getInt("city_id"));
                 address.setCity(city);
-                address.setPublicPlace(result.getString("publicplace"));
                 address.setNumber(result.getInt("number"));
                 address.setComplement(result.getString("complement"));
                 address.setDistrict(result.getString("district"));
