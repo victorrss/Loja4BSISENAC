@@ -55,12 +55,5 @@ public class ValidatorCustomer {
         if (customer.getNote().length() > 45) {
             throw new CustomerException("Anotação não pode ter mais de 45 caracteres");
         }
-//        if (!String.valueOf(customer.getCreatedAt()).isEmpty() && customer.getCreatedAt().after(new Date())) {;
-//            throw new CustomerException("Data de criação não pode ser futura");
-//        }
-//        if (!String.valueOf(customer.getCreatedAt()).isEmpty() && !validData(String.valueOf(customer.getCreatedAt()))) {
-//            throw new CustomerException("Data de criação inválida");
-//        }
-
     }
 }
