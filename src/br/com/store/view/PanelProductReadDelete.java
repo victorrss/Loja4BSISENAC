@@ -136,7 +136,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
             return;
         }
         Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
-        if (id < 1) {
+        if (id != null && id < 1) {
             return;
         }
         JPopupMenu popup = new JPopupMenu();

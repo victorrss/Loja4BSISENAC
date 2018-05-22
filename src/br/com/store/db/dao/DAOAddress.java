@@ -74,7 +74,12 @@ public class DAOAddress {
             stmt.setInt(1, address.getPublicPlaceType().getId());
             stmt.setInt(2, address.getCity().getId());
             stmt.setString(3, address.getPublicPlace());
-            stmt.setInt(4, address.getNumber());
+            //stmt.setInt(4, address.getNumber());
+            if (address.getNumber() == null) {
+                stmt.setNull(4, Types.INTEGER);
+            } else {
+                stmt.setInt(4, address.getNumber());
+            }
             stmt.setString(5, address.getComplement());
             stmt.setString(6, address.getDistrict());
             stmt.setInt(7, address.getZipcode());

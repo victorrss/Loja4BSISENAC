@@ -232,6 +232,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         txtCustomerBasicNote = new javax.swing.JTextArea();
         lblCustomerBasicNote = new javax.swing.JLabel();
         btnCustomerBasicNext = new javax.swing.JButton();
+        btnCustomerBasicSave = new javax.swing.JButton();
         tabCustomerAddress = new javax.swing.JPanel();
         panelCustomerAddress = new javax.swing.JPanel();
         cbCustomerAddressPublicPlaceType = new javax.swing.JComboBox<>();
@@ -250,8 +251,9 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         cbCustomerAddressCity = new javax.swing.JComboBox<>();
         lblCustomerAddressZipCode = new javax.swing.JLabel();
         txtCustomerAddressZipCode = new javax.swing.JFormattedTextField();
-        btnAddressNext = new javax.swing.JButton();
-        btnAddressBack = new javax.swing.JButton();
+        btnCustomerAddressNext = new javax.swing.JButton();
+        btnCustomerAddressBack = new javax.swing.JButton();
+        btnCustomerAddressSave = new javax.swing.JButton();
         tabCustomerContact = new javax.swing.JPanel();
         paneCustomerlContact = new javax.swing.JPanel();
         cbCustomerContactContactType = new javax.swing.JComboBox<>();
@@ -261,7 +263,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         btnCustomerContactAdd = new javax.swing.JButton();
         txtCustomerContactValue = new javax.swing.JFormattedTextField();
         btnCustomerContactBack = new javax.swing.JButton();
-        btnCustomerContactCustomerSave = new javax.swing.JButton();
+        btnCustomerContactSave = new javax.swing.JButton();
         lblPanelTitle = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -378,7 +380,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                     .addGroup(lblCustomerNoteLayout.createSequentialGroup()
                         .addComponent(lblCustomerBasicNote)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollCustomerBasicNote, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                    .addComponent(scrollCustomerBasicNote, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -386,6 +388,15 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         btnCustomerBasicNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCustomerBasicNextActionPerformed(evt);
+            }
+        });
+
+        btnCustomerBasicSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnCustomerBasicSave.setMargin(new java.awt.Insets(0, 14, 0, 14));
+        btnCustomerBasicSave.setPreferredSize(new java.awt.Dimension(71, 23));
+        btnCustomerBasicSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerBasicSaveActionPerformed(evt);
             }
         });
 
@@ -399,18 +410,27 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                     .addComponent(lblCustomerNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCustomerBasicLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCustomerBasicNext, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCustomerBasicNext, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCustomerBasicSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        tabCustomerBasicLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCustomerBasicNext, btnCustomerBasicSave});
+
         tabCustomerBasicLayout.setVerticalGroup(
             tabCustomerBasicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabCustomerBasicLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblCustomerNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCustomerBasicNext, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGroup(tabCustomerBasicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCustomerBasicNext, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCustomerBasicSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
+
+        tabCustomerBasicLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCustomerBasicNext, btnCustomerBasicSave});
 
         tabPanelCustomer.addTab("Básico", tabCustomerBasic);
 
@@ -533,21 +553,30 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCustomerAddressZipCode)
                     .addComponent(txtCustomerAddressZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 149, Short.MAX_VALUE))
+                .addGap(0, 158, Short.MAX_VALUE))
         );
 
-        btnAddressNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/next.png"))); // NOI18N
-        btnAddressNext.setToolTipText("");
-        btnAddressNext.addActionListener(new java.awt.event.ActionListener() {
+        btnCustomerAddressNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/next.png"))); // NOI18N
+        btnCustomerAddressNext.setToolTipText("");
+        btnCustomerAddressNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddressNextActionPerformed(evt);
+                btnCustomerAddressNextActionPerformed(evt);
             }
         });
 
-        btnAddressBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/back.png"))); // NOI18N
-        btnAddressBack.addActionListener(new java.awt.event.ActionListener() {
+        btnCustomerAddressBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/back.png"))); // NOI18N
+        btnCustomerAddressBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddressBackActionPerformed(evt);
+                btnCustomerAddressBackActionPerformed(evt);
+            }
+        });
+
+        btnCustomerAddressSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnCustomerAddressSave.setMargin(new java.awt.Insets(0, 14, 0, 14));
+        btnCustomerAddressSave.setPreferredSize(new java.awt.Dimension(71, 23));
+        btnCustomerAddressSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerAddressSaveActionPerformed(evt);
             }
         });
 
@@ -560,22 +589,31 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addGroup(tabCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelCustomerAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCustomerAddressLayout.createSequentialGroup()
-                        .addComponent(btnAddressBack, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddressNext, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCustomerAddressBack, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCustomerAddressNext, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCustomerAddressSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        tabCustomerAddressLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCustomerAddressBack, btnCustomerAddressNext, btnCustomerAddressSave});
+
         tabCustomerAddressLayout.setVerticalGroup(
             tabCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabCustomerAddressLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelCustomerAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tabCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAddressNext, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddressBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addGroup(tabCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCustomerAddressBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCustomerAddressNext, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCustomerAddressSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
+
+        tabCustomerAddressLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCustomerAddressBack, btnCustomerAddressNext, btnCustomerAddressSave});
 
         tabPanelCustomer.addTab("Endereço", tabCustomerAddress);
 
@@ -654,7 +692,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                     .addComponent(txtCustomerContactValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCustomerContactAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -666,11 +704,12 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             }
         });
 
-        btnCustomerContactCustomerSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
-        btnCustomerContactCustomerSave.setPreferredSize(new java.awt.Dimension(71, 23));
-        btnCustomerContactCustomerSave.addActionListener(new java.awt.event.ActionListener() {
+        btnCustomerContactSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnCustomerContactSave.setMargin(new java.awt.Insets(0, 14, 0, 14));
+        btnCustomerContactSave.setPreferredSize(new java.awt.Dimension(71, 23));
+        btnCustomerContactSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCustomerContactCustomerSaveActionPerformed(evt);
+                btnCustomerContactSaveActionPerformed(evt);
             }
         });
 
@@ -682,23 +721,29 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(tabCustomerContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(paneCustomerlContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(tabCustomerContactLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabCustomerContactLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCustomerContactBack, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCustomerContactCustomerSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCustomerContactSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
+
+        tabCustomerContactLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCustomerContactBack, btnCustomerContactSave});
+
         tabCustomerContactLayout.setVerticalGroup(
             tabCustomerContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tabCustomerContactLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(paneCustomerlContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(tabCustomerContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCustomerContactCustomerSave, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(btnCustomerContactBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28))
+                .addGroup(tabCustomerContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCustomerContactBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCustomerContactSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
+
+        tabCustomerContactLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCustomerContactBack, btnCustomerContactSave});
 
         tabPanelCustomer.addTab("Contato", tabCustomerContact);
 
@@ -736,19 +781,97 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddressBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddressBackActionPerformed
+    private void btnCustomerAddressBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerAddressBackActionPerformed
         setActiveTab(tabCustomerBasic);
-    }//GEN-LAST:event_btnAddressBackActionPerformed
+    }//GEN-LAST:event_btnCustomerAddressBackActionPerformed
 
-    private void btnAddressNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddressNextActionPerformed
+    private void btnCustomerAddressNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerAddressNextActionPerformed
         setActiveTab(tabCustomerContact);
-    }//GEN-LAST:event_btnAddressNextActionPerformed
+    }//GEN-LAST:event_btnCustomerAddressNextActionPerformed
 
     private void btnCustomerContactBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactBackActionPerformed
         setActiveTab(tabCustomerAddress);
     }//GEN-LAST:event_btnCustomerContactBackActionPerformed
 
-    private void btnCustomerContactCustomerSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactCustomerSaveActionPerformed
+    private void cbCustomerAddressStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerAddressStateActionPerformed
+        if (!preLoad) {
+            loadCity();
+        }
+    }//GEN-LAST:event_cbCustomerAddressStateActionPerformed
+
+    private void btnCustomerBasicNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerBasicNextActionPerformed
+        setActiveTab(tabCustomerAddress);
+    }//GEN-LAST:event_btnCustomerBasicNextActionPerformed
+
+    private void cbCustomerBasicDocumentTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerBasicDocumentTypeActionPerformed
+        setMaskDocumentType();
+    }//GEN-LAST:event_cbCustomerBasicDocumentTypeActionPerformed
+
+    private void cbCustomerContactContactTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerContactContactTypeActionPerformed
+        setMaskContactType();
+    }//GEN-LAST:event_cbCustomerContactContactTypeActionPerformed
+
+    private void btnCustomerContactAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactAddActionPerformed
+
+        if (!"E-mail".equals(((ContactType) cbCustomerContactContactType.getSelectedItem()).getDescription())
+                && !"Nextel ID".equals(((ContactType) cbCustomerContactContactType.getSelectedItem()).getDescription())) {
+            if (DataUtil.empty(DataUtil.onlyNumbers(txtCustomerContactValue.getText()))) {
+                JOptionPane.showMessageDialog(this, "Insira o contato corretamente");
+                return;
+            }
+
+        }
+        ContactType docType = (ContactType) cbCustomerContactContactType.getSelectedItem();
+        DefaultTableModel model = (DefaultTableModel) tableCustomerContact.getModel();
+        String value = (String) txtCustomerContactValue.getText();
+        model.addRow(new Object[]{
+            //null,
+            docType,
+            value
+        });
+
+        txtCustomerContactValue.setText("");
+        cbCustomerContactContactType.setSelectedIndex(0);
+        customerId = addressId = null;
+    }//GEN-LAST:event_btnCustomerContactAddActionPerformed
+
+    private void tableCustomerContactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerContactMouseClicked
+        if (evt.getButton() != MouseEvent.BUTTON3) {
+            return;
+        }
+        JPopupMenu popup = new JPopupMenu();
+        JMenuItem mItemDelete = new JMenuItem("Deletar");
+        //JMenuItem mItemUpdate = new JMenuItem("Alterar");
+        mItemDelete.addActionListener((e) -> {
+            if (tableCustomerContact.getSelectedRow() != -1) {
+                DefaultTableModel dtm = (DefaultTableModel) tableCustomerContact.getModel();
+                if (tableCustomerContact.getSelectedRow() >= 0) {
+                    dtm.removeRow(tableCustomerContact.getSelectedRow());
+                    tableCustomerContact.setModel(dtm);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione uma linha!");
+                };
+            }
+        });
+
+        popup.add(mItemDelete);
+
+        popup.show(tableCustomerContact, (int) evt.getX(), (int) evt.getY());
+    }//GEN-LAST:event_tableCustomerContactMouseClicked
+
+    private void btnCustomerAddressSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerAddressSaveActionPerformed
+        saveCustomer();
+    }//GEN-LAST:event_btnCustomerAddressSaveActionPerformed
+
+    private void btnCustomerContactSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactSaveActionPerformed
+        saveCustomer();
+    }//GEN-LAST:event_btnCustomerContactSaveActionPerformed
+
+    private void btnCustomerBasicSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerBasicSaveActionPerformed
+        saveCustomer();
+    }//GEN-LAST:event_btnCustomerBasicSaveActionPerformed
+
+    void saveCustomer() {
         String temp = "", temp2 = "";
         if (operation == FormOperationEnum.CREATE) {
             temp = "cadastrar";
@@ -819,84 +942,20 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         } else {
             FrameMain.loadCardCustomerList(true);
         }
-    }//GEN-LAST:event_btnCustomerContactCustomerSaveActionPerformed
-
-    private void cbCustomerAddressStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerAddressStateActionPerformed
-        if (!preLoad) {
-            loadCity();
-        }
-    }//GEN-LAST:event_cbCustomerAddressStateActionPerformed
-
-    private void btnCustomerBasicNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerBasicNextActionPerformed
-        setActiveTab(tabCustomerAddress);
-    }//GEN-LAST:event_btnCustomerBasicNextActionPerformed
-
-    private void cbCustomerBasicDocumentTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerBasicDocumentTypeActionPerformed
-        setMaskDocumentType();
-    }//GEN-LAST:event_cbCustomerBasicDocumentTypeActionPerformed
-
-    private void cbCustomerContactContactTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCustomerContactContactTypeActionPerformed
-        setMaskContactType();
-    }//GEN-LAST:event_cbCustomerContactContactTypeActionPerformed
-
-    private void btnCustomerContactAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerContactAddActionPerformed
-
-        if (!"E-mail".equals(((ContactType) cbCustomerContactContactType.getSelectedItem()).getDescription())
-                && !"Nextel ID".equals(((ContactType) cbCustomerContactContactType.getSelectedItem()).getDescription())) {
-            if (DataUtil.empty(DataUtil.onlyNumbers(txtCustomerContactValue.getText()))) {
-                JOptionPane.showMessageDialog(this, "Insira o contato corretamente");
-                return;
-            }
-
-        }
-        ContactType docType = (ContactType) cbCustomerContactContactType.getSelectedItem();
-        DefaultTableModel model = (DefaultTableModel) tableCustomerContact.getModel();
-        String value = (String) txtCustomerContactValue.getText();
-        model.addRow(new Object[]{
-            //null,
-            docType,
-            value
-        });
-
-        txtCustomerContactValue.setText("");
-        cbCustomerContactContactType.setSelectedIndex(0);
-        customerId = addressId = null;
-    }//GEN-LAST:event_btnCustomerContactAddActionPerformed
-
-    private void tableCustomerContactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerContactMouseClicked
-        if (evt.getButton() != MouseEvent.BUTTON3) {
-            return;
-        }
-        JPopupMenu popup = new JPopupMenu();
-        JMenuItem mItemDelete = new JMenuItem("Deletar");
-        //JMenuItem mItemUpdate = new JMenuItem("Alterar");
-        mItemDelete.addActionListener((e) -> {
-            if (tableCustomerContact.getSelectedRow() != -1) {
-                DefaultTableModel dtm = (DefaultTableModel) tableCustomerContact.getModel();
-                if (tableCustomerContact.getSelectedRow() >= 0) {
-                    dtm.removeRow(tableCustomerContact.getSelectedRow());
-                    tableCustomerContact.setModel(dtm);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Selecione uma linha!");
-                };
-            }
-        });
-
-        popup.add(mItemDelete);
-
-        popup.show(tableCustomerContact, (int) evt.getX(), (int) evt.getY());
-    }//GEN-LAST:event_tableCustomerContactMouseClicked
+    }
 
     void setActiveTab(Component c) {
         tabPanelCustomer.setSelectedComponent(c);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddressBack;
-    private javax.swing.JButton btnAddressNext;
+    private javax.swing.JButton btnCustomerAddressBack;
+    private javax.swing.JButton btnCustomerAddressNext;
+    private javax.swing.JButton btnCustomerAddressSave;
     private javax.swing.JButton btnCustomerBasicNext;
+    private javax.swing.JButton btnCustomerBasicSave;
     private javax.swing.JButton btnCustomerContactAdd;
     private javax.swing.JButton btnCustomerContactBack;
-    private javax.swing.JButton btnCustomerContactCustomerSave;
+    private javax.swing.JButton btnCustomerContactSave;
     private javax.swing.JComboBox<String> cbCustomerAddressCity;
     private javax.swing.JComboBox<String> cbCustomerAddressPublicPlaceType;
     private javax.swing.JComboBox<String> cbCustomerAddressState;

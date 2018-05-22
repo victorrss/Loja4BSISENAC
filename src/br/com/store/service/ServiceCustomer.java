@@ -88,7 +88,7 @@ public class ServiceCustomer {
             con.commit();
         } catch (Exception e) {
             con.rollback();
-            throw new DataSourceException("Falha ao gravar o Cliente");
+            throw new DataSourceException("Falha ao salvar o cliente, tente mais tarde!");
         } finally {
             ConnectionUtils.finalize(con);
         }
