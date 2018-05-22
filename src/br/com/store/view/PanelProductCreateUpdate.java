@@ -534,6 +534,8 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                 lblProductPicture.setIcon(new ImageIcon(image));
             } catch (Exception ex) {
                 // System.out.println(ex.printStackTrace().toString());
+                JOptionPane.showMessageDialog(this, "Falha ao carregar a imagem",
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Voce não selecionou o arquivo.");

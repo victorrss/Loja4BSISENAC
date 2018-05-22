@@ -103,20 +103,11 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="lblBrandName" min="-2" pref="80" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblBrandName" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
-                              <Component id="lblBrandId" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtBrandName" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="txtBrandId" min="-2" pref="79" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="606" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="txtBrandName" pref="688" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -125,15 +116,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtBrandId" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblBrandId" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtBrandName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblBrandName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="187" max="32767" attributes="0"/>
+                          <EmptySpace pref="215" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -146,20 +132,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtBrandName">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBrandNameActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="lblBrandId">
-                  <Properties>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="C&#xf3;digo"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txtBrandId">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBrandIdActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -195,8 +167,16 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollBrand" alignment="0" pref="801" max="32767" attributes="0"/>
-                          <Component id="panelBrandSearch" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="btnBrandDelete" min="-2" pref="75" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="panelBrandSearch" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnBrandListRefresh" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="scrollBrand" alignment="0" pref="804" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -205,11 +185,16 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="panelBrandSearch" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="btnBrandListRefresh" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelBrandSearch" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="scrollBrand" pref="193" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollBrand" pref="246" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnBrandDelete" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -268,6 +253,9 @@
                       <Image iconType="3" name="/resources/icons/search.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandSearchActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -281,16 +269,40 @@
                 <Component class="javax.swing.JTable" name="tableBrandSearch">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="3" rowCount="0">
-                        <Column editable="false" title="Id" type="java.lang.String"/>
+                      <Table columnCount="2" rowCount="0">
+                        <Column editable="false" title="C&#xf3;digo" type="java.lang.Integer"/>
                         <Column editable="false" title="Nome" type="java.lang.String"/>
-                        <Column editable="false" title="Dispon&#xed;vel" type="java.lang.String"/>
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableBrandSearchMousePressed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tableBrandSearchKeyPressed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="btnBrandListRefresh">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/refresh.png"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandListRefreshActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnBrandDelete">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/resources/icons/trash-30.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Excluir produto"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandDeleteActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
