@@ -33,7 +33,7 @@ public class DAOPublicPlaceType {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -59,7 +59,7 @@ public class DAOPublicPlaceType {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -83,7 +83,7 @@ public class DAOPublicPlaceType {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -124,7 +124,7 @@ public class DAOPublicPlaceType {
                 listPublicPlaceType.add(publicPlaceType);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listPublicPlaceType;
@@ -170,7 +170,7 @@ public class DAOPublicPlaceType {
                 listPublicPlaceType.add(publicPlaceType);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listPublicPlaceType;
@@ -209,7 +209,7 @@ public class DAOPublicPlaceType {
                 return publicPlaceType;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

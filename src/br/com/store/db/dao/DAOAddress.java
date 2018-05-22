@@ -4,7 +4,6 @@ import br.com.store.db.util.ConnectionUtils;
 import br.com.store.model.Address;
 import br.com.store.model.City;
 import br.com.store.model.PublicPlaceType;
-import br.com.store.utils.DataUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,18 +16,15 @@ import java.util.List;
 public class DAOAddress {
 
     //Inserts a Address into the address table of the database
-    public static Integer insert(Address address) throws SQLException, Exception {
+    public static Integer insert(Connection con, Address address) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
                 + "address (publicplace_type_id, city_id, publicplace, number, complement, district, zipcode, enabled)"
                 + "  VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
 
-        Connection con = null;
-
         PreparedStatement stmt = null;
         try {
-            //Opens a connection to the DB
-            con = ConnectionUtils.getConnection();
+
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -49,23 +45,28 @@ public class DAOAddress {
             //Executes the command in the DB
             return stmt.executeUpdate();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt);
         }
     }
 
-    //Performs the update of the data of a address
-    public static void update(Address address) throws SQLException, Exception {
+    public static Integer insert(Address address) throws SQLException, Exception {
+        Connection con = null;
+        con = ConnectionUtils.getConnection();
+        Integer id = insert(con, address);
+        ConnectionUtils.finalize(con);
+        return id;
+    }
+//Performs the update of the data of a address
+
+    public static void update(Connection con, Address address) throws SQLException, Exception {
 
         String sql = "UPDATE address SET publicplace_type_id=?, city_id=?, publicplace=?, number=?,"
                 + " complement=?, district=?, zipcode=? "
                 + "WHERE (id=?)";
 
-        Connection con = null;
-
         PreparedStatement stmt = null;
         try {
-            //Opens a connection to the DB
-            con = ConnectionUtils.getConnection();
+
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
 
@@ -82,8 +83,15 @@ public class DAOAddress {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt);
         }
+    }
+
+    public static void update(Address address) throws SQLException, Exception {
+        Connection con = null;
+        con = ConnectionUtils.getConnection();
+        update(con, address);
+        ConnectionUtils.finalize(con);
     }
 
     //Performs logical deletion of a address in the DB
@@ -106,7 +114,7 @@ public class DAOAddress {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -154,7 +162,7 @@ public class DAOAddress {
                 listAddress.add(address);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listAddress;
@@ -206,7 +214,7 @@ public class DAOAddress {
                 listAddress.add(address);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listAddress;
@@ -252,7 +260,7 @@ public class DAOAddress {
                 return address;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

@@ -61,12 +61,12 @@ public class ServiceAddress {
         return list;
     }
 
-    public List<Address> search(String publicPlace) throws AddressException, DataSourceException {
+    public List<Address> search(String value) throws AddressException, DataSourceException {
         try {
-            if (publicPlace == null || "".equals(publicPlace)) {
+            if (value == null || "".equals(value)) {
                 return DAOAddress.list();
             } else {
-                return DAOAddress.search(publicPlace);
+                return DAOAddress.search(value);
             }
         } catch (Exception e) {
             e.printStackTrace();

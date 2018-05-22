@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class PanelProductReadDelete extends javax.swing.JPanel {
 
@@ -180,6 +181,10 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
     public void loadList() {
         DefaultTableModel model = (DefaultTableModel) tableProductSearch.getModel();
         model.setNumRows(0);
+        TableColumn column = tableProductSearch.getColumnModel().getColumn(0);
+        if ("Código".equals(column.getHeaderValue().toString())) {
+            tableProductSearch.removeColumn(column);
+        }
         List<Product> list = null;
         try {
             list = ServiceProduct.getInstance().list();

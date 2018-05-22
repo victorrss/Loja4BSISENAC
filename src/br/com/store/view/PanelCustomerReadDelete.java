@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class PanelCustomerReadDelete extends javax.swing.JPanel {
 
@@ -22,6 +23,10 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
     public void loadList() {
         DefaultTableModel model = (DefaultTableModel) tableCustomerSearch.getModel();
         model.setNumRows(0);
+        TableColumn column = tableCustomerSearch.getColumnModel().getColumn(0);
+        if ("Código".equals(column.getHeaderValue().toString())) {
+            tableCustomerSearch.removeColumn(column);
+        }
         List<Customer> list = null;
         try {
             list = ServiceCustomer.getInstance().list();
@@ -102,10 +107,9 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         panelCustomerSearchLayout.setHorizontalGroup(
             panelCustomerSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCustomerSearchLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbCustomerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbCustomerSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCustomerSearchField)
+                .addComponent(txtCustomerSearchField, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCustomerSearch)
                 .addContainerGap())
@@ -130,7 +134,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false

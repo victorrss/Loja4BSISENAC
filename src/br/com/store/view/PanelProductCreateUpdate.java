@@ -69,7 +69,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        txtProductId.setText(p.getId().toString());
+        productId = p.getId();
         txtProductName.setText(p.getName());
         txtProductBarcode.setText(p.getBarcode());
         txtProductDescription.setText(p.getDescription());
@@ -122,7 +122,6 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         }
 
         lblProductPicture.setText("");
-
     }
 
     @SuppressWarnings("unchecked")
@@ -134,8 +133,6 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         txtProductName = new javax.swing.JTextField();
         lblProductBrand = new javax.swing.JLabel();
         cbProductBrand = new javax.swing.JComboBox<>();
-        lblProductId = new javax.swing.JLabel();
-        txtProductId = new javax.swing.JTextField();
         txtProductBarcode = new javax.swing.JTextField();
         lblProductBarcode = new javax.swing.JLabel();
         lblProductPicture = new javax.swing.JLabel();
@@ -184,11 +181,6 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
 
         cbProductBrand.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblProductId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblProductId.setText("Código");
-
-        txtProductId.setEditable(false);
-
         txtProductBarcode.setColumns(13);
         txtProductBarcode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -196,8 +188,9 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
             }
         });
 
+        lblProductBarcode.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblProductBarcode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblProductBarcode.setText("Código de Barras");
+        lblProductBarcode.setText("Cód. de Barras");
 
         lblProductPicture.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblProductPicture.setText("Selecione uma foto");
@@ -316,24 +309,17 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                             .addComponent(btnProductRefreshSubCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelProductLayout.createSequentialGroup()
                         .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblProductId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblProductBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblProductBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblProductBarcode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtProductName)
-                            .addGroup(panelProductLayout.createSequentialGroup()
-                                .addComponent(txtProductId, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblProductBarcode)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtProductBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 228, Short.MAX_VALUE))
                             .addGroup(panelProductLayout.createSequentialGroup()
                                 .addComponent(cbProductBrand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnProductRefreshBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnProductRefreshBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtProductName, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                            .addComponent(txtProductBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelProductLayout.createSequentialGroup()
                         .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,14 +349,12 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        panelProductLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblProductBrand, lblProductCategory, lblProductId, lblProductName, lblProductPrice, lblProductSubCategory});
+        panelProductLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblProductBrand, lblProductCategory, lblProductName, lblProductPrice, lblProductSubCategory});
 
         panelProductLayout.setVerticalGroup(
             panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProductLayout.createSequentialGroup()
                 .addGroup(panelProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtProductId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblProductId)
                     .addComponent(txtProductBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProductBarcode))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -413,13 +397,15 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
                             .addGroup(panelProductLayout.createSequentialGroup()
                                 .addComponent(lblProductDescription)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(scrollProductDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)))
+                            .addComponent(scrollProductDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)))
                     .addGroup(panelProductLayout.createSequentialGroup()
                         .addComponent(lblProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
                         .addComponent(btnProductPicture)))
                 .addContainerGap())
         );
+
+        panelProductLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtProductBarcode, txtProductName});
 
         btnProductFinalize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
         btnProductFinalize.addActionListener(new java.awt.event.ActionListener() {
@@ -477,7 +463,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         }
 
         Product product = new Product();
-        product.setId(DataUtil.parseInteger(txtProductId.getText()));
+        product.setId(productId);
         product.setName(txtProductName.getText());
         product.setBarcode(txtProductBarcode.getText());
         product.setDescription(txtProductDescription.getText());
@@ -623,7 +609,6 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JLabel lblProductBrand;
     private javax.swing.JLabel lblProductCategory;
     private javax.swing.JLabel lblProductDescription;
-    private javax.swing.JLabel lblProductId;
     private javax.swing.JLabel lblProductModel;
     private javax.swing.JLabel lblProductName;
     private javax.swing.JLabel lblProductPicture;
@@ -636,7 +621,6 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollProductDescription;
     private javax.swing.JTextField txtProductBarcode;
     private javax.swing.JTextArea txtProductDescription;
-    private javax.swing.JTextField txtProductId;
     private javax.swing.JTextField txtProductModel;
     private javax.swing.JTextField txtProductName;
     private javax.swing.JFormattedTextField txtProductPrice;

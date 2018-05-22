@@ -34,7 +34,7 @@ public class DAOCity {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -60,7 +60,7 @@ public class DAOCity {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -84,7 +84,7 @@ public class DAOCity {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -126,7 +126,7 @@ public class DAOCity {
                 listCity.add(city);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCity;
@@ -171,7 +171,7 @@ public class DAOCity {
                 listCity.add(city);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCity;
@@ -218,7 +218,7 @@ public class DAOCity {
                 listCity.add(city);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCity;
@@ -258,7 +258,7 @@ public class DAOCity {
                 return city;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

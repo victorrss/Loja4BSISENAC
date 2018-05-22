@@ -32,7 +32,7 @@ public class DAOCategory {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -58,7 +58,7 @@ public class DAOCategory {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
 
     }
@@ -83,7 +83,7 @@ public class DAOCategory {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -121,7 +121,7 @@ public class DAOCategory {
                 listCategory.add(category);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCategory;
@@ -163,7 +163,7 @@ public class DAOCategory {
                 listCategory.add(category);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCategory;
@@ -199,7 +199,7 @@ public class DAOCategory {
                 return category;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

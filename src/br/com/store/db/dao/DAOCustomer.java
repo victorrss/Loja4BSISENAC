@@ -6,13 +6,11 @@ import br.com.store.model.Customer;
 import br.com.store.model.DocumentType;
 import br.com.store.model.MaritalStatus;
 import br.com.store.model.enums.CustomerSearchTypeEnum;
-import br.com.store.utils.DataUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,17 +18,13 @@ import java.util.List;
 public class DAOCustomer {
 
     //Inserts a customer into the customer table of the database
-    public static Integer insert(Customer customer) throws SQLException, Exception {
+    public static Integer insert(Connection con, Customer customer) throws SQLException, Exception {
         String sql = "INSERT INTO "
-                + "customer (address_id, maritalstatus_id, name, document_type_id, document, gender, birth_date, note, enabled)"
-                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        Connection con = null;
+                + "customer (address_id, maritalstatus_id, name, document_type_id, document, document_identifier, gender, birth_date, note, enabled)"
+                + "  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = null;
         try {
-            //Opens a connection to the DB
-            con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -40,32 +34,28 @@ public class DAOCustomer {
             stmt.setString(3, customer.getName());
             stmt.setInt(4, customer.getDocumentType().getId());
             stmt.setString(5, customer.getDocument());
-            stmt.setString(6, customer.getGender());
-            stmt.setDate(7, new java.sql.Date(customer.getBirthDate().getTime()));
-            stmt.setString(8, customer.getNote());
-            stmt.setBoolean(9, true);
-            //stmt.setDate(10, (java.sql.Date) new Date(customer.getCreatedAt().getTime()));
+            stmt.setString(6, customer.getDocumentType().getName().trim() + customer.getDocument());
+            stmt.setString(7, customer.getGender());
+            stmt.setDate(8, new java.sql.Date(customer.getBirthDate().getTime()));
+            stmt.setString(9, customer.getNote());
+            stmt.setBoolean(10, true);
 
             //Executes the command in the DB
             return stmt.executeUpdate();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt);
         }
     }
 
     //Performs the update of the data of a customer
-    public static void update(Customer customer) throws SQLException, Exception {
+    public static void update(Connection con, Customer customer) throws SQLException, Exception {
 
         String sql = "UPDATE customer SET address_id=?, maritalstatus_id=?, name=?, document_type_id=?, "
-                + "document=?, gender=?, birth_date=?, note=? "
+                + "document=?, document_identifier=?, gender=?, birth_date=?, note=? "
                 + "WHERE (id=?)";
-
-        Connection con = null;
 
         PreparedStatement stmt = null;
         try {
-            //Opens a connection to the DB
-            con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
 
@@ -75,16 +65,16 @@ public class DAOCustomer {
             stmt.setString(3, customer.getName());
             stmt.setInt(4, customer.getDocumentType().getId());
             stmt.setString(5, customer.getDocument());
-            stmt.setString(6, customer.getGender());
-            stmt.setDate(7, new java.sql.Date(customer.getBirthDate().getTime()));
-            stmt.setString(8, customer.getNote());
-            stmt.setInt(9, customer.getId());
-            //stmt.setDate(9, (java.sql.Date) new Date(customer.getCreatedAt().getTime()));
+            stmt.setString(6, customer.getDocumentType().getName().trim() + customer.getDocument());
+            stmt.setString(7, customer.getGender());
+            stmt.setDate(8, new java.sql.Date(customer.getBirthDate().getTime()));
+            stmt.setString(9, customer.getNote());
+            stmt.setInt(10, customer.getId());
 
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt);
         }
     }
 
@@ -108,7 +98,7 @@ public class DAOCustomer {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -162,7 +152,7 @@ public class DAOCustomer {
                 listCustomer.add(customer);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
         //Returns a list of database customers
         return listCustomer;
@@ -220,7 +210,7 @@ public class DAOCustomer {
                 listCustomer.add(customer);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCustomer;
@@ -238,9 +228,9 @@ public class DAOCustomer {
             case NAME:
                 sql += "WHERE UPPER(name) LIKE UPPER(?) AND enabled=?";
                 break;
-            case ID:
-                sql += "WHERE id=?  AND enabled=?";
-                break;
+//            case ID:
+//                sql += "WHERE id=?  AND enabled=?";
+//                break;
         }
         List<Customer> listCustomer = null;
 
@@ -256,13 +246,13 @@ public class DAOCustomer {
             stmt = con.prepareStatement(sql);
 
             switch (searchType) {
-                case ID:
-                    if (DataUtil.parseInteger(value) == null) {
-                        stmt.setNull(1, Types.INTEGER);
-                    } else {
-                        stmt.setInt(1, DataUtil.parseInteger(value));
-                    }
-                    break;
+//                case ID:
+//                    if (DataUtil.parseInteger(value) == null) {
+//                        stmt.setNull(1, Types.INTEGER);
+//                    } else {
+//                        stmt.setInt(1, DataUtil.parseInteger(value));
+//                    }
+//                    break;
                 case NAME:
                 case DOCUMENT:
                     stmt.setString(1, "%" + value + "%");
@@ -302,7 +292,7 @@ public class DAOCustomer {
                 listCustomer.add(customer);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCustomer;
@@ -354,7 +344,7 @@ public class DAOCustomer {
                 return customer;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

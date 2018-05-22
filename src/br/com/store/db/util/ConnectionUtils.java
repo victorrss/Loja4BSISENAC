@@ -32,7 +32,7 @@ public class ConnectionUtils {
         }
     }
 
-    public static void finalizeStatementConnection(PreparedStatement stmt, Connection con) {
+    public static void finalize(PreparedStatement stmt, Connection con) {
         try {
             //If the statement still open, it closes
             if (stmt != null && !stmt.isClosed()) {
@@ -46,15 +46,47 @@ public class ConnectionUtils {
         }
     }
 
-    public static void finalizeResultsetStatementConnection(ResultSet result, PreparedStatement stmt, Connection con) {
+    public static void finalize(ResultSet result, PreparedStatement stmt, Connection con) {
         try {
             //If the result still open, it closes
             if (result != null && !result.isClosed()) {
                 result.close();
             }
-            finalizeStatementConnection(stmt, con);
+            finalize(stmt, con);
         } catch (Exception e) {
         }
     }
 
+    public static void finalize(ResultSet result, PreparedStatement stmt) {
+        try {
+            //If the result still open, it closes
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+
+            finalize(stmt);
+
+        } catch (Exception e) {
+        }
+    }
+
+    public static void finalize(PreparedStatement stmt) {
+        try {
+            //If the statement still open, it closes
+            if (stmt != null && !stmt.isClosed()) {
+                stmt.close();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public static void finalize(Connection con) {
+        try {
+            //If the connection still open, it closes
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        } catch (Exception e) {
+        }
+    }
 }

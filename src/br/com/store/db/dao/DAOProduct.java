@@ -6,7 +6,6 @@ import br.com.store.model.Category;
 import br.com.store.model.Product;
 import br.com.store.model.SubCategory;
 import br.com.store.model.enums.ProductSearchTypeEnum;
-import br.com.store.utils.DataUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,7 +54,7 @@ public class DAOProduct {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -91,7 +90,7 @@ public class DAOProduct {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
 
     }
@@ -116,7 +115,7 @@ public class DAOProduct {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -174,7 +173,7 @@ public class DAOProduct {
                 listProduct.add(product);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listProduct;
@@ -236,7 +235,7 @@ public class DAOProduct {
                 listProduct.add(product);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listProduct;
@@ -261,9 +260,9 @@ public class DAOProduct {
             case NAME:
                 sql += "WHERE (UPPER(a.name) LIKE UPPER(?)) AND a.enabled=?";
                 break;
-            case ID:
-                sql += "WHERE a.id=? AND a.enabled=?";
-                break;
+//            case ID:
+//                sql += "WHERE a.id=? AND a.enabled=?";
+//                break;
         }
         List<Product> listProduct = null;
         Connection con = null;
@@ -276,13 +275,13 @@ public class DAOProduct {
             stmt = con.prepareStatement(sql);
 
             switch (searchType) {
-                case ID:
-                    if (DataUtil.parseInteger(value) == null) {
-                        stmt.setNull(1, Types.INTEGER);
-                    } else {
-                        stmt.setInt(1, DataUtil.parseInteger(value));
-                    }
-                    break;
+//                case ID:
+//                    if (DataUtil.parseInteger(value) == null) {
+//                        stmt.setNull(1, Types.INTEGER);
+//                    } else {
+//                        stmt.setInt(1, DataUtil.parseInteger(value));
+//                    }
+//                    break;
                 case NAME:
                 case BARCODE:
                     stmt.setString(1, "%" + value + "%");
@@ -318,7 +317,7 @@ public class DAOProduct {
                 listProduct.add(product);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listProduct;
@@ -375,7 +374,7 @@ public class DAOProduct {
                 return product;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

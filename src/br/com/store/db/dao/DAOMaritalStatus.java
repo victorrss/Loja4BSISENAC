@@ -32,7 +32,7 @@ public class DAOMaritalStatus {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -57,7 +57,7 @@ public class DAOMaritalStatus {
             //Executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -81,7 +81,7 @@ public class DAOMaritalStatus {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
+            ConnectionUtils.finalize(stmt, con);
         }
     }
 
@@ -121,7 +121,7 @@ public class DAOMaritalStatus {
                 listMaritalStatus.add(maritalStatus);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listMaritalStatus;
@@ -166,7 +166,7 @@ public class DAOMaritalStatus {
                 listMaritalStatus.add(maritalStatus);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listMaritalStatus;
@@ -205,7 +205,7 @@ public class DAOMaritalStatus {
                 return maritalStatus;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

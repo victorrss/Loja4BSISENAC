@@ -3,6 +3,7 @@ package br.com.store.service;
 import br.com.store.db.dao.DAOAddress;
 import br.com.store.db.dao.DAOCustomer;
 import br.com.store.db.dao.DAOCustomerContact;
+import br.com.store.db.util.ConnectionUtils;
 import br.com.store.exception.AddressException;
 import br.com.store.exception.CustomerContactException;
 import br.com.store.exception.CustomerException;
@@ -12,9 +13,9 @@ import br.com.store.model.enums.CustomerSearchTypeEnum;
 import br.com.store.model.validator.ValidatorAddress;
 import br.com.store.model.validator.ValidatorCustomer;
 import br.com.store.model.validator.ValidatorCustomerContact;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ServiceCustomer {
 
@@ -27,81 +28,71 @@ public class ServiceCustomer {
         return INSTANCE;
     }
 
-    @SuppressWarnings("empty-statement")
-    public void insert(Customer customer) throws CustomerException, DataSourceException, CustomerContactException, AddressException {
+    public void insert(Customer customer) throws CustomerException, DataSourceException, CustomerContactException, AddressException, SQLException {
         Integer newIdAddress = null, newIdCustomer = null;
         ValidatorAddress.validate(customer.getAddress());
         ValidatorCustomer.validate(customer);
         ValidatorCustomerContact.validate(customer.getContacts());
+        Connection con = null;
 
-        // insert address
         try {
-            newIdAddress = DAOAddress.insert(customer.getAddress());
+            con = ConnectionUtils.getConnection();
+            con.setAutoCommit(false);
+
+            // insert address
+            newIdAddress = DAOAddress.insert(con, customer.getAddress());
             if (newIdAddress == null) {
                 throw new CustomerContactException("Falha ao gravar o Cliente: Não foi possível salvar o endereço");
             }
             customer.getAddress().setId(newIdAddress);
+
+            //Inserts the customer, takes the new Id, and then registers the contacts using the new Id
+            newIdCustomer = DAOCustomer.insert(con, customer);
+            if (newIdCustomer == null) {
+                throw new CustomerContactException("Falha ao gravar o Cliente: Não foi possível salvar os contatos");
+            }
+
+            // insert contacts
+            DAOCustomerContact.insert(con, customer.getContacts(), newIdCustomer);
+
+            // commit transactions
+            con.commit();
         } catch (Exception e) {
+            con.rollback();
             throw new DataSourceException("Falha ao gravar o Cliente");
-        }
-
-        //Inserts the customer, takes the new Id, and then registers the contacts using the new Id
-        if (newIdAddress != null) {
-            try {
-                newIdCustomer = DAOCustomer.insert(customer);
-                if (newIdCustomer == null) {
-                    throw new CustomerContactException("Falha ao gravar o Cliente: Não foi possível salvar os contatos");
-                }
-            } catch (Exception e) {
-                try {
-                    DAOAddress.delete(newIdAddress);
-                } catch (Exception ex) {
-                    Logger.getLogger(ServiceCustomer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                throw new DataSourceException("Falha ao gravar o Cliente");
-            }
-        }
-
-        // insert contacts
-        if (newIdCustomer != null) {
-            try {
-                DAOCustomerContact.insert(customer.getContacts(), newIdCustomer);
-            } catch (Exception e) {
-                try {
-                    DAOAddress.delete(newIdAddress);
-                    DAOCustomer.delete(newIdCustomer);
-                } catch (Exception ex) {
-                    Logger.getLogger(ServiceCustomer.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                e.printStackTrace();
-                throw new DataSourceException("Falha ao gravar o Cliente");
-            }
+        } finally {
+            ConnectionUtils.finalize(con);
         }
 
     }
 
-    public void update(Customer customer) throws CustomerException, DataSourceException, AddressException, CustomerContactException {
+    public void update(Customer customer) throws CustomerException, DataSourceException, AddressException, CustomerContactException, SQLException {
         ValidatorAddress.validate(customer.getAddress());
         ValidatorCustomer.validate(customer);
         ValidatorCustomerContact.validate(customer.getContacts());
 
-        // update address
-        try {
-            DAOAddress.update(customer.getAddress());
-        } catch (Exception e) {
-            throw new CustomerContactException(e.getMessage());
-        }
+        Connection con = null;
 
         try {
+            con = ConnectionUtils.getConnection();
+            con.setAutoCommit(false);
+            // update address
+            DAOAddress.update(con, customer.getAddress());
+
             // deletes all client contacts and then inserts the current ones
-            DAOCustomerContact.deleteAll(customer.getId());
-            DAOCustomer.update(customer);
-            DAOCustomerContact.insert(customer.getContacts(), customer.getId());
-            return;
+            DAOCustomerContact.deleteAll(con, customer.getId());
+            DAOCustomer.update(con, customer);
+            DAOCustomerContact.insert(con, customer.getContacts(), customer.getId());
+
+            // commit transactions
+            con.commit();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados");
+            con.rollback();
+            throw new DataSourceException("Falha ao gravar o Cliente");
+        } finally {
+            ConnectionUtils.finalize(con);
         }
+
     }
 
     public void delete(Integer id) throws CustomerException, DataSourceException {

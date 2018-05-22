@@ -13,16 +13,14 @@ import java.util.List;
 public class DAOCustomerContact {
 
     //Inserts a Customer contact into the customer_contact table of the database
-    public static void insert(List<CustomerContact> customerContacts, Integer customerId) throws SQLException, Exception {
+    public static void insert(Connection con, List<CustomerContact> customerContacts, Integer customerId) throws SQLException, Exception {
 
         String sql = "INSERT INTO "
                 + "customer_contact (customer_id, contact_type_id, value, enabled) "
                 + "VALUES (?,?,?,?)";
 
-        Connection con = null;
         PreparedStatement stmt = null;
-        //Opens a connection to the DB
-        con = ConnectionUtils.getConnection();
+
         for (CustomerContact customerContact : customerContacts) {
             try {
                 //Creates a statement for SQL commands
@@ -38,70 +36,16 @@ public class DAOCustomerContact {
             } finally {
             }
         }
-        ConnectionUtils.finalizeStatementConnection(stmt, con);
+
     }
 
-//    //Performs the update of the data of a customer contact
-//    public static void update(CustomerContact customerContact) throws SQLException, Exception {
-//
-//        String sql = "UPDATE customer_contact SET customer_id=?, contact_type_id=?, value=? "
-//                + "WHERE (id=?)";
-//
-//        Connection con = null;
-//
-//        PreparedStatement stmt = null;
-//        try {
-//            //Opens a connection to the DB
-//            con = ConnectionUtils.getConnection();
-//            //Creates a statement for SQL commands
-//            stmt = con.prepareStatement(sql);
-//
-//            //Configures the parameters of the "PreparedStatement"
-//            stmt.setInt(1, customerContact.getCustomerId());
-//            stmt.setInt(2, customerContact.getContactType().getId());
-//            stmt.setString(3, customerContact.getValue());
-//            stmt.setInt(4, customerContact.getId());
-//
-//            //executes the command in the DB
-//            stmt.execute();
-//        } finally {
-//            ConnectionUtils.finalizeStatementConnection(stmt, con);
-//        }
-//    }
-//    //Performs logical deletion of a customer contact in the DB
-//    public static void delete(Integer id) throws SQLException, Exception {
-//
-//        String sql = "UPDATE customer_contact SET enabled=? WHERE (id=?)";
-//
-//        Connection con = null;
-//
-//        PreparedStatement stmt = null;
-//        try {
-//            //Opens a connection to the DB
-//            con = ConnectionUtils.getConnection();
-//            //Creates a statement for SQL commands
-//            stmt = con.prepareStatement(sql);
-//            //Configures the parameters of the "PreparedStatement"
-//            stmt.setBoolean(1, false);
-//            stmt.setInt(2, id);
-//
-//            //executes the command in the DB
-//            stmt.execute();
-//        } finally {
-//            ConnectionUtils.finalizeStatementConnection(stmt, con);
-//        }
-//    }
     // Executes logical exclusion of all contacts from a client in the database
-    public static void deleteAll(Integer customerId) throws SQLException, Exception {
+    public static void deleteAll(Connection con, Integer customerId) throws SQLException, Exception {
 
         String sql = "UPDATE customer_contact SET enabled=? WHERE (customer_id=?)";
 
-        Connection con = null;
-
         PreparedStatement stmt = null;
         try {
-            //Opens a connection to the DB
-            con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
             //Configures the parameters of the "PreparedStatement"
@@ -111,7 +55,6 @@ public class DAOCustomerContact {
             //executes the command in the DB
             stmt.execute();
         } finally {
-            ConnectionUtils.finalizeStatementConnection(stmt, con);
         }
     }
 
@@ -156,7 +99,7 @@ public class DAOCustomerContact {
                 listCustomerContact.add(customerContact);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCustomerContact;
@@ -204,7 +147,7 @@ public class DAOCustomerContact {
                 listCustomerContact.add(customerContact);
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return listCustomerContact;
@@ -245,7 +188,7 @@ public class DAOCustomerContact {
                 return customerContact;
             }
         } finally {
-            ConnectionUtils.finalizeResultsetStatementConnection(result, stmt, con);
+            ConnectionUtils.finalize(result, stmt, con);
         }
 
         return null;

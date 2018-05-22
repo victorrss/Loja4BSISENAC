@@ -40,7 +40,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
     private boolean preLoad;
     private FormOperationEnum operation = null;
-    private Integer customerId = null;
+    private Integer customerId = null, addressId = null;
 
     public PanelCustomerCreateUpdate() {
         preLoad = true;
@@ -93,7 +93,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        txtCustomerBasicId.setText(c.getId().toString());
+        customerId = c.getId();
         txtCustomerBasicName.setText(c.getName());
 
         txtCustomerBasicBirthDate.setText(DataUtil.getDateFormat("dd/MM/yyyy").format(c.getBirthDate()));
@@ -104,11 +104,8 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         cbTemp.setSelectedIndex(0);
         if ("M".equals(c.getGender())) {
             cbTemp.setSelectedIndex(0);
-
         } else {
-
             cbTemp.setSelectedIndex(1);
-
         }
 
 // seleciona no cb
@@ -146,14 +143,13 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
         txtCustomerAddressComplement.setText(a.getComplement());
         txtCustomerAddressDistrict.setText(a.getDistrict());
-        txtCustomerAddressId.setText(a.getId().toString());
-        txtCustomerAddressNumber.setText(a.getNumber().toString());
+        addressId = a.getId();
+        txtCustomerAddressNumber.setText((a.getNumber() != 0 ? a.getNumber().toString() : ""));
         txtCustomerAddressPublicPlace.setText(a.getPublicPlace());
         txtCustomerAddressZipCode.setText(String.format("%08d", a.getZipcode()));
 
         // seleciona no cb
-        if (a.getPublicPlaceType()
-                != null) {
+        if (a.getPublicPlaceType() != null) {
             cbTemp = cbCustomerAddressPublicPlaceType;
             cbTemp.setSelectedIndex(0);
             for (int i = 0; i < cbTemp.getItemCount(); i++) {
@@ -197,15 +193,15 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             }
 
         }
-        // load contacts
 
+        // load contacts
         if (c.getContacts()
                 != null) {
             DefaultTableModel model = (DefaultTableModel) tableCustomerContact.getModel();
             model.setNumRows(0);
             for (CustomerContact ctt : c.getContacts()) {
                 model.addRow(new Object[]{
-                    ctt.getId(),
+                    // ctt.getId(),
                     ctt.getContactType(),
                     ctt.getValue()
                 });
@@ -232,8 +228,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         lblCustomerBasicBirthDate = new javax.swing.JLabel();
         cbCustomerBasicGender = new javax.swing.JComboBox<>();
         lblCustomerBasicGender = new javax.swing.JLabel();
-        lblCustomerBasicId = new javax.swing.JLabel();
-        txtCustomerBasicId = new javax.swing.JTextField();
         scrollCustomerBasicNote = new javax.swing.JScrollPane();
         txtCustomerBasicNote = new javax.swing.JTextArea();
         lblCustomerBasicNote = new javax.swing.JLabel();
@@ -256,8 +250,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         cbCustomerAddressCity = new javax.swing.JComboBox<>();
         lblCustomerAddressZipCode = new javax.swing.JLabel();
         txtCustomerAddressZipCode = new javax.swing.JFormattedTextField();
-        lblCustomerAddressId = new javax.swing.JLabel();
-        txtCustomerAddressId = new javax.swing.JTextField();
         btnAddressNext = new javax.swing.JButton();
         btnAddressBack = new javax.swing.JButton();
         tabCustomerContact = new javax.swing.JPanel();
@@ -268,8 +260,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         tableCustomerContact = new javax.swing.JTable();
         btnCustomerContactAdd = new javax.swing.JButton();
         txtCustomerContactValue = new javax.swing.JFormattedTextField();
-        lblCustomerContactId = new javax.swing.JLabel();
-        txtCustomerContactId = new javax.swing.JTextField();
         btnCustomerContactBack = new javax.swing.JButton();
         btnCustomerContactCustomerSave = new javax.swing.JButton();
         lblPanelTitle = new javax.swing.JLabel();
@@ -316,12 +306,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         lblCustomerBasicGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCustomerBasicGender.setText("Sexo");
 
-        lblCustomerBasicId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCustomerBasicId.setText("Codigo");
-        lblCustomerBasicId.setEnabled(false);
-
-        txtCustomerBasicId.setEnabled(false);
-
         txtCustomerBasicNote.setColumns(20);
         txtCustomerBasicNote.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         txtCustomerBasicNote.setRows(5);
@@ -338,39 +322,37 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(lblCustomerNoteLayout.createSequentialGroup()
-                        .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCustomerBasicName, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCustomerBasicDocument, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCustomerBasicBirthDate)
-                            .addComponent(lblCustomerBasicGender, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCustomerBasicMaritalSatus, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCustomerBasicId, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblCustomerNoteLayout.createSequentialGroup()
-                        .addComponent(lblCustomerBasicNote, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollCustomerBasicNote)
-                    .addComponent(cbCustomerBasicMaritalStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbCustomerBasicGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(lblCustomerNoteLayout.createSequentialGroup()
-                        .addComponent(cbCustomerBasicDocumentType, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(lblCustomerBasicName, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCustomerBasicDocument, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
-                    .addComponent(txtCustomerBasicName)
-                    .addComponent(txtCustomerBasicBirthDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtCustomerBasicName))
                     .addGroup(lblCustomerNoteLayout.createSequentialGroup()
-                        .addComponent(txtCustomerBasicId, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(lblCustomerNoteLayout.createSequentialGroup()
+                                .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCustomerBasicBirthDate)
+                                    .addComponent(lblCustomerBasicGender, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCustomerBasicMaritalSatus, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(6, 6, 6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lblCustomerNoteLayout.createSequentialGroup()
+                                .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCustomerBasicDocument, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCustomerBasicNote, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(lblCustomerNoteLayout.createSequentialGroup()
+                                .addComponent(cbCustomerBasicDocumentType, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCustomerBasicDocument))
+                            .addComponent(scrollCustomerBasicNote, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+                            .addComponent(cbCustomerBasicMaritalStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbCustomerBasicGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCustomerBasicBirthDate, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         lblCustomerNoteLayout.setVerticalGroup(
             lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lblCustomerNoteLayout.createSequentialGroup()
-                .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCustomerBasicId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCustomerBasicId))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCustomerBasicName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCustomerBasicName))
@@ -391,12 +373,12 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCustomerBasicMaritalSatus)
                     .addComponent(cbCustomerBasicMaritalStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(lblCustomerNoteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(lblCustomerNoteLayout.createSequentialGroup()
                         .addComponent(lblCustomerBasicNote)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(scrollCustomerBasicNote, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
+                    .addComponent(scrollCustomerBasicNote, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -482,12 +464,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             ex.printStackTrace();
         }
 
-        lblCustomerAddressId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCustomerAddressId.setText("Código");
-        lblCustomerAddressId.setEnabled(false);
-
-        txtCustomerAddressId.setEnabled(false);
-
         javax.swing.GroupLayout panelCustomerAddressLayout = new javax.swing.GroupLayout(panelCustomerAddress);
         panelCustomerAddress.setLayout(panelCustomerAddressLayout);
         panelCustomerAddressLayout.setHorizontalGroup(
@@ -520,13 +496,9 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbCustomerAddressCity, 0, 602, Short.MAX_VALUE))))
                     .addGroup(panelCustomerAddressLayout.createSequentialGroup()
-                        .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lblCustomerAddressId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCustomerAddressPublicPlaceType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblCustomerAddressPublicPlaceType)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbCustomerAddressPublicPlaceType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCustomerAddressId))
+                        .addComponent(cbCustomerAddressPublicPlaceType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCustomerAddressPublicPlace)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -535,11 +507,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         );
         panelCustomerAddressLayout.setVerticalGroup(
             panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCustomerAddressLayout.createSequentialGroup()
-                .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCustomerAddressId)
-                    .addComponent(txtCustomerAddressId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(panelCustomerAddressLayout.createSequentialGroup()
                 .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbCustomerAddressPublicPlaceType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCustomerAddressPublicPlaceType)
@@ -565,7 +533,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addGroup(panelCustomerAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCustomerAddressZipCode)
                     .addComponent(txtCustomerAddressZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addGap(0, 149, Short.MAX_VALUE))
         );
 
         btnAddressNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/next.png"))); // NOI18N
@@ -631,11 +599,11 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Tipo", "Valor"
+                "Tipo", "Valor"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -658,12 +626,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
         txtCustomerContactValue.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
-        lblCustomerContactId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCustomerContactId.setText("Código");
-        lblCustomerContactId.setEnabled(false);
-
-        txtCustomerContactId.setEnabled(false);
-
         javax.swing.GroupLayout paneCustomerlContactLayout = new javax.swing.GroupLayout(paneCustomerlContact);
         paneCustomerlContact.setLayout(paneCustomerlContactLayout);
         paneCustomerlContactLayout.setHorizontalGroup(
@@ -673,10 +635,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
                     .addGroup(paneCustomerlContactLayout.createSequentialGroup()
-                        .addComponent(lblCustomerContactId)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCustomerContactId, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCustomerContactContactType)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbCustomerContactContactType, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -690,15 +648,13 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneCustomerlContactLayout.createSequentialGroup()
                 .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCustomerContactValue)
-                    .addComponent(btnCustomerContactAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(paneCustomerlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCustomerContactContactType)
-                        .addComponent(cbCustomerContactContactType)
-                        .addComponent(lblCustomerContactId)
-                        .addComponent(txtCustomerContactId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbCustomerContactContactType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCustomerContactValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCustomerContactAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+                .addComponent(scrollCustomerContact, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -765,8 +721,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblPanelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabPanelCustomer)
-                .addContainerGap())
+                .addComponent(tabPanelCustomer))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -812,7 +767,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         }
 
         Customer customer = new Customer();
-        customer.setId(DataUtil.parseInteger(txtCustomerBasicId.getText()));
+        customer.setId(customerId);
         customer.setName(txtCustomerBasicName.getText());
         customer.setDocument(DataUtil.onlyNumbers((String) txtCustomerBasicDocument.getText()));
         customer.setBirthDate(DataUtil.parseDate("dd/MM/yyyy", txtCustomerBasicBirthDate.getText()));
@@ -822,7 +777,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         customer.setDocumentType((DocumentType) cbCustomerBasicDocumentType.getSelectedItem());
         // address
         Address address = new Address();
-        address.setId(DataUtil.parseInteger(txtCustomerAddressId.getText()));
+        address.setId(customerId);
         address.setComplement(txtCustomerAddressComplement.getText());
         address.setDistrict(txtCustomerAddressDistrict.getText());
         address.setNumber(DataUtil.parseInteger(txtCustomerAddressNumber.getText()));
@@ -836,10 +791,10 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         TableModel model = tableCustomerContact.getModel();
         for (int i = 0; i < tableCustomerContact.getRowCount(); i++) {
             CustomerContact ctt = new CustomerContact();
-            ctt.setId(DataUtil.parseInteger(model.getValueAt(i, 0) + ""));
+            //ctt.setId(DataUtil.parseInteger(model.getValueAt(i, 0) + ""));
             ctt.setCustomerId(customer.getId());
-            ctt.setContactType((ContactType) model.getValueAt(i, 1));
-            ctt.setValue((String) model.getValueAt(i, 2));
+            ctt.setContactType((ContactType) model.getValueAt(i, 0));
+            ctt.setValue((String) model.getValueAt(i, 1));
             contacts.add(ctt);
         }
         customer.setContacts(contacts);
@@ -898,21 +853,20 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tableCustomerContact.getModel();
         String value = (String) txtCustomerContactValue.getText();
         model.addRow(new Object[]{
-            null,
+            //null,
             docType,
             value
         });
 
         txtCustomerContactValue.setText("");
         cbCustomerContactContactType.setSelectedIndex(0);
-        txtCustomerContactId.setText("");
+        customerId = addressId = null;
     }//GEN-LAST:event_btnCustomerContactAddActionPerformed
 
     private void tableCustomerContactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerContactMouseClicked
         if (evt.getButton() != MouseEvent.BUTTON3) {
             return;
         }
-        Integer id = DataUtil.parseInteger(tableCustomerContact.getModel().getValueAt(tableCustomerContact.getSelectedRow(), 0) + "");
         JPopupMenu popup = new JPopupMenu();
         JMenuItem mItemDelete = new JMenuItem("Deletar");
         //JMenuItem mItemUpdate = new JMenuItem("Alterar");
@@ -928,21 +882,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             }
         });
 
-//        mItemUpdate.addActionListener((e) -> {
-//
-//            ContactType docType = (ContactType) tableCustomerContact.getModel().getValueAt(tableCustomerContact.getSelectedRow(), 1);
-//            String value = (String) tableCustomerContact.getModel().getValueAt(tableCustomerContact.getSelectedRow(), 2);
-//
-//            txtCustomerContactId.setText(id.toString());
-//            cbCustomerContactContactType.setSelectedItem(docType);
-//            txtCustomerContactValue.setText(value);
-//        });
-//        if (id == null) {
-//            popup.add(mItemDelete);
-//        } else {
-//            popup.add(mItemUpdate);
-//            popup.add(mItemDelete);
-//        }
         popup.add(mItemDelete);
 
         popup.show(tableCustomerContact, (int) evt.getX(), (int) evt.getY());
@@ -968,7 +907,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JLabel lblCustomerAddressCity;
     private javax.swing.JLabel lblCustomerAddressComplement;
     private javax.swing.JLabel lblCustomerAddressDistrict;
-    private javax.swing.JLabel lblCustomerAddressId;
     private javax.swing.JLabel lblCustomerAddressNumber;
     private javax.swing.JLabel lblCustomerAddressPublicPlace;
     private javax.swing.JLabel lblCustomerAddressPublicPlaceType;
@@ -977,12 +915,10 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JLabel lblCustomerBasicBirthDate;
     private javax.swing.JLabel lblCustomerBasicDocument;
     private javax.swing.JLabel lblCustomerBasicGender;
-    private javax.swing.JLabel lblCustomerBasicId;
     private javax.swing.JLabel lblCustomerBasicMaritalSatus;
     private javax.swing.JLabel lblCustomerBasicName;
     private javax.swing.JLabel lblCustomerBasicNote;
     private javax.swing.JLabel lblCustomerContactContactType;
-    private javax.swing.JLabel lblCustomerContactId;
     private javax.swing.JPanel lblCustomerNote;
     private javax.swing.JLabel lblPanelTitle;
     private javax.swing.JPanel paneCustomerlContact;
@@ -997,16 +933,13 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JTable tableCustomerContact;
     private javax.swing.JTextField txtCustomerAddressComplement;
     private javax.swing.JTextField txtCustomerAddressDistrict;
-    private javax.swing.JTextField txtCustomerAddressId;
     private javax.swing.JTextField txtCustomerAddressNumber;
     private javax.swing.JTextField txtCustomerAddressPublicPlace;
     private javax.swing.JFormattedTextField txtCustomerAddressZipCode;
     private javax.swing.JFormattedTextField txtCustomerBasicBirthDate;
     private javax.swing.JFormattedTextField txtCustomerBasicDocument;
-    private javax.swing.JTextField txtCustomerBasicId;
     private javax.swing.JTextField txtCustomerBasicName;
     private javax.swing.JTextArea txtCustomerBasicNote;
-    private javax.swing.JTextField txtCustomerContactId;
     private javax.swing.JFormattedTextField txtCustomerContactValue;
     // End of variables declaration//GEN-END:variables
 

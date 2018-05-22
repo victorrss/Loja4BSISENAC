@@ -2,7 +2,7 @@ package br.com.store.model.enums;
 
 public enum CustomerSearchTypeEnum {
     NAME("Nome"),
-    ID("Código"),
+    //ID("Código"),
     DOCUMENT("Documento");
 
     private String value;

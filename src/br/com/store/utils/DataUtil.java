@@ -226,8 +226,8 @@ public class DataUtil {
     }
 
     //Check if the string is phone
-    public static boolean isPhone(String numeroTelephone) {
-        return numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}")
-                || numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
+    public static boolean isPhone(String number) {
+        return number.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}")
+                || number.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
     }
 }

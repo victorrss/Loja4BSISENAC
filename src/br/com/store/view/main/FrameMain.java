@@ -8,7 +8,6 @@ import br.com.store.view.PanelProductReadDelete;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 

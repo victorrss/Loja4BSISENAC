@@ -2,7 +2,7 @@ package br.com.store.model.enums;
 
 public enum ProductSearchTypeEnum {
     NAME("Nome"),
-    ID("Código"),
+    //ID("Código"),
     BARCODE("Código de Barras");
 
     private String value;
