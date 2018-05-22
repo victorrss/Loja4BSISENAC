@@ -1,7 +1,6 @@
 package br.com.store.utils;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -25,11 +24,17 @@ public class DataUtil {
         }
     }
 
-    public static Date parseDate(String fmt, String date) {
-        try {
-            return getDateFormat(fmt).parse(date);
-        } catch (Exception e) {
+    public static Date parseDate(String fmt, String dateToParse) {
+        if (!isNumeric(onlyNumbers(dateToParse))) {
+            // unfilled field
             return null;
+        }
+
+        try {
+            //if not valid, it will throw ParseException
+            return getDateFormat(fmt).parse(dateToParse);
+        } catch (Exception e) {
+            return parseDate("dd/MM/yyyy", "01/01/1500");
         }
     }
 
@@ -66,7 +71,9 @@ public class DataUtil {
     }
 
     public static SimpleDateFormat getDateFormat(String fmt) {
-        return new SimpleDateFormat(fmt);
+        SimpleDateFormat sdf = new SimpleDateFormat(fmt);
+        sdf.setLenient(false);
+        return sdf;
     }
 
     public static boolean isCPF(String CPF) {
@@ -193,10 +200,10 @@ public class DataUtil {
     }
 
     //Proof of the value is numerical
-    public static boolean isNumeric(String dado) {
+    public static boolean isNumeric(String value) {
         try {
-            if (!dado.isEmpty()) {
-                Integer.parseInt(dado);
+            if (!value.isEmpty()) {
+                Integer.parseInt(value);
             }
             return true;
         } catch (NumberFormatException e) {
@@ -222,16 +229,5 @@ public class DataUtil {
     public static boolean isPhone(String numeroTelephone) {
         return numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}")
                 || numeroTelephone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
-    }
-    //Check if the date is valid
-    public static boolean validData(String data) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-            sdf.setLenient(false);
-            sdf.parse(data);
-            return true;
-        } catch (ParseException ex) {
-            return false;
-        }
     }
 }
