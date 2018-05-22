@@ -569,6 +569,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         } catch (DataSourceException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {
@@ -586,6 +587,7 @@ public class PanelProductCreateUpdate extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {

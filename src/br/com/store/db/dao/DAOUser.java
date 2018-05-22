@@ -26,7 +26,7 @@ public class DAOUser {
 
             stmt.executeUpdate();
         } finally {
-            ConnectionUtils.closeConnection(con);
+            ConnectionUtils.finalize(con);
         }
     }
 }

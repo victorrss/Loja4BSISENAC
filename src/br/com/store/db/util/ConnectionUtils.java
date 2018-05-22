@@ -26,12 +26,6 @@ public class ConnectionUtils {
         return con;
     }
 
-    public static void closeConnection(Connection con) throws SQLException {
-        if (con != null || !con.isClosed()) {
-            con.close();
-        }
-    }
-
     public static void finalize(PreparedStatement stmt, Connection con) {
         try {
             //If the statement still open, it closes

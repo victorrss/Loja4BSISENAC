@@ -18,7 +18,7 @@ public class ImageUtil {
      * It resizes the image according to the parameters imgwidth and imgHeight while maintaining proportionality.
      * If the image is smaller than the resize parameters, the image will not be resized. 
      *  
-     * @param path caminho e name of the image to be resized
+     * @param path and name of the image to be resized
      * @param width new the image after it has been resized.
      * @param height new height after resizing.
      *  

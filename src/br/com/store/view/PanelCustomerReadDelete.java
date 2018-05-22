@@ -5,6 +5,7 @@ import br.com.store.model.enums.CustomerSearchTypeEnum;
 import br.com.store.service.ServiceCustomer;
 import br.com.store.utils.DataUtil;
 import br.com.store.view.main.FrameMain;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JMenuItem;
@@ -33,6 +34,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (list == null) {
             return;
@@ -58,10 +60,11 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (list == null) {
             JOptionPane.showMessageDialog(this, "Nenhum cliente foi encontrado",
-                    "Pesquisa", JOptionPane.ERROR_MESSAGE);
+                    "Pesquisa", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         for (Customer c : list) {
@@ -87,6 +90,8 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         scrollCustomerSearch = new javax.swing.JScrollPane();
         tableCustomerSearch = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnCustomerDelete = new javax.swing.JButton();
+        btnCustomerUpdate = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -153,23 +158,47 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
                 tableCustomerSearchMousePressed(evt);
             }
         });
+        tableCustomerSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tableCustomerSearchKeyPressed(evt);
+            }
+        });
         scrollCustomerSearch.setViewportView(tableCustomerSearch);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Cliente - Visualização");
+        jLabel1.setText("Cliente");
+
+        btnCustomerDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/trash-30.png"))); // NOI18N
+        btnCustomerDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerDeleteActionPerformed(evt);
+            }
+        });
+
+        btnCustomerUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/update-30.png"))); // NOI18N
+        btnCustomerUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerUpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelCustomerSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollCustomerSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCustomerSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollCustomerSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCustomerUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCustomerDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -180,8 +209,12 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollCustomerSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scrollCustomerSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCustomerDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCustomerUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,9 +227,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
             return;
         }
         Integer id = DataUtil.parseInteger(tableCustomerSearch.getModel().getValueAt(tableCustomerSearch.getSelectedRow(), 0) + "");
-        if (id != null && id < 1) {
-            return;
-        }
+
         JPopupMenu popup = new JPopupMenu();
         JMenuItem mItemUpdate = new JMenuItem("Alterar/Ver");
         mItemUpdate.addActionListener((e) -> {
@@ -214,6 +245,45 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
 
         popup.show(tableCustomerSearch, (int) evt.getX(), (int) evt.getY());
     }//GEN-LAST:event_tableCustomerSearchMousePressed
+
+    private void btnCustomerDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerDeleteActionPerformed
+        if (tableCustomerSearch.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente na lista",
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        Integer id = DataUtil.parseInteger(tableCustomerSearch.getModel().getValueAt(tableCustomerSearch.getSelectedRow(), 0) + "");
+
+        deleteCustomer(id);
+    }//GEN-LAST:event_btnCustomerDeleteActionPerformed
+
+    private void btnCustomerUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerUpdateActionPerformed
+        if (tableCustomerSearch.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um cliente na lista",
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        Integer id = DataUtil.parseInteger(tableCustomerSearch.getModel().getValueAt(tableCustomerSearch.getSelectedRow(), 0) + "");
+
+        FrameMain.loadCardCustomerUpdate(id, true);
+    }//GEN-LAST:event_btnCustomerUpdateActionPerformed
+
+    private void tableCustomerSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableCustomerSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if (tableCustomerSearch.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(this, "Selecione um cliente na lista",
+                        "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            Integer id = DataUtil.parseInteger(tableCustomerSearch.getModel().getValueAt(tableCustomerSearch.getSelectedRow(), 0) + "");
+
+            deleteCustomer(id);
+
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_tableCustomerSearchKeyPressed
     public void deleteCustomer(Integer id) {
         int dialogResult = JOptionPane.showConfirmDialog(this,
                 "Tem certeza que deseja excluir este cliente?",
@@ -228,6 +298,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!",
@@ -235,7 +306,9 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         loadList();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCustomerDelete;
     private javax.swing.JButton btnCustomerSearch;
+    private javax.swing.JButton btnCustomerUpdate;
     private javax.swing.JComboBox<String> cbCustomerSearchField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelCustomerSearch;

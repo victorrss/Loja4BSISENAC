@@ -5,6 +5,7 @@ import br.com.store.model.enums.ProductSearchTypeEnum;
 import br.com.store.service.ServiceProduct;
 import br.com.store.utils.DataUtil;
 import br.com.store.view.main.FrameMain;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JMenuItem;
@@ -31,6 +32,8 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         scrollProduct = new javax.swing.JScrollPane();
         tableProductSearch = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnProductUpdate = new javax.swing.JButton();
+        btnProductDelete = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -97,10 +100,31 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
                 tableProductSearchMousePressed(evt);
             }
         });
+        tableProductSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tableProductSearchKeyPressed(evt);
+            }
+        });
         scrollProduct.setViewportView(tableProductSearch);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Produto - Visualização");
+
+        btnProductUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/update-30.png"))); // NOI18N
+        btnProductUpdate.setToolTipText("Alterar produto");
+        btnProductUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductUpdateActionPerformed(evt);
+            }
+        });
+
+        btnProductDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/trash-30.png"))); // NOI18N
+        btnProductDelete.setToolTipText("Excluir produto");
+        btnProductDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,7 +135,12 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
                     .addComponent(panelProductSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnProductUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -122,8 +151,12 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelProductSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scrollProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProductUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,30 +165,70 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
     }//GEN-LAST:event_btnProductSearchActionPerformed
 
     private void tableProductSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProductSearchMousePressed
-        if (evt.getButton() != MouseEvent.BUTTON3) {
+        if (evt.getButton() != MouseEvent.BUTTON3 || tableProductSearch.getSelectedRow() < 0) {
             return;
         }
+
         Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
-        if (id != null && id < 1) {
-            return;
-        }
+
         JPopupMenu popup = new JPopupMenu();
         JMenuItem mItemUpdate = new JMenuItem("Alterar/Ver");
+
         mItemUpdate.addActionListener((e) -> {
             FrameMain.loadCardProductUpdate(id, true);
         });
 
         JMenuItem mItemDelete = new JMenuItem("Deletar");
+
         mItemDelete.addActionListener((e) -> {
             deleteProduct(id);
         });
 
         popup.add(mItemUpdate);
-        popup.add(mItemDelete);
-        //popup.add(new JPopupMenu.Separator());
 
-        popup.show(tableProductSearch, (int) evt.getX(), (int) evt.getY());
+        popup.add(mItemDelete);
+
+        popup.show(tableProductSearch,
+                (int) evt.getX(),
+                (int) evt.getY()
+        );
     }//GEN-LAST:event_tableProductSearchMousePressed
+
+    private void btnProductUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductUpdateActionPerformed
+        if (tableProductSearch.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um produto na lista",
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
+
+        FrameMain.loadCardProductUpdate(id, true);
+    }//GEN-LAST:event_btnProductUpdateActionPerformed
+
+    private void btnProductDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductDeleteActionPerformed
+        if (tableProductSearch.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um produto na lista",
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
+        deleteProduct(id);
+    }//GEN-LAST:event_btnProductDeleteActionPerformed
+
+    private void tableProductSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableProductSearchKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_DELETE) {
+            if (tableProductSearch.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(this, "Selecione um produto na lista",
+                        "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            Integer id = DataUtil.parseInteger(tableProductSearch.getModel().getValueAt(tableProductSearch.getSelectedRow(), 0) + "");
+            deleteProduct(id);
+        }
+    }//GEN-LAST:event_tableProductSearchKeyPressed
 
     public void deleteProduct(Integer id) {
         int dialogResult = JOptionPane.showConfirmDialog(this,
@@ -171,6 +244,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!",
@@ -191,6 +265,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (list == null) {
             return;
@@ -217,10 +292,11 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (list == null) {
             JOptionPane.showMessageDialog(this, "Nenhum produto foi encontrado",
-                    "Pesquisa", JOptionPane.ERROR_MESSAGE);
+                    "Pesquisa", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         for (Product p : list) {
@@ -237,7 +313,9 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnProductDelete;
     private javax.swing.JButton btnProductSearch;
+    private javax.swing.JButton btnProductUpdate;
     private javax.swing.JComboBox<String> cbProductSearchType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel panelProductSearch;

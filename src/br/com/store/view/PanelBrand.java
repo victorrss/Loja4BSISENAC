@@ -17,7 +17,7 @@ public class PanelBrand extends javax.swing.JPanel {
         txtBrandName = new javax.swing.JTextField();
         lblBrandId = new javax.swing.JLabel();
         txtBrandId = new javax.swing.JTextField();
-        btnBrandFinalize = new javax.swing.JButton();
+        btnBrandSave = new javax.swing.JButton();
         tabBrandList = new javax.swing.JPanel();
         panelBrandSearch = new javax.swing.JPanel();
         lbBrandSearchField = new javax.swing.JLabel();
@@ -82,7 +82,12 @@ public class PanelBrand extends javax.swing.JPanel {
                 .addContainerGap(187, Short.MAX_VALUE))
         );
 
-        btnBrandFinalize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnBrandSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/save.png"))); // NOI18N
+        btnBrandSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrandSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tabBrandRegisterLayout = new javax.swing.GroupLayout(tabBrandRegister);
         tabBrandRegister.setLayout(tabBrandRegisterLayout);
@@ -94,7 +99,7 @@ public class PanelBrand extends javax.swing.JPanel {
                     .addComponent(panelBrandRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tabBrandRegisterLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBrandFinalize, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBrandSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         tabBrandRegisterLayout.setVerticalGroup(
@@ -103,7 +108,7 @@ public class PanelBrand extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(panelBrandRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBrandFinalize, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBrandSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -220,8 +225,12 @@ public class PanelBrand extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBrandIdActionPerformed
 
+    private void btnBrandSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrandSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBrandSaveActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBrandFinalize;
+    private javax.swing.JButton btnBrandSave;
     private javax.swing.JButton btnBrandSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbBrandSearchField;

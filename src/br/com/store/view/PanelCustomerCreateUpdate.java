@@ -95,7 +95,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         }
         customerId = c.getId();
         txtCustomerBasicName.setText(c.getName());
-
         txtCustomerBasicBirthDate.setText(DataUtil.getDateFormat("dd/MM/yyyy").format(c.getBirthDate()));
         txtCustomerBasicNote.setText(c.getNote());
 
@@ -108,7 +107,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             cbTemp.setSelectedIndex(1);
         }
 
-// seleciona no cb
+        // set value on combobox
         if (c.getMaritalStatus() != null) {
             cbTemp = cbCustomerBasicMaritalStatus;
             cbTemp.setSelectedIndex(0);
@@ -121,8 +120,8 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 cbTemp.setSelectedIndex(i);
             }
         }
-        // seleciona no cb
 
+        // set value on combobox
         if (c.getDocumentType()
                 != null) {
             cbTemp = cbCustomerBasicDocumentType;
@@ -136,11 +135,10 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 cbTemp.setSelectedIndex(i);
             }
         }
-
         txtCustomerBasicDocument.setText(c.getDocument());
+
         //address
         Address a = c.getAddress();
-
         txtCustomerAddressComplement.setText(a.getComplement());
         txtCustomerAddressDistrict.setText(a.getDistrict());
         addressId = a.getId();
@@ -148,7 +146,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         txtCustomerAddressPublicPlace.setText(a.getPublicPlace());
         txtCustomerAddressZipCode.setText(String.format("%08d", a.getZipcode()));
 
-        // seleciona no cb
+        // set value on combobox
         if (a.getPublicPlaceType() != null) {
             cbTemp = cbCustomerAddressPublicPlaceType;
             cbTemp.setSelectedIndex(0);
@@ -161,8 +159,8 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 cbTemp.setSelectedIndex(i);
             }
         }
-        // seleciona no cb
 
+        // set value on combobox
         if (a.getCity() != null && a.getCity().getState() != null) {
             cbTemp = cbCustomerAddressState;
             cbTemp.setSelectedIndex(0);
@@ -175,9 +173,9 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 cbTemp.setSelectedIndex(i);
             }
         }
-        //loadCity();
-        // seleciona no cb
 
+        //loadCity();
+        // set value on combobox
         if (a.getCity() != null) {
             cbTemp = cbCustomerAddressCity;
             cbTemp.setSelectedIndex(0);
@@ -191,7 +189,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 }
                 cbTemp.setSelectedIndex(i);
             }
-
         }
 
         // load contacts
@@ -855,7 +852,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         });
 
         popup.add(mItemDelete);
-
         popup.show(tableCustomerContact, (int) evt.getX(), (int) evt.getY());
     }//GEN-LAST:event_tableCustomerContactMouseClicked
 
@@ -1010,6 +1006,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {
@@ -1027,6 +1024,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {
@@ -1044,6 +1042,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {
@@ -1067,6 +1066,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {
@@ -1084,6 +1084,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {
@@ -1101,6 +1102,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         if (list == null) {
@@ -1128,9 +1130,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
                 Logger.getLogger(PanelCustomerCreateUpdate.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-
         }
-
     }
 
     private void setMaskBirthDate() {
