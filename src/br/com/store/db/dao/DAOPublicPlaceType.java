@@ -118,7 +118,7 @@ public class DAOPublicPlaceType {
 
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
-                publicPlaceType.setAbbreviation("abbreviation");
+                publicPlaceType.setAbbreviation(result.getString("abbreviation"));
 
                 // Add the instance in the list
                 listPublicPlaceType.add(publicPlaceType);
@@ -164,7 +164,7 @@ public class DAOPublicPlaceType {
 
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
-                publicPlaceType.setAbbreviation("abbreviation");
+                publicPlaceType.setAbbreviation(result.getString("abbreviation"));
 
                 // Add the instance in the list
                 listPublicPlaceType.add(publicPlaceType);
@@ -204,7 +204,7 @@ public class DAOPublicPlaceType {
 
                 publicPlaceType.setId(result.getInt("id"));
                 publicPlaceType.setName(result.getString("name"));
-                publicPlaceType.setAbbreviation("abbreviation");
+                publicPlaceType.setAbbreviation(result.getString("abbreviation"));
 
                 return publicPlaceType;
             }

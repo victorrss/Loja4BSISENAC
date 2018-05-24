@@ -89,7 +89,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         btnCustomerSearch = new javax.swing.JButton();
         scrollCustomerSearch = new javax.swing.JScrollPane();
         tableCustomerSearch = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblPanelTitle = new javax.swing.JLabel();
         btnCustomerDelete = new javax.swing.JButton();
         btnCustomerUpdate = new javax.swing.JButton();
 
@@ -153,6 +153,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tableCustomerSearch.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableCustomerSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tableCustomerSearchMousePressed(evt);
@@ -165,8 +166,8 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
         });
         scrollCustomerSearch.setViewportView(tableCustomerSearch);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Cliente");
+        lblPanelTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblPanelTitle.setText("Cliente");
 
         btnCustomerDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/trash-30.png"))); // NOI18N
         btnCustomerDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +193,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
                     .addComponent(panelCustomerSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(scrollCustomerSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblPanelTitle)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -205,7 +206,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblPanelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -310,7 +311,7 @@ public class PanelCustomerReadDelete extends javax.swing.JPanel {
     private javax.swing.JButton btnCustomerSearch;
     private javax.swing.JButton btnCustomerUpdate;
     private javax.swing.JComboBox<String> cbCustomerSearchField;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblPanelTitle;
     private javax.swing.JPanel panelCustomerSearch;
     private javax.swing.JScrollPane scrollCustomerSearch;
     private javax.swing.JTable tableCustomerSearch;

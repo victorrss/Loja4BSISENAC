@@ -31,7 +31,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         cbProductSearchType = new javax.swing.JComboBox<>();
         scrollProduct = new javax.swing.JScrollPane();
         tableProductSearch = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        lblPanelTitle = new javax.swing.JLabel();
         btnProductUpdate = new javax.swing.JButton();
         btnProductDelete = new javax.swing.JButton();
 
@@ -107,8 +107,8 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
         });
         scrollProduct.setViewportView(tableProductSearch);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Produto - Visualização");
+        lblPanelTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblPanelTitle.setText("Produto - Visualização");
 
         btnProductUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/update-30.png"))); // NOI18N
         btnProductUpdate.setToolTipText("Alterar produto");
@@ -135,7 +135,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 814, Short.MAX_VALUE)
                     .addComponent(panelProductSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPanelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnProductUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,7 +147,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblPanelTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelProductSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -317,7 +317,7 @@ public class PanelProductReadDelete extends javax.swing.JPanel {
     private javax.swing.JButton btnProductSearch;
     private javax.swing.JButton btnProductUpdate;
     private javax.swing.JComboBox<String> cbProductSearchType;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblPanelTitle;
     private javax.swing.JPanel panelProductSearch;
     private javax.swing.JScrollPane scrollProduct;
     private javax.swing.JTable tableProductSearch;

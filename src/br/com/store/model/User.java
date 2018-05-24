@@ -4,26 +4,26 @@ import java.util.Date;
 
 public class User {
 
-    private Integer userId;
-    private String name;
+    private Integer id;
+    private String login;
     private String password;
-    private Date dateRegister;
-    private boolean enabled;
+    private Date createAt;
+    private boolean enabled, admin;
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLogin() {
+        return login;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -34,12 +34,12 @@ public class User {
         this.password = password;
     }
 
-    public Date getDateRegister() {
-        return dateRegister;
+    public Date getCreateAt() {
+        return createAt;
     }
 
-    public void setDateRegister(Date dateRegister) {
-        this.dateRegister = dateRegister;
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     public boolean isEnabled() {
@@ -48,6 +48,14 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
 }

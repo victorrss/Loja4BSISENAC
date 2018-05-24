@@ -21,7 +21,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tabBrand" alignment="0" max="32767" attributes="0"/>
+          <Component id="tabState" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblPanelTitle" min="-2" max="-2" attributes="0"/>
@@ -35,17 +35,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblPanelTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabBrand" max="32767" attributes="0"/>
+              <Component id="tabState" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JTabbedPane" name="tabBrand">
+    <Container class="javax.swing.JTabbedPane" name="tabState">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="tabBrandRegister">
+        <Container class="javax.swing.JPanel" name="btnStateCancel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -65,12 +65,12 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelBrandRegister" max="32767" attributes="0"/>
+                          <Component id="panelStateRegister" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnBrandCancel" min="-2" pref="75" max="-2" attributes="0"/>
+                              <Component id="btnStatesCancel" linkSize="1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnBrandSave" min="-2" pref="75" max="-2" attributes="0"/>
+                              <Component id="btnStateSave" linkSize="1" min="-2" pref="75" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -81,11 +81,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelBrandRegister" max="32767" attributes="0"/>
+                      <Component id="panelStateRegister" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnBrandSave" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="btnBrandCancel" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnStateSave" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnStatesCancel" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
@@ -93,14 +93,14 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="panelBrandRegister">
+            <Container class="javax.swing.JPanel" name="panelStateRegister">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder title="Marca"/>
+                    <TitledBorder title="Estado"/>
                   </Border>
                 </Property>
               </Properties>
@@ -108,11 +108,20 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="lblBrandName" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtBrandName" pref="688" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblStateName" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtStateName" pref="688" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblStateAbbreviation" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtStateAbbreviation" pref="688" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -121,37 +130,52 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtBrandName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblBrandName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtStateName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblStateName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="215" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtStateAbbreviation" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblStateAbbreviation" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="189" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lblBrandName">
+                <Component class="javax.swing.JLabel" name="lblStateName">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="4"/>
                     <Property name="text" type="java.lang.String" value="Nome"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtBrandName">
+                <Component class="javax.swing.JTextField" name="txtStateName">
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblStateAbbreviation">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="11" style="1"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="Abrevia&#xe7;&#xe3;o"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtStateAbbreviation">
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnBrandSave">
+            <Component class="javax.swing.JButton" name="btnStateSave">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/icons/save.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandSaveActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStateSaveActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnBrandCancel">
+            <Component class="javax.swing.JButton" name="btnStatesCancel">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/icons/cancel-30.png"/>
@@ -159,12 +183,12 @@
                 <Property name="toolTipText" type="java.lang.String" value="Cancelar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandCancelActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStatesCancelActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="tabBrandList">
+        <Container class="javax.swing.JPanel" name="tabStateList">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -186,16 +210,16 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="btnBrandUpdate" linkSize="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnStateUpdate" linkSize="2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnBrandDelete" linkSize="1" min="-2" pref="75" max="-2" attributes="0"/>
+                              <Component id="btnStateDelete" linkSize="2" min="-2" pref="75" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="panelBrandSearch" max="32767" attributes="0"/>
+                              <Component id="panelStateSearch" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnBrandListRefresh" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnStateListRefresh" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="scrollBrand" alignment="0" pref="804" max="32767" attributes="0"/>
+                          <Component id="scrollState" alignment="0" pref="804" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -206,15 +230,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="panelBrandSearch" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="btnBrandListRefresh" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="panelStateSearch" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="btnStateListRefresh" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollBrand" pref="207" max="32767" attributes="0"/>
+                      <Component id="scrollState" pref="207" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnBrandDelete" linkSize="2" min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="btnBrandUpdate" linkSize="2" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnStateDelete" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="btnStateUpdate" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
@@ -222,7 +246,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="panelBrandSearch">
+            <Container class="javax.swing.JPanel" name="panelStateSearch">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -239,11 +263,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="lbBrandSearchField" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblStateSearchField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="txtBrandSearchField" max="32767" attributes="0"/>
+                          <Component id="txtStateSearchField" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnBrandSearch" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnStateSearch" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -252,9 +276,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbBrandSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnBrandSearch" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="txtBrandSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblStateSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnStateSearch" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="txtStateSearchField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -262,33 +286,33 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="lbBrandSearchField">
+                <Component class="javax.swing.JLabel" name="lblStateSearchField">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Nome"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtBrandSearchField">
+                <Component class="javax.swing.JTextField" name="txtStateSearchField">
                 </Component>
-                <Component class="javax.swing.JButton" name="btnBrandSearch">
+                <Component class="javax.swing.JButton" name="btnStateSearch">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/resources/icons/search.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandSearchActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStateSearchActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JScrollPane" name="scrollBrand">
+            <Container class="javax.swing.JScrollPane" name="scrollState">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tableBrandSearch">
+                <Component class="javax.swing.JTable" name="tableStateSearch">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="0">
@@ -301,34 +325,34 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableBrandSearchMousePressed"/>
-                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tableBrandSearchKeyPressed"/>
+                    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableStateSearchMousePressed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tableStateSearchKeyPressed"/>
                   </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnBrandListRefresh">
+            <Component class="javax.swing.JButton" name="btnStateListRefresh">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/icons/refresh.png"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandListRefreshActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStateListRefreshActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnBrandDelete">
+            <Component class="javax.swing.JButton" name="btnStateDelete">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/icons/trash-30.png"/>
                 </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Excluir"/>
+                <Property name="toolTipText" type="java.lang.String" value="Excluir produto"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandDeleteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStateDeleteActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnBrandUpdate">
+            <Component class="javax.swing.JButton" name="btnStateUpdate">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/resources/icons/update-30.png"/>
@@ -336,7 +360,7 @@
                 <Property name="toolTipText" type="java.lang.String" value="Alterar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBrandUpdateActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnStateUpdateActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -348,7 +372,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="36" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Marca"/>
+        <Property name="text" type="java.lang.String" value="Estado"/>
       </Properties>
     </Component>
   </SubComponents>

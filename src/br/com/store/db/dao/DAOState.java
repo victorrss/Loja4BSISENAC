@@ -118,7 +118,7 @@ public class DAOState {
 
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
-                state.setAbbreviation("abbreviation");
+                state.setAbbreviation(result.getString("abbreviation"));
 
                 // Add the instance in the list
                 listState.add(state);
@@ -164,7 +164,7 @@ public class DAOState {
 
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
-                state.setAbbreviation("abbreviation");
+                state.setAbbreviation(result.getString("abbreviation"));
 
                 // Add the instance in the list
                 listState.add(state);
@@ -204,7 +204,7 @@ public class DAOState {
 
                 state.setId(result.getInt("id"));
                 state.setName(result.getString("name"));
-                state.setAbbreviation("abbreviation");
+                state.setAbbreviation(result.getString("abbreviation"));
 
                 return state;
             }

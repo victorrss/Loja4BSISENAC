@@ -2,17 +2,17 @@ package br.com.store.model;
 
 public class State {
 
-    private Integer Id;
+    private Integer id;
     private String name;
     private String abbreviation; //Example: AM, SP, MG, etc...
     private boolean enabled;
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getName() {

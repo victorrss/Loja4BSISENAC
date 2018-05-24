@@ -10,18 +10,14 @@ public class ValidatorUser {
             throw new UserException("A instancia do usuário é inválida");
         }
 
-        if (user.getName() == null
-                || user.getName().trim().isEmpty()) {
+        if (user.getLogin() == null
+                || user.getLogin().trim().isEmpty()) {
             throw new UserException("Nome de usuário não fornecido");
         }
 
         if (user.getPassword() == null
                 || user.getPassword().trim().isEmpty()) {
             throw new UserException("Senha não fornecida");
-        }
-
-        if (user.getDateRegister() == null) {
-            throw new UserException("Data de cadastro não fornecida");
         }
 
     }
