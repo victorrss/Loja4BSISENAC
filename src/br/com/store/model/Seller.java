@@ -1,6 +1,6 @@
 package br.com.store.model;
 
-class Seller {
+public class Seller {
     
     private Integer id;
     private User user;
