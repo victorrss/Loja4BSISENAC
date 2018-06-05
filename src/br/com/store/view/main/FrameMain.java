@@ -13,6 +13,7 @@ import br.com.store.view.PanelPaymentTerms;
 import br.com.store.view.PanelProductCreateUpdate;
 import br.com.store.view.PanelProductReadDelete;
 import br.com.store.view.PanelPublicPlaceType;
+import br.com.store.view.PanelSellCreateUpdate;
 import br.com.store.view.PanelState;
 import br.com.store.view.PanelSubCategory;
 import java.awt.CardLayout;
@@ -48,11 +49,13 @@ public class FrameMain extends javax.swing.JFrame {
         panelSubCategory = new br.com.store.view.PanelSubCategory();
         panelPaymentTerms = new br.com.store.view.PanelPaymentTerms();
         panelMaritalStatus = new br.com.store.view.PanelMaritalStatus();
+        panelSellCreateUpdate = new br.com.store.view.PanelSellCreateUpdate();
         panelOption = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         btnCustomer = new javax.swing.JButton();
         btnProduct = new javax.swing.JButton();
         btnSell = new javax.swing.JButton();
+        btnSell1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         lblPanelTitle = new javax.swing.JLabel();
 
@@ -93,6 +96,19 @@ public class FrameMain extends javax.swing.JFrame {
         panelMain.add(panelSubCategory, "SubCategory");
         panelMain.add(panelPaymentTerms, "PaymentTerms");
         panelMain.add(panelMaritalStatus, "MaritalStatus");
+
+        javax.swing.GroupLayout panelSellCreateUpdateLayout = new javax.swing.GroupLayout(panelSellCreateUpdate);
+        panelSellCreateUpdate.setLayout(panelSellCreateUpdateLayout);
+        panelSellCreateUpdateLayout.setHorizontalGroup(
+            panelSellCreateUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1291, Short.MAX_VALUE)
+        );
+        panelSellCreateUpdateLayout.setVerticalGroup(
+            panelSellCreateUpdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 653, Short.MAX_VALUE)
+        );
+
+        panelMain.add(panelSellCreateUpdate, "SellCreateUpdate");
 
         panelOption.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -144,7 +160,7 @@ public class FrameMain extends javax.swing.JFrame {
 
         btnSell.setFont(new java.awt.Font("Segoe UI Light", 1, 11)); // NOI18N
         btnSell.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/sell-48.png"))); // NOI18N
-        btnSell.setText("Vendas");
+        btnSell.setText("Vender");
         btnSell.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSell.setIconTextGap(0);
         btnSell.setMinimumSize(new java.awt.Dimension(73, 73));
@@ -156,6 +172,22 @@ public class FrameMain extends javax.swing.JFrame {
             }
         });
         panelOption.add(btnSell);
+
+        btnSell1.setFont(new java.awt.Font("Segoe UI Light", 1, 11)); // NOI18N
+        btnSell1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/report.png"))); // NOI18N
+        btnSell1.setText("Relatório");
+        btnSell1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSell1.setIconTextGap(0);
+        btnSell1.setMargin(new java.awt.Insets(2, 13, 2, 13));
+        btnSell1.setMinimumSize(new java.awt.Dimension(73, 73));
+        btnSell1.setPreferredSize(new java.awt.Dimension(80, 73));
+        btnSell1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSell1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSell1ActionPerformed(evt);
+            }
+        });
+        panelOption.add(btnSell1);
 
         btnExit.setFont(new java.awt.Font("Segoe UI Light", 1, 11)); // NOI18N
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/exit.png"))); // NOI18N
@@ -185,7 +217,7 @@ public class FrameMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lblPanelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(111, 111, 111))
-            .addComponent(panelOption, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1229, Short.MAX_VALUE)
+            .addComponent(panelOption, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1527, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(118, 118, 118)
@@ -198,7 +230,7 @@ public class FrameMain extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(panelOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(671, 671, 671)
-                .addComponent(lblPanelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblPanelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE)
                 .addGap(49, 49, 49))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -349,7 +381,8 @@ public class FrameMain extends javax.swing.JFrame {
         // sell 
         JMenuItem mItemCreateUpdate = new JMenuItem("Novo");
         mItemCreateUpdate.addActionListener((e) -> {
-
+            PanelSellCreateUpdate p = new PanelSellCreateUpdate(FormOperationEnum.CREATE, null);
+            FrameMain.loadCard(p, "SellCreateUpdate", true);
         });
 
         JMenuItem mItemReadDelete = new JMenuItem("Listagem");
@@ -375,6 +408,10 @@ public class FrameMain extends javax.swing.JFrame {
 
         popup.show(btnSell, (int) btnSell.getAlignmentX(), (int) btnSell.getAlignmentY() + btnSell.getHeight());
     }//GEN-LAST:event_btnSellActionPerformed
+
+    private void btnSell1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSell1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSell1ActionPerformed
 
     public static void loadCardProductList(boolean show) {
         PanelProductReadDelete p = new PanelProductReadDelete();
@@ -488,6 +525,7 @@ public class FrameMain extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     public static javax.swing.JButton btnProduct;
     public static javax.swing.JButton btnSell;
+    public static javax.swing.JButton btnSell1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblPanelTitle;
     private br.com.store.view.PanelBrand panelBrand;
@@ -500,6 +538,7 @@ public class FrameMain extends javax.swing.JFrame {
     private br.com.store.view.PanelPaymentTerms panelPaymentTerms;
     private br.com.store.view.PanelProductCreateUpdate panelProductAdd;
     private br.com.store.view.PanelProductReadDelete panelProductList;
+    private br.com.store.view.PanelSellCreateUpdate panelSellCreateUpdate;
     private br.com.store.view.PanelSubCategory panelSubCategory;
     // End of variables declaration//GEN-END:variables
 }
