@@ -2,6 +2,7 @@ package br.com.store.view;
 
 import br.com.store.model.PaymentTerms;
 import br.com.store.model.enums.FormOperationEnum;
+import br.com.store.service.ServicePaymentTerms;
 import br.com.store.utils.DataUtil;
 import br.com.store.view.main.FrameMain;
 import java.awt.event.KeyEvent;

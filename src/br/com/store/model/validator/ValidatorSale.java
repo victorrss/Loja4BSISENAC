@@ -16,7 +16,7 @@ public class ValidatorSale {
             throw new SaleException("Vendedor não fornecido para venda");
         }
         if (sale.getPaymentTerms()== null) {
-            throw new SaleException("Tipo de pagamento não fornecido para venda");
+            throw new SaleException("Forma de pagamento não fornecido para venda");
         }
         
 
