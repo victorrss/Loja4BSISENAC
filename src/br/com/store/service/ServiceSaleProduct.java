@@ -51,12 +51,12 @@ public class ServiceSaleProduct {
         return list;
     }
 
-    public List<SaleProduct> search(String Id) throws SaleProductException, DataSourceException {
+    public List<SaleProduct> search(Integer id) throws SaleProductException, DataSourceException {
         try {
-            if (Id == null || "".equals(Id)) {
-                return DAOSaleProduct.list(Integer stateId);
+            if (id == null || "".equals(id)) {
+                return DAOSaleProduct.list(id);
             } else {
-                return DAOSaleProduct.search(Id);
+                return DAOSaleProduct.search(id);
             }
         } catch (Exception e) {
             e.printStackTrace();

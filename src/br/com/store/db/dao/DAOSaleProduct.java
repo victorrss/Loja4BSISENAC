@@ -112,9 +112,9 @@ public class DAOSaleProduct {
     }
 
     //Search for a sale_product contact by id
-    public static List<SaleProduct> search(String id) throws SQLException, Exception {
+    public static List<SaleProduct> search(Integer id) throws SQLException, Exception {
 
-        String sql = "SELECT * FROM sale_product WHERE (UPPER(id) LIKE UPPER(?) AND enabled=?)";
+        String sql = "SELECT * FROM sale_product WHERE id = ? AND enabled=?";
 
         List<SaleProduct> listSaleProduct = null;
 
