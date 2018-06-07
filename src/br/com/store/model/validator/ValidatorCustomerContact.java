@@ -2,6 +2,8 @@ package br.com.store.model.validator;
 
 import br.com.store.exception.CustomerContactException;
 import br.com.store.model.CustomerContact;
+import static br.com.store.utils.DataUtil.isEmail;
+import static br.com.store.utils.DataUtil.isPhone;
 import java.util.List;
 
 public class ValidatorCustomerContact {
@@ -11,8 +13,8 @@ public class ValidatorCustomerContact {
             if (customerContact == null) {
                 throw new CustomerContactException("Não há uma instância de contato do cliente");
             }
-//        if (customerContact.getCustomer() == null) {
-//            throw new CustomerContactException("Cliente para contato não fornecido");
+//        if (customerContact.getCustomerId()== null) {
+//            throw new CustomerContactException("Id do cliente não reconhecido");
 //        }
             if (customerContact.getContactType() == null) {
                 throw new CustomerContactException("Tipo de contato não fornecido");
@@ -24,15 +26,15 @@ public class ValidatorCustomerContact {
             if (customerContact.getValue().length() > 45) {
                 throw new CustomerContactException("Contato não pode ter mais que 45 caracteres");
             }
-//        if (customerContact.getContactType().equals("id do email") && isEmail(customerContact.getValue())) {
-//            throw new CustomerContactException("Email inválido");
-//        }
-//        if (customerContact.getContactType().equals("id do telefone") && isPhone(customerContact.getValue())) {
-//            throw new CustomerContactException("Telefone inválido");
-//        }
-//        if (customerContact.getContactType().equals("id do celular") && isPhone(customerContact.getValue())) {
-//            throw new CustomerContactException("Celular inválido");
-//        }
+        if (customerContact.getContactType().getDescription().equals("E-mail") && !isEmail(customerContact.getValue())) {
+            throw new CustomerContactException("Email inválido");
+        }
+        if (customerContact.getContactType().equals("Tel. Fixo") && !isPhone(customerContact.getValue())) {
+            throw new CustomerContactException("Telefone inválido");
+        }
+        if (customerContact.getContactType().equals("Celular") && !isPhone(customerContact.getValue())) {
+            throw new CustomerContactException("Celular inválido");
+        }
         }
     }
 }
