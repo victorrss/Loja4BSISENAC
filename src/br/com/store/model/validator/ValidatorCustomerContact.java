@@ -13,8 +13,8 @@ public class ValidatorCustomerContact {
             if (customerContact == null) {
                 throw new CustomerContactException("Não há uma instância de contato do cliente");
             }
-//        if (customerContact.getCustomer() == null) {
-//            throw new CustomerContactException("Cliente para contato não fornecido");
+//        if (customerContact.getCustomerId()== null) {
+//            throw new CustomerContactException("Id do cliente não reconhecido");
 //        }
             if (customerContact.getContactType() == null) {
                 throw new CustomerContactException("Tipo de contato não fornecido");
@@ -35,6 +35,7 @@ public class ValidatorCustomerContact {
             if (customerContact.getContactType().getDescription().equals("CELULAR") && !isPhone(customerContact.getValue())) {
                 throw new CustomerContactException("Celular inválido");
             }
+
         }
     }
 }
