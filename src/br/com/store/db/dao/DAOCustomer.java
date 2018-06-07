@@ -26,7 +26,8 @@ public class DAOCustomer {
         PreparedStatement stmt = null;
         try {
             //Creates a statement for SQL commands
-            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt = con.prepareStatement(sql, new String[]{"id"});
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setInt(1, customer.getAddress().getId());
@@ -41,13 +42,18 @@ public class DAOCustomer {
             stmt.setBoolean(10, true);
 
             //Executes the command in the DB
-            return stmt.executeUpdate();
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return null;
         } finally {
             ConnectionUtils.finalize(stmt);
         }
     }
-
     //Performs the update of the data of a customer
+
     public static void update(Connection con, Customer customer) throws SQLException, Exception {
 
         String sql = "UPDATE customer SET address_id=?, maritalstatus_id=?, name=?, document_type_id=?, "

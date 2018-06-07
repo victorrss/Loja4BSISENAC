@@ -289,7 +289,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
         cbCustomerBasicMaritalStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lblCustomerBasicMaritalSatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCustomerBasicMaritalSatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCustomerBasicMaritalSatus.setText("Estado Civil");
 
@@ -301,7 +300,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
         cbCustomerBasicGender.setModel(new javax.swing.DefaultComboBoxModel(br.com.store.model.enums.GenderEnum.values()));
 
-        lblCustomerBasicGender.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblCustomerBasicGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCustomerBasicGender.setText("Sexo");
 
