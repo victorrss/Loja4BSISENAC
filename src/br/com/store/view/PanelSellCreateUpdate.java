@@ -1,16 +1,35 @@
 package br.com.store.view;
 
+import br.com.store.model.Customer;
+import br.com.store.model.PaymentTerms;
+import br.com.store.model.Product;
+import br.com.store.model.Seller;
 import br.com.store.model.enums.FormOperationEnum;
+import br.com.store.model.enums.ProductSearchTypeEnum;
+import br.com.store.service.ServicePaymentTerms;
+import br.com.store.service.ServiceSeller;
+import br.com.store.utils.DataUtil;
+import br.com.store.utils.FormUtil;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class PanelSellCreateUpdate extends javax.swing.JPanel {
 
+    private Customer customerSelected;
+    private Product productSelected;
+    FrameSellSelectCustomer frmSelectCustomer = null;
+    FrameSellSelectProduct frmSelectProduct = null;
+
     public PanelSellCreateUpdate() {
         initComponents();
-
     }
 
     public PanelSellCreateUpdate(FormOperationEnum formOperationEnum, Integer id) {
         initComponents();
+        loadSeller();
+        loadPaymentTerms();
     }
 
     @SuppressWarnings("unchecked")
@@ -146,6 +165,11 @@ public class PanelSellCreateUpdate extends javax.swing.JPanel {
         panelSellProduct.setBackground(new java.awt.Color(255, 255, 255));
 
         txtSellBarcode.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtSellBarcode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSellBarcodeKeyReleased(evt);
+            }
+        });
 
         lblSellBarcode.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblSellBarcode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -157,6 +181,11 @@ public class PanelSellCreateUpdate extends javax.swing.JPanel {
         lblSellOr.setToolTipText("");
 
         txtSellProductName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        txtSellProductName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSellProductNameKeyPressed(evt);
+            }
+        });
 
         lblSellProductName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblSellProductName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -209,6 +238,11 @@ public class PanelSellCreateUpdate extends javax.swing.JPanel {
         btnSellProductAdd.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnSellProductAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/ok-40.png"))); // NOI18N
         btnSellProductAdd.setText("ADICIONAR PRODUTO");
+        btnSellProductAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSellProductAddActionPerformed(evt);
+            }
+        });
 
         btnSellProductDelete.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnSellProductDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/cancel.png"))); // NOI18N
@@ -403,8 +437,53 @@ public class PanelSellCreateUpdate extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loadSeller() {
+        FormUtil.clearComboBox(cbSellSeller);
+        List<Seller> list = null;
+        try {
+            list = ServiceSeller.getInstance().list();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (list == null) {
+            return;
+        }
+
+        FormUtil.setModelComboBox(cbSellSeller, list);
+    }
+
+    private void loadPaymentTerms() {
+        FormUtil.clearComboBox(cbSellPaymentTerms);
+        List<PaymentTerms> list = null;
+        try {
+            list = ServicePaymentTerms.getInstance().list();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (list == null) {
+            return;
+        }
+
+        FormUtil.setModelComboBox(cbSellPaymentTerms, list);
+    }
+
     private void btnSellProductDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellProductDeleteActionPerformed
-        // TODO add your handling code here:
+        if (tableSell.getSelectedRow() != -1) {
+            DefaultTableModel dtm = (DefaultTableModel) tableSell.getModel();
+            if (tableSell.getSelectedRow() >= 0) {
+                dtm.removeRow(tableSell.getSelectedRow());
+                tableSell.setModel(dtm);
+                reorderTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecione um produto!");
+            };
+        }
     }//GEN-LAST:event_btnSellProductDeleteActionPerformed
 
     private void txtSellPriceTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSellPriceTotalActionPerformed
@@ -412,12 +491,43 @@ public class PanelSellCreateUpdate extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSellPriceTotalActionPerformed
 
     private void btnSellSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellSearchCustomerActionPerformed
-        // TODO add your handling code here:
+        frmSelectCustomer = new FrameSellSelectCustomer();
+        frmSelectCustomer.setVisible(true);
+        frmSelectCustomer.setAlwaysOnTop(true);
     }//GEN-LAST:event_btnSellSearchCustomerActionPerformed
 
     private void cbSellSellerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSellSellerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSellSellerActionPerformed
+
+    private void txtSellBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSellBarcodeKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            frmSelectProduct = new FrameSellSelectProduct(ProductSearchTypeEnum.BARCODE, txtSellBarcode.getText());
+            frmSelectCustomer.setVisible(true);
+            frmSelectCustomer.setAlwaysOnTop(true);
+        }
+    }//GEN-LAST:event_txtSellBarcodeKeyReleased
+
+    private void txtSellProductNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSellProductNameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            frmSelectProduct = new FrameSellSelectProduct(ProductSearchTypeEnum.NAME, txtSellBarcode.getText());
+            frmSelectCustomer.setVisible(true);
+            frmSelectCustomer.setAlwaysOnTop(true);
+        }
+    }//GEN-LAST:event_txtSellProductNameKeyPressed
+
+    private void btnSellProductAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellProductAddActionPerformed
+        if (productSelected != null) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto!");
+            return;
+        }
+        
+        if (productSelected.getStock() >= DataUtil.parseInteger(txtSellProductQt.getText())) {
+            JOptionPane.showMessageDialog(null, "Não há estoque para esta quantidade de produto!");
+            return;
+        }
+        
+    }//GEN-LAST:event_btnSellProductAddActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSellProductAdd;
@@ -454,5 +564,16 @@ public class PanelSellCreateUpdate extends javax.swing.JPanel {
     private javax.swing.JTextField txtSellProductPriceUnit;
     private javax.swing.JTextField txtSellProductQt;
     // End of variables declaration//GEN-END:variables
+
+    public void setCustomerSelected(Customer customer) {
+        this.customerSelected = customer;
+        this.txtSellCustomer.setText(customer.getName());
+    }
+
+    public void setProductSelected(Product product) {
+        this.productSelected = product;
+        this.txtSellProductName.setText(product.getName());
+        this.txtSellProductPriceUnit.setText(product.getPrice().toString().replace(".", ","));
+    }
 
 }
