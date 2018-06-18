@@ -11,7 +11,6 @@ import java.util.Date;
 public class ValidatorCustomer {
 
     public static void validate(Customer customer) throws CustomerException {
-
         if (customer == null) {
             throw new CustomerException("Não há uma instância de cliente");
         }
@@ -57,7 +56,9 @@ public class ValidatorCustomer {
         if (customer.getNote().length() > 45) {
             throw new CustomerException("Anotação não pode ter mais de 45 caracteres");
         }
+    }
 
+    public static void exists(Customer customer) throws CustomerException {
         Customer exists = null;
         try {
             exists = ServiceCustomer.getInstance().exists(customer.getDocumentType().getName().toUpperCase() + customer.getDocument());

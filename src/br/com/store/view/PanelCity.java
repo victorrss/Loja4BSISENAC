@@ -347,7 +347,7 @@ public class PanelCity extends javax.swing.JPanel {
 
         City city = new City();
         city.setName(txtCityName.getText());
-
+        city.setState((State) cbCityState.getSelectedItem());
         try {
             if (operation == FormOperationEnum.CREATE) {
                 ServiceCity.getInstance().insert(city);
@@ -520,7 +520,7 @@ public class PanelCity extends javax.swing.JPanel {
         }
         List<City> list = null;
         try {
-            list = ServiceCity.getInstance().list();
+           // list = ServiceCity.getInstance().list();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);

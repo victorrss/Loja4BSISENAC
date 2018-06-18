@@ -30,8 +30,10 @@ public class ServiceCustomer {
 
     public void insert(Customer customer) throws CustomerException, DataSourceException, CustomerContactException, AddressException, SQLException {
         Integer newIdAddress = null, newIdCustomer = null;
+        
         ValidatorAddress.validate(customer.getAddress());
         ValidatorCustomer.validate(customer);
+        ValidatorCustomer.exists(customer);
         ValidatorCustomerContact.validate(customer.getContacts());
         Connection con = null;
 

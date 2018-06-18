@@ -21,7 +21,7 @@ public class ServiceProduct {
 
     public void insert(Product product) throws ProductException, DataSourceException {
         ValidatorProduct.validate(product);
-
+        ValidatorProduct.exists(product);
         try {
             DAOProduct.insert(product);
         } catch (Exception e) {

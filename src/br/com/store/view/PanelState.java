@@ -15,21 +15,21 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 public class PanelState extends javax.swing.JPanel {
-
+    
     private Integer stateId;
     private FormOperationEnum operation;
-
+    
     public PanelState() {
         initComponents();
         loadList();
     }
-
+    
     public PanelState(FormOperationEnum op, Integer id) {
         initComponents();
         loadList();
         prepareFormOperation(op, id);
     }
-
+    
     private void prepareFormOperation(FormOperationEnum op, Integer id) {
         this.operation = op;
         this.stateId = id;
@@ -40,7 +40,7 @@ public class PanelState extends javax.swing.JPanel {
             loadState(stateId);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -325,7 +325,7 @@ public class PanelState extends javax.swing.JPanel {
             temp = "alterar";
             temp2 = "alterado";
         }
-
+        
         int dialogResult = JOptionPane.showConfirmDialog(this,
                 "Tem certeza que deseja " + temp + " este estado?",
                 "Confirmação",
@@ -333,10 +333,11 @@ public class PanelState extends javax.swing.JPanel {
         if (dialogResult == JOptionPane.NO_OPTION) {
             return;
         }
-
+        
         State state = new State();
         state.setName(txtStateName.getText());
-
+        state.setAbbreviation(txtStateAbbreviation.getText());
+        
         try {
             if (operation == FormOperationEnum.CREATE) {
                 ServiceState.getInstance().insert(state);
@@ -348,7 +349,7 @@ public class PanelState extends javax.swing.JPanel {
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
         JOptionPane.showMessageDialog(this, "Estado " + temp2 + " com sucesso",
                 "Confirmação", JOptionPane.INFORMATION_MESSAGE);
         txtStateName.setText("");
@@ -369,7 +370,7 @@ public class PanelState extends javax.swing.JPanel {
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
+        
         Integer id = DataUtil.parseInteger(tableStateSearch.getModel().getValueAt(tableStateSearch.getSelectedRow(), 0) + "");
         deleteState(id);
     }//GEN-LAST:event_btnStateDeleteActionPerformed
@@ -381,7 +382,7 @@ public class PanelState extends javax.swing.JPanel {
                         "Atenção", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-
+            
             Integer id = DataUtil.parseInteger(tableStateSearch.getModel().getValueAt(tableStateSearch.getSelectedRow(), 0) + "");
             deleteState(id);
         }
@@ -391,24 +392,24 @@ public class PanelState extends javax.swing.JPanel {
         if (evt.getButton() != MouseEvent.BUTTON3 || tableStateSearch.getSelectedRow() < 0) {
             return;
         }
-
+        
         Integer id = DataUtil.parseInteger(tableStateSearch.getModel().getValueAt(tableStateSearch.getSelectedRow(), 0) + "");
-
+        
         JPopupMenu popup = new JPopupMenu();
-
+        
         JMenuItem mItemUpdate = new JMenuItem("Alterar/Ver");
         mItemUpdate.addActionListener((e) -> {
             PanelState p = new PanelState(FormOperationEnum.UPDATE, id);
             FrameMain.loadCard(p, "State", true);
         });
         popup.add(mItemUpdate);
-
+        
         JMenuItem mItemDelete = new JMenuItem("Deletar");
         mItemDelete.addActionListener((e) -> {
             deleteState(id);
         });
         popup.add(mItemDelete);
-
+        
         popup.show(tableStateSearch,
                 (int) evt.getX(),
                 (int) evt.getY()
@@ -426,13 +427,13 @@ public class PanelState extends javax.swing.JPanel {
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-
+        
         Integer id = DataUtil.parseInteger(tableStateSearch.getModel().getValueAt(tableStateSearch.getSelectedRow(), 0) + "");
-
+        
         PanelState p = new PanelState(FormOperationEnum.UPDATE, id);
         FrameMain.loadCard(p, "State", true);
     }//GEN-LAST:event_btnStateUpdateActionPerformed
-
+    
     public void deleteState(Integer id) {
         int dialogResult = JOptionPane.showConfirmDialog(this,
                 "Tem certeza que deseja excluir este estado?",
@@ -441,7 +442,7 @@ public class PanelState extends javax.swing.JPanel {
         if (dialogResult == JOptionPane.NO_OPTION) {
             return;
         }
-
+        
         try {
             ServiceState.getInstance().delete(id);
         } catch (Exception e) {
@@ -449,12 +450,12 @@ public class PanelState extends javax.swing.JPanel {
                     "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
         JOptionPane.showMessageDialog(this, "Estado excluído com sucesso!",
                 "Confirmação", JOptionPane.INFORMATION_MESSAGE);
         loadList();
     }
-
+    
     private void loadState(Integer id) {
         State s;
         try {
@@ -468,7 +469,7 @@ public class PanelState extends javax.swing.JPanel {
         txtStateName.setText(s.getName());
         txtStateAbbreviation.setText(s.getAbbreviation());
     }
-
+    
     public void loadList() {
         DefaultTableModel model = (DefaultTableModel) tableStateSearch.getModel();
         model.setNumRows(0);
@@ -494,12 +495,12 @@ public class PanelState extends javax.swing.JPanel {
             });
         }
     }
-
+    
     private void loadSearch(String value) {
         DefaultTableModel model = (DefaultTableModel) tableStateSearch.getModel();
         model.setNumRows(0);
         List<State> list = null;
-
+        
         try {
             list = ServiceState.getInstance().search(value);
         } catch (Exception e) {
@@ -517,7 +518,7 @@ public class PanelState extends javax.swing.JPanel {
                 p.getId(),
                 p.getName()
             });
-
+            
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

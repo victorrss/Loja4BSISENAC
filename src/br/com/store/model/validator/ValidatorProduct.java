@@ -31,7 +31,7 @@ public class ValidatorProduct {
         if (product.getName().length() > 45) {
             throw new ProductException("Nome do produto não pode ter mais que 45 caracteres");
         }
-        
+
         if (!DataUtil.empty(product.getBarcode()) && !DataUtil.checkBarcodeEAN(product.getBarcode())) {
             throw new ProductException("O código de barras está inválido!");
         }
@@ -51,6 +51,9 @@ public class ValidatorProduct {
         if (product.getPrice() == null) {
             throw new ProductException("Preço do produto não fornecido");
         }
+    }
+
+    public static void exists(Product product) throws ProductException {
         Product exists = null;
         try {
             exists = ServiceProduct.getInstance().exists(product.getBarcode());
@@ -61,5 +64,4 @@ public class ValidatorProduct {
             throw new ProductException("Produto já cadastrado!");
         }
     }
-
 }
