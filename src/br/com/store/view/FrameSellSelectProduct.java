@@ -34,7 +34,7 @@ public class FrameSellSelectProduct extends javax.swing.JFrame {
         lblPanelTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Selecione o Cliente!");
+        setTitle("Selecione o Produto!");
         setAlwaysOnTop(true);
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
@@ -127,11 +127,23 @@ public class FrameSellSelectProduct extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tableSellSelectProductMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSellSelectProductMousePressed
-        if (evt.getButton() != MouseEvent.BUTTON1 || tableSellSelectProduct.getSelectedRow() < 0 || evt.getClickCount() == 2) {
+        if (evt.getButton() != MouseEvent.BUTTON1
+                || tableSellSelectProduct.getSelectedRow() < 0
+                || evt.getClickCount() != 2) {
             return;
         }
 
         Integer id = DataUtil.parseInteger(tableSellSelectProduct.getModel().getValueAt(tableSellSelectProduct.getSelectedRow(), 0) + "");
+        Product p = null;
+        try {
+            p = ServiceProduct.getInstance().get(id);
+            PanelSellCreateUpdate.setProductSelected(p);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        this.dispose();
     }//GEN-LAST:event_tableSellSelectProductMousePressed
 
     private void tableSellSelectProductKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableSellSelectProductKeyPressed
@@ -143,7 +155,16 @@ public class FrameSellSelectProduct extends javax.swing.JFrame {
             }
 
             Integer id = DataUtil.parseInteger(tableSellSelectProduct.getModel().getValueAt(tableSellSelectProduct.getSelectedRow(), 0) + "");
-
+            Product p = null;
+            try {
+                p = ServiceProduct.getInstance().get(id);
+                PanelSellCreateUpdate.setProductSelected(p);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(),
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            this.dispose();
         }
     }//GEN-LAST:event_tableSellSelectProductKeyPressed
 

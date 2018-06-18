@@ -122,16 +122,16 @@ public class DAOProduct {
     //List all products in the table product
     public static List<Product> list() throws SQLException, Exception {
 
-        String sql = "SELECT a.*, "
-                + "b.id as brand_id, b.name as brand_name, "
-                + "c.id as category_id, c.name as category_name, "
-                + "d.id as subcategory_id, d.name as subcategory_name "
-                + "FROM product a "
-                + "INNER JOIN brand b ON b.id = a.brand_id "
-                + "INNER JOIN category c ON c.id = a.category_id "
-                + "INNER JOIN subcategory d ON d.id = a.subcategory_id "
-                + "WHERE (a.enabled=?)";
-
+//        String sql = "SELECT a.*, "
+//                + "b.id as brand_id, b.name as brand_name, "
+//                + "c.id as category_id, c.name as category_name, "
+//                + "d.id as subcategory_id, d.name as subcategory_name "
+//                + "FROM product a "
+//                + "INNER JOIN brand b ON b.id = a.brand_id "
+//                + "INNER JOIN category c ON c.id = a.category_id "
+//                + "INNER JOIN subcategory d ON d.id = a.subcategory_id "
+//                + "WHERE (a.enabled=?)";
+        String sql = "SELECT * FROM view_product";
         List<Product> listProduct = null;
 
         Connection con = null;
@@ -144,7 +144,7 @@ public class DAOProduct {
             con = ConnectionUtils.getConnection();
             //Creates a statement for SQL commands
             stmt = con.prepareStatement(sql);
-            stmt.setBoolean(1, true);
+//            stmt.setBoolean(1, true);
 
             result = stmt.executeQuery();
 
@@ -348,6 +348,63 @@ public class DAOProduct {
             stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, id);
+            stmt.setBoolean(2, true);
+
+            result = stmt.executeQuery();
+
+            if (result.next()) {
+
+                Product product = new Product();
+                product.setId(result.getInt("id"));
+                product.setBrand(new Brand(result.getInt("brand_id"), result.getString("brand_name"), true));
+                product.setCategory(new Category(result.getInt("category_id"), result.getString("category_name"), true));
+                product.setSubCategory(new SubCategory(result.getInt("subcategory_id"), result.getString("subcategory_name"), true));
+                product.setName(result.getString("name"));
+                product.setBarcode(result.getString("barcode"));
+                product.setDescription(result.getString("description"));
+                product.setWarranty(result.getInt("warranty"));
+                product.setModel(result.getString("model"));
+
+                if (result.getObject("picture") != null) {
+                    product.setPicture(result.getBlob("picture").getBytes(1, (int) result.getBlob("picture").length()));
+                }
+                product.setStock(result.getInt("stock"));
+                product.setPrice(result.getFloat("price"));
+
+                return product;
+            }
+        } finally {
+            ConnectionUtils.finalize(result, stmt, con);
+        }
+
+        return null;
+    }
+
+    //Get an instance of the product class by id
+    public static Product exists(String barcode) throws SQLException, Exception {
+
+        String sql = "SELECT a.*, "
+                + "b.id as brand_id, b.name as brand_name, "
+                + "c.id as category_id, c.name as category_name, "
+                + "d.id as subcategory_id, d.name as subcategory_name "
+                + "FROM product a "
+                + "INNER JOIN brand b ON b.id = a.brand_id "
+                + "INNER JOIN category c ON c.id = a.category_id "
+                + "INNER JOIN subcategory d ON d.id = a.subcategory_id "
+                + "WHERE (a.barcode=? AND a.enabled=?)";
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, barcode);
             stmt.setBoolean(2, true);
 
             result = stmt.executeQuery();

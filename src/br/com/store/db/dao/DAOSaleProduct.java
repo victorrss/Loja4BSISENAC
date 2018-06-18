@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOSaleProduct {
-    
+
     //Inserts a Sale product into the sale_product table of the database
     public static void insert(Connection con, List<SaleProduct> saleProducts, Integer saleId) throws SQLException, Exception {
 
@@ -21,7 +21,7 @@ public class DAOSaleProduct {
                 + "VALUES (?,?,?,?,?,?)";
 
         PreparedStatement stmt = null;
-
+        int i = 1;
         for (SaleProduct saleProduct : saleProducts) {
             try {
                 //Creates a statement for SQL commands
@@ -29,7 +29,7 @@ public class DAOSaleProduct {
 
                 stmt.setInt(1, saleId);
                 stmt.setInt(2, saleProduct.getProduct().getId());
-                stmt.setInt(3, saleProduct.getSequence());
+                stmt.setInt(3, i);
                 stmt.setInt(4, saleProduct.getQuantity());
                 stmt.setFloat(5, saleProduct.getPrice());
                 stmt.setBoolean(6, true);
@@ -37,7 +37,9 @@ public class DAOSaleProduct {
                 //executes the command in the DB
                 stmt.execute();
             } finally {
+                 ConnectionUtils.finalize(stmt);
             }
+            i++;
         }
 
     }
@@ -203,5 +205,5 @@ public class DAOSaleProduct {
 
         return null;
     }
-    
+
 }

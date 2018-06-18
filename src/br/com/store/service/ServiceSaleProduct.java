@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 public class ServiceSaleProduct {
-    
+
     private static final ServiceSaleProduct INSTANCE = new ServiceSaleProduct();
 
     private ServiceSaleProduct() {
@@ -19,9 +19,7 @@ public class ServiceSaleProduct {
         return INSTANCE;
     }
 
-    public void insert(Connection con,  List<SaleProduct> saleProducts, Integer saleId) throws SaleProductException, DataSourceException {
-        ValidatorSaleProduct.validate((SaleProduct) saleProducts); //need to be tested
-
+    public void insert(Connection con, List<SaleProduct> saleProducts, Integer saleId) throws SaleProductException, DataSourceException {
         try {
             DAOSaleProduct.insert(con, saleProducts, saleId);
         } catch (Exception e) {
@@ -72,5 +70,5 @@ public class ServiceSaleProduct {
             throw new DataSourceException("Erro na fonte de dados");
         }
     }
-    
+
 }

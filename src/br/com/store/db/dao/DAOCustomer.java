@@ -355,4 +355,56 @@ public class DAOCustomer {
 
         return null;
     }
+
+    //Get an instance of the customer class by id
+    public static Customer exists(String documentIdentifier) throws SQLException, Exception {
+
+        String sql = "SELECT * FROM customer WHERE (document_identifier=? AND enabled=?)";
+
+        Connection con = null;
+
+        PreparedStatement stmt = null;
+
+        ResultSet result = null;
+        try {
+            //Opens a connection to the DB
+            con = ConnectionUtils.getConnection();
+            //Creates a statement for SQL commands
+            stmt = con.prepareStatement(sql);
+
+            stmt.setString(1, documentIdentifier);
+            stmt.setBoolean(2, true);
+
+            result = stmt.executeQuery();
+
+            if (result.next()) {
+
+                // Create a Customer instance and population with BD values
+                Customer customer = new Customer();
+
+                customer.setId(result.getInt("id"));
+                customer.setContacts(DAOCustomerContact.list(customer.getId()));
+                customer.setName(result.getString("name"));
+                DocumentType documentType = DAODocumentType.get(result.getInt("document_type_id"));
+                customer.setDocumentType(documentType);
+                customer.setDocument(result.getString("document"));
+                customer.setGender(result.getString("gender"));
+                Date bd = new Date(result.getDate("birth_date").getTime());
+                customer.setBirthDate(bd);
+                Address address = DAOAddress.get(result.getInt("address_id"));
+                customer.setAddress(address);
+                MaritalStatus maritalStatus = DAOMaritalStatus.get(result.getInt("maritalstatus_id"));
+                customer.setMaritalStatus(maritalStatus);
+                customer.setNote(result.getString("note"));
+                Date ca = new Date(result.getDate("created_at").getTime());
+                customer.setCreatedAt(ca);
+
+                return customer;
+            }
+        } finally {
+            ConnectionUtils.finalize(result, stmt, con);
+        }
+
+        return null;
+    }
 }

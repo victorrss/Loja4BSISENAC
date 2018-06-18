@@ -97,6 +97,17 @@ public class ServiceProduct {
         }
     }
 
+    public Product exists(String barcode) throws DataSourceException {
+        try {
+
+            return DAOProduct.exists(barcode);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
     public void delete(Integer id) throws DataSourceException {
         try {
             DAOProduct.delete(id);

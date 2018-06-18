@@ -2,6 +2,7 @@ package br.com.store.model.validator;
 
 import br.com.store.exception.CustomerException;
 import br.com.store.model.Customer;
+import br.com.store.service.ServiceCustomer;
 import br.com.store.utils.DataUtil;
 import static br.com.store.utils.DataUtil.isCNPJ;
 import static br.com.store.utils.DataUtil.isCPF;
@@ -55,6 +56,16 @@ public class ValidatorCustomer {
         }
         if (customer.getNote().length() > 45) {
             throw new CustomerException("Anotação não pode ter mais de 45 caracteres");
+        }
+
+        Customer exists = null;
+        try {
+            exists = ServiceCustomer.getInstance().exists(customer.getDocumentType().getName().toUpperCase() + customer.getDocument());
+        } catch (Exception e) {
+        }
+
+        if (exists != null) {
+            throw new CustomerException("Cliente já cadastrado!");
         }
     }
 }

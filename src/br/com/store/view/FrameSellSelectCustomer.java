@@ -7,9 +7,7 @@ import br.com.store.utils.DataUtil;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
@@ -17,7 +15,7 @@ public class FrameSellSelectCustomer extends javax.swing.JFrame {
 
     public FrameSellSelectCustomer() {
         initComponents();
-        setLocationRelativeTo( null );
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -158,6 +156,7 @@ public class FrameSellSelectCustomer extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSellSelectCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellSelectCustomerActionPerformed
@@ -165,19 +164,22 @@ public class FrameSellSelectCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSellSelectCustomerActionPerformed
 
     private void tableSellSelectCustomerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSellSelectCustomerMousePressed
-        if (evt.getButton() != MouseEvent.BUTTON1 || tableSellSelectCustomer.getSelectedRow() < 0) {
+        if (evt.getButton() != MouseEvent.BUTTON1
+                || tableSellSelectCustomer.getSelectedRow() < 0
+                || evt.getClickCount() != 2) {
             return;
         }
         Integer id = DataUtil.parseInteger(tableSellSelectCustomer.getModel().getValueAt(tableSellSelectCustomer.getSelectedRow(), 0) + "");
-
-        JPopupMenu popup = new JPopupMenu();
-        JMenuItem mItemUpdate = new JMenuItem("Alterar/Ver");
-        mItemUpdate.addActionListener((e) -> {
-
-        });
-        popup.add(mItemUpdate);
-
-        popup.show(tableSellSelectCustomer, (int) evt.getX(), (int) evt.getY());
+        Customer c = null;
+        try {
+            c = ServiceCustomer.getInstance().get(id);
+            PanelSellCreateUpdate.setCustomerSelected(c);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        this.dispose();
     }//GEN-LAST:event_tableSellSelectCustomerMousePressed
 
     private void tableSellSelectCustomerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableSellSelectCustomerKeyPressed
@@ -189,7 +191,16 @@ public class FrameSellSelectCustomer extends javax.swing.JFrame {
             }
 
             Integer id = DataUtil.parseInteger(tableSellSelectCustomer.getModel().getValueAt(tableSellSelectCustomer.getSelectedRow(), 0) + "");
-
+            Customer c = null;
+            try {
+                c = ServiceCustomer.getInstance().get(id);
+                PanelSellCreateUpdate.setCustomerSelected(c);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(),
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            this.dispose();
         }
     }//GEN-LAST:event_tableSellSelectCustomerKeyPressed
     private void loadSearch(String value) {

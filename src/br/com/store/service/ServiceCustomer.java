@@ -150,4 +150,13 @@ public class ServiceCustomer {
         }
     }
 
+    public Customer exists(String documentIdentifier) throws CustomerException, DataSourceException {
+        try {
+            return DAOCustomer.exists(documentIdentifier);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados");
+        }
+    }
+
 }

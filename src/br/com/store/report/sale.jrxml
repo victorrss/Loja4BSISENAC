@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bdc4afa3-df7e-493a-b5cb-98d083dffa5d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="start" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[$P{start}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="end" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[$P{end}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     sale.`id` AS sale_id,
+     sale.`customer_id` AS sale_customer_id,
+     sale.`seller_id` AS sale_seller_id,
+     sale.`payment_terms_id` AS sale_payment_terms_id,
+     sale.`paid` AS sale_paid,
+     sale.`discount` AS sale_discount,
+     sale.`enabled` AS sale_enabled,
+     sale.`created_at` AS sale_created_at,
+     sale_product.`id` AS sale_product_id,
+     sale_product.`sale_id` AS sale_product_sale_id,
+     sale_product.`product_id` AS sale_product_product_id,
+     sale_product.`sequence` AS sale_product_sequence,
+     sale_product.`quantity` AS sale_product_quantity,
+     sale_product.`price` AS sale_product_price,
+     sale_product.`enabled` AS sale_product_enabled,
+     seller.`id` AS seller_id,
+     seller.`user_id` AS seller_user_id,
+     seller.`name` AS seller_name,
+     seller.`manager` AS seller_manager,
+     seller.`enabled` AS seller_enabled,
+     product.`id` AS product_id,
+     product.`category_id` AS product_category_id,
+     product.`subcategory_id` AS product_subcategory_id,
+     product.`brand_id` AS product_brand_id,
+     product.`name` AS product_name,
+     product.`barcode` AS product_barcode,
+     product.`description` AS product_description,
+     product.`warranty` AS product_warranty,
+     product.`model` AS product_model,
+     product.`picture` AS product_picture,
+     product.`enabled` AS product_enabled,
+     product.`stock` AS product_stock,
+     product.`price` AS product_price,
+     payment_terms.`id` AS payment_terms_id,
+     payment_terms.`name` AS payment_terms_name,
+     payment_terms.`enabled` AS payment_terms_enabled,
+     customer.`id` AS customer_id,
+     customer.`address_id` AS customer_address_id,
+     customer.`maritalstatus_id` AS customer_maritalstatus_id,
+     customer.`name` AS customer_name,
+     customer.`document_type_id` AS customer_document_type_id,
+     customer.`document` AS customer_document,
+     customer.`document_identifier` AS customer_document_identifier,
+     customer.`gender` AS customer_gender,
+     customer.`birth_date` AS customer_birth_date,
+     customer.`note` AS customer_note,
+     customer.`enabled` AS customer_enabled,
+     customer.`created_at` AS customer_created_at
+FROM
+     `sale` sale INNER JOIN `sale_product` sale_product ON sale.`id` = sale_product.`sale_id`
+     INNER JOIN `seller` seller ON sale.`seller_id` = seller.`id`
+     INNER JOIN `payment_terms` payment_terms ON sale.`payment_terms_id` = payment_terms.`id`
+     INNER JOIN `customer` customer ON sale.`customer_id` = customer.`id`
+     INNER JOIN `product` product ON sale_product.`product_id` = product.`id`
+WHERE sale_product.`enabled` = 1 and
+     sale.`created_at` BETWEEN $P{start} AND $P{end}]]>
+	</queryString>
+	<field name="sale_id" class="java.lang.Long"/>
+	<field name="sale_customer_id" class="java.lang.Long"/>
+	<field name="sale_seller_id" class="java.lang.Long"/>
+	<field name="sale_payment_terms_id" class="java.lang.Long"/>
+	<field name="sale_paid" class="java.lang.Boolean"/>
+	<field name="sale_discount" class="java.lang.Float"/>
+	<field name="sale_enabled" class="java.lang.Boolean"/>
+	<field name="sale_created_at" class="java.sql.Timestamp"/>
+	<field name="sale_product_id" class="java.lang.Long"/>
+	<field name="sale_product_sale_id" class="java.lang.Long"/>
+	<field name="sale_product_product_id" class="java.lang.Long"/>
+	<field name="sale_product_sequence" class="java.lang.Integer"/>
+	<field name="sale_product_quantity" class="java.lang.Integer"/>
+	<field name="sale_product_price" class="java.lang.Float"/>
+	<field name="sale_product_enabled" class="java.lang.Boolean"/>
+	<field name="seller_id" class="java.lang.Long"/>
+	<field name="seller_user_id" class="java.lang.Long"/>
+	<field name="seller_name" class="java.lang.String"/>
+	<field name="seller_manager" class="java.lang.Boolean"/>
+	<field name="seller_enabled" class="java.lang.Boolean"/>
+	<field name="product_id" class="java.lang.Long"/>
+	<field name="product_category_id" class="java.lang.Long"/>
+	<field name="product_subcategory_id" class="java.lang.Long"/>
+	<field name="product_brand_id" class="java.lang.Long"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="product_barcode" class="java.lang.String"/>
+	<field name="product_description" class="java.lang.String"/>
+	<field name="product_warranty" class="java.lang.Integer"/>
+	<field name="product_model" class="java.lang.String"/>
+	<field name="product_picture" class="java.lang.Object"/>
+	<field name="product_enabled" class="java.lang.Boolean"/>
+	<field name="product_stock" class="java.lang.Integer"/>
+	<field name="product_price" class="java.lang.Float"/>
+	<field name="payment_terms_id" class="java.lang.Long"/>
+	<field name="payment_terms_name" class="java.lang.String"/>
+	<field name="payment_terms_enabled" class="java.lang.Boolean"/>
+	<field name="customer_id" class="java.lang.Long"/>
+	<field name="customer_address_id" class="java.lang.Long"/>
+	<field name="customer_maritalstatus_id" class="java.lang.Long"/>
+	<field name="customer_name" class="java.lang.String"/>
+	<field name="customer_document_type_id" class="java.lang.Long"/>
+	<field name="customer_document" class="java.lang.String"/>
+	<field name="customer_document_identifier" class="java.lang.String"/>
+	<field name="customer_gender" class="java.lang.String"/>
+	<field name="customer_birth_date" class="java.sql.Date"/>
+	<field name="customer_note" class="java.lang.String"/>
+	<field name="customer_enabled" class="java.lang.Boolean"/>
+	<field name="customer_created_at" class="java.sql.Timestamp"/>
+	<variable name="priceTotal" class="java.lang.Float">
+		<variableExpression><![CDATA[$F{sale_product_quantity}*$F{sale_product_price}]]></variableExpression>
+	</variable>
+	<variable name="totalSale" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$V{priceTotal}]]></variableExpression>
+	</variable>
+	<group name="customer">
+		<groupExpression><![CDATA[$F{customer_name}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="40" y="0" width="282" height="20" uuid="413c32a7-3abd-453d-bbb6-a69b96c8e193"/>
+					<textFieldExpression><![CDATA[$F{customer_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="40" height="20" uuid="69098988-1b5c-452e-a3e6-f5732eb92b2f"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="47" uuid="c864dc49-c9a8-451d-add0-25575a96af6e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RELATÓRIO DE VENDAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="6" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="40" height="14" uuid="cdbd90f9-8107-4b17-b12a-45fb9e660c4a"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[C. Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="0" width="64" height="14" uuid="51fdd41d-d2a1-489a-9adb-8d4d48de83e0"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cond. Pag.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="0" width="63" height="14" uuid="c24719d5-447b-4221-b967-c9898869f4d3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="167" y="0" width="180" height="14" uuid="1e7c5616-0839-4f15-ae4e-cc56053de4fc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="0" width="38" height="14" uuid="af35297f-bea7-472c-b778-afd2009bba65"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qtd.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="385" y="0" width="47" height="14" uuid="2ef04b5a-ec68-4621-bcef-8b80c14012f5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[R$ Unit.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="0" width="47" height="14" uuid="07e69373-1cf8-4f8a-9528-3ef99bffdeb0"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[R$ Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="0" width="76" height="14" uuid="25866917-6ea5-4193-9582-ca9a68fcd3cc"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="40" height="16" uuid="63ebf211-f4c9-47df-beb3-70f7fdad5461"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sale_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="0" width="64" height="16" uuid="17ead4ca-aa84-442a-b301-202cefe323cd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{payment_terms_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="0" width="63" height="16" uuid="ebca549e-f1dc-4836-a481-b85210918b5f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{seller_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="0" width="180" height="16" uuid="d2408519-e6cc-444c-a697-7233b38af631"/>
+				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="347" y="0" width="38" height="16" uuid="8df64790-f7b0-4bbf-805f-d2dbda69a480"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sale_product_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="0" width="47" height="16" uuid="a46962e9-9bb2-40f9-9f21-d707d770c822"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sale_product_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="432" y="0" width="47" height="16" uuid="841c7b37-6649-4847-8051-07830979a179"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{priceTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="479" y="0" width="76" height="16" uuid="5d0b7ed3-6245-4372-b60d-166fa14616ea"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{sale_created_at}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="9" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="322" y="21" width="100" height="19" uuid="b8c7b63c-b82f-40f5-a689-6ed71204a59c"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Vendas:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="432" y="21" width="100" height="19" uuid="7939516f-b9ec-47d2-b72d-de6575a1deec"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalSale}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -30,4 +30,9 @@ public class PaymentTerms {
         this.enabled = enabled;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }

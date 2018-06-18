@@ -2,6 +2,7 @@ package br.com.store.model.validator;
 
 import br.com.store.exception.ProductException;
 import br.com.store.model.Product;
+import br.com.store.service.ServiceProduct;
 import br.com.store.utils.DataUtil;
 
 public class ValidatorProduct {
@@ -55,6 +56,15 @@ public class ValidatorProduct {
 
         if (product.getPrice() == null) {
             throw new ProductException("Preço do produto não fornecido");
+        }
+        Product exists = null;
+        try {
+            exists = ServiceProduct.getInstance().exists(product.getBarcode());
+        } catch (Exception e) {
+        }
+
+        if (exists != null) {
+            throw new ProductException("Produto já cadastrado!");
         }
     }
 

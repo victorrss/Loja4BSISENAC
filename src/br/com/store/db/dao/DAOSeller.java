@@ -126,7 +126,7 @@ public class DAOSeller {
                 seller.setId(result.getInt("id"));
                 User user = DAOUser.get(result.getInt("user_id"));
                 seller.setUser(user);
-                seller.setName("name");
+                seller.setName(result.getString("name"));
                 seller.setManager(seller.isManager());
 
                 listSeller.add(seller);
@@ -172,7 +172,7 @@ public class DAOSeller {
                 seller.setId(result.getInt("id"));
                 User user = DAOUser.get(result.getInt("user_id"));
                 seller.setUser(user);
-                seller.setName("name");
+                seller.setName(result.getString("name"));
                 seller.setManager(seller.isManager());
 
                 listSeller.add(seller);
@@ -212,7 +212,7 @@ public class DAOSeller {
                 seller.setId(result.getInt("id"));
                 User user = DAOUser.get(result.getInt("user_id"));
                 seller.setUser(user);
-                seller.setName("name");
+                seller.setName(result.getString("name"));
                 seller.setManager(seller.isManager());
 
                 return seller;
