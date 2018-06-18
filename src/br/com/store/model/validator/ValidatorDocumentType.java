@@ -13,7 +13,7 @@ public class ValidatorDocumentType {
         if (documentType.getName() == null || documentType.getName().trim().isEmpty() || "".equals(documentType.getName())) {
             throw new DocumentTypeException("Nome do tipo de documento não fornecido");
         }
-        if (documentType.getName().length() < 45) {
+        if (documentType.getName().length() > 45) {
             throw new DocumentTypeException("Nome do tipo de documento não pode ter mais de 45 caracteres");
         }
     }
