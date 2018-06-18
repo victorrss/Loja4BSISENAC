@@ -638,9 +638,16 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tableCustomerContact.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -827,7 +834,6 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
 
         txtCustomerContactValue.setText("");
         cbCustomerContactContactType.setSelectedIndex(0);
-        customerId = addressId = null;
     }//GEN-LAST:event_btnCustomerContactAddActionPerformed
 
     private void tableCustomerContactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCustomerContactMouseClicked
@@ -894,7 +900,7 @@ public class PanelCustomerCreateUpdate extends javax.swing.JPanel {
         customer.setDocumentType((DocumentType) cbCustomerBasicDocumentType.getSelectedItem());
         // address
         Address address = new Address();
-        address.setId(customerId);
+        address.setId(addressId);
         address.setComplement(txtCustomerAddressComplement.getText());
         address.setDistrict(txtCustomerAddressDistrict.getText());
         address.setNumber(DataUtil.parseInteger(txtCustomerAddressNumber.getText()));

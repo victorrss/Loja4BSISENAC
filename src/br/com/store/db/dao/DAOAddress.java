@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class DAOAddress {
         try {
 
             //Creates a statement for SQL commands
-            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt = con.prepareStatement(sql, new String[]{"id"});
 
             //Configures the parameters of the "PreparedStatement"
             stmt.setInt(1, address.getPublicPlaceType().getId());
@@ -43,7 +42,12 @@ public class DAOAddress {
             stmt.setBoolean(8, true);
 
             //Executes the command in the DB
-            return stmt.executeUpdate();
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return null;
         } finally {
             ConnectionUtils.finalize(stmt);
         }
