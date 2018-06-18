@@ -32,7 +32,7 @@ public class ValidatorProduct {
             throw new ProductException("Nome do produto não pode ter mais que 45 caracteres");
         }
 
-        if (!DataUtil.empty(product.getBarcode()) && !DataUtil.checkBarcodeEAN(product.getBarcode())) {
+        if (DataUtil.empty(product.getBarcode()) && !DataUtil.checkBarcodeEAN(product.getBarcode())) {
             throw new ProductException("O código de barras está inválido!");
         }
 
